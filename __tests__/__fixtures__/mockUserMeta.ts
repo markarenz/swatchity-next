@@ -1,0 +1,25 @@
+const mockUserData = {
+  id: '12345abcdef',
+  name: 'Test Name',
+  username: 'test-name',
+  email: 'test-email@domain.com',
+  level: 1,
+  score: 0,
+  prefLang: 'en',
+  bio: '',
+  avatarPattern: 0,
+  avatarColor1r: 255,
+  avatarColor1g: 255,
+  avatarColor1b: 255,
+  avatarColor2r: 255,
+  avatarColor2g: 255,
+  avatarColor2b: 255,
+  avatarColor3r: 255,
+  avatarColor3g: 255,
+  avatarColor3b: 255,
+  active: true,
+  createdAt: new Date('2023-02-12T21:42:46.580+00:00'),
+  modifiedAt: new Date('2023-02-12T21:42:46.580+00:00'),
+};
+
+export default mockUserData;
