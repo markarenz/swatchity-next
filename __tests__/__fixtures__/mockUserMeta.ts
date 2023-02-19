@@ -17,6 +17,8 @@ const mockUserData = {
   avatarColor3r: 255,
   avatarColor3g: 255,
   avatarColor3b: 255,
+  role: 'user',
+  darkMode: 'auto',
   active: true,
   createdAt: new Date('2023-02-12T21:42:46.580+00:00'),
   modifiedAt: new Date('2023-02-12T21:42:46.580+00:00'),

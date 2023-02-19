@@ -4,7 +4,7 @@ import { UserContextProvider } from '@/context/UserContext';
 import messages, { getLangPackKey, defaultLocale } from '@/locale';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import '@/styles/globals.css';
+import '@/styles/globals.scss';
 
 import type { AppProps } from 'next/app';
 

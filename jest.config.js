@@ -13,7 +13,14 @@ const customJestConfig = {
   },
   testPathIgnorePatterns: ['<rootDir>/__tests__/fixtures/', '<rootDir>/src/validation/'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
-  coveragePathIgnorePatterns: ['<rootDir>/src/validation/', '<rootDir>/src/pages/api/auth/'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/validation/',
+    '<rootDir>/src/constants.ts',
+    '<rootDir>/src/lib/prismadb.ts',
+    '<rootDir>/src/pages/api/auth/',
+    '<rootDir>/src/pages/_app.tsx',
+    '<rootDir>/src/pages/_document.tsx',
+  ],
   testEnvironment: 'jest-environment-jsdom',
 };
 

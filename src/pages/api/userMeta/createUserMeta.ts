@@ -18,7 +18,9 @@ interface UserCreateInput {
  */
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const color = getRandomColor();
+  const color1 = getRandomColor();
+  const color2 = getRandomColor();
+  const color3 = getRandomColor();
   try {
     let success = false;
     const data = JSON.parse(req.body);
@@ -36,7 +38,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (usernameCheckResult?.username) {
       username = cleanSlugWithRandomNums(data.name);
     }
-    // TODO: add check for existing username and add RND #s if that's the case
+    // TODO: develop getDefaultLanguage() further once we have multiple language support
     const userMeta = await prisma.userMeta.create({
       data: {
         name: data.name,
@@ -44,13 +46,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         email: data.email,
         level: 1,
         score: 0,
-        prefLang: getDefaultLanguage(data.locale), // TODO: develop this further once we have multiple language support
+        prefLang: getDefaultLanguage(data.locale),
         bio: '', // TODO: randomize color dot emoji?
         role: 'user',
-        avatarPattern: 0,
-        avatarColor1r: color.r,
-        avatarColor1g: color.g,
-        avatarColor1b: color.b,
+        avatarPattern: Math.floor(Math.random() * 20),
+        avatarColor1r: color1.r,
+        avatarColor1g: color1.g,
+        avatarColor1b: color1.b,
+        avatarColor2r: color2.r,
+        avatarColor2g: color2.g,
+        avatarColor2b: color2.b,
+        avatarColor3r: color3.r,
+        avatarColor3g: color3.g,
+        avatarColor3b: color3.b,
+        darkMode: 'auto',
         active: true,
         createdAt: new Date(),
         modifiedAt: new Date(),
