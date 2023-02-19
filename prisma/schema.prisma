@@ -75,12 +75,13 @@ model UserMeta {
   avatarColor1r Int
   avatarColor1g Int
   avatarColor1b Int
-  avatarColor2r Int?
-  avatarColor2g Int?
-  avatarColor2b Int?
-  avatarColor3r Int?
-  avatarColor3g Int?
-  avatarColor3b Int?
+  avatarColor2r Int
+  avatarColor2g Int
+  avatarColor2b Int
+  avatarColor3r Int
+  avatarColor3g Int
+  avatarColor3b Int
+  darkMode      String
   active        Boolean
   createdAt     DateTime
   modifiedAt    DateTime
@@ -145,6 +146,14 @@ model Message {
   active     Boolean
   createdAt  DateTime
   modifiedAt DateTime
+}
+
+model Follow {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  followerUserID  String   @db.ObjectId
+  followingUserID String   @db.ObjectId
+  createdAt       DateTime
+  modifiedAt      DateTime
 }
 
 model Post {

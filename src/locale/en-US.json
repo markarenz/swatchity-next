@@ -1,4 +1,28 @@
 {
+  "skip_to_main": "Skip to main content",
   "header__log_in": "Log In",
-  "header__profile_menu__log_out": "Log Out"
+  "header__profile_menu__log_out": "Log Out",
+  "header__profile_menu__profile": "Profile",
+  "header__profile_menu__followers": "Followers",
+  "header__profile_menu__following": "Following",
+  "header__profile_menu__own": "My Swatches",
+
+  "icon_admin": "Admin",
+
+  "icon_alerts": "Alerts",
+  "icon_home": "Home",
+  "icon_like": "Like",
+  "icon_messages": "Messages",
+  "icon_new": "New",
+  "icon_news": "News",
+  "icon_reply": "Reply",
+
+  "header__subNav__feed__home": "Home",
+  "header__subNav__feed__new": "New",
+  "header__subNav__feed__saved": "Saved",
+  "header__subNav__feed__featured": "Featured",
+
+  "icon_search": "Search",
+  "icon_thread": "Thread"
+
 }

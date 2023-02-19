@@ -1,0 +1,125 @@
+@import '../config/colors';
+
+.root{
+  .text{
+    position:relative;
+    fill: $color-base;
+    @media (prefers-color-scheme: dark) {
+      fill: $color-teal;
+    }
+    .letterS{
+      transform-origin: 40% 50%;
+    }  
+    .letterW{
+      transform-origin: 55% 50%;
+    }  
+    .letterA{
+      transform-origin: 70% 50%;
+    }
+    .letterT{
+      transform-origin: 80% 50%;
+    }
+    .letterC{
+      transform-origin: 90% 50%;
+    }
+    .letterH{
+      transform-origin: 105% 50%;
+    }
+    .letterI{
+      transform-origin: 115% 50%;
+    }
+    .letterT2{
+      transform-origin: 125% 50%;
+    }
+    .letterY{
+      transform-origin: 135% 50%;
+    }
+  }
+  &:hover{
+    .letterS{
+      animation: 1.5s 0.0s letterBounce infinite;
+    }
+    .letterW{
+      animation: 1.5s 0.1s letterBounce infinite;
+    }
+    .letterA{
+      animation: 1.5s 0.2s letterBounce infinite;
+    }
+    .letterT{
+      animation: 1.5s 0.3s letterBounce infinite;
+    }
+    .letterC{
+      animation: 1.5s 0.4s letterBounce infinite;
+    }
+    .letterH{
+      animation: 1.5s 0.5s letterBounce infinite;
+    }
+    .letterI{
+      animation: 1.5s 0.6s letterBounce infinite;
+    }
+    .letterT2{
+      animation: 1.5s 0.7s letterBounce infinite;
+    }
+    .letterY{
+      animation: 1.5s 0.8s letterBounce infinite;
+    }
+  }
+  .mark{
+    fill: $color-teal;
+    animation: 10.0s markLogoCycle infinite;
+  }
+  .corner{
+    fill: $color-base;
+    @media (prefers-color-scheme: dark) {
+      fill: $gray-1;
+    }
+  }
+}
+@keyframes markLogoCycle {
+  0% {
+    fill: $color-teal;
+  }
+  20% {
+    fill: $color-teal;
+  }
+  25% {
+    fill: $color-red;
+  }
+  45% {
+    fill: $color-red;
+  }
+  50% {
+    fill: $color-blue;
+  }
+  70% {
+    fill: $color-blue;
+  }
+  75% {
+    fill: $color-orange;
+  }
+  95% {
+    fill: $color-orange;
+  }
+  100% {
+    fill: $color-teal;
+  }
+}
+
+@keyframes letterBounce {
+  0% {
+    transform: scaleY(1) translateY(0);
+  }
+  25% {
+    transform: scaleY(0.8) translateY(0.6rem);
+  }
+  25% {
+    transform: scaleY(0.8) translateY(0.6rem);
+  }
+  50% {
+    transform: scaleY(1) translateY(0);
+  }
+  100% {
+    transform: scaleY(1) translateY(0);
+  }
+
+}

@@ -1,0 +1,160 @@
+html,
+body {
+  overflow-x: hidden;
+  font-size: 14px;
+  font-size: 1rem;
+  background-color: $gray-2;
+  color: $color-base;
+  @media (prefers-color-scheme: dark) {
+    background-color: $gray-5;
+    color: $gray-1;
+  }
+}
+
+button,
+a,
+input,
+textarea,
+select,
+.focusable {
+  transition: 0.3s all ease;
+  outline-offset:4px;
+  outline-style: dotted;
+  outline-width: 2px;
+  outline-color: transparent;
+}
+:focus{
+  outline-color: $color-base;
+  @media (prefers-color-scheme: dark) {
+    outline-color: $gray-1;
+  }
+}
+.outline-rev{
+  &:focus{
+    outline-color: $gray-1;
+    @media (prefers-color-scheme: dark) {
+      outline-color: $color-base;
+    }  
+  }
+}
+
+.skip-link{
+  position:absolute;
+  transform: translateX(-200%);
+  transition: transform 0.3s ease-out;
+  color: $gray-1;
+  display:inline-block;
+  margin-bottom:1rem;
+  margin-left:1rem;
+  // &:focus{
+  //   position:static;
+  //   transform: translateX(0)
+  // }
+}
+
+
+/* BORDERS */
+.border-1{
+  border-style: solid;
+  border-width: 2px;
+}
+.border-2{
+  border-style: solid;
+  border-width: 4px;  
+}
+.border-l-1{
+  border-style: solid;
+  border-left-width: 2px;
+}
+.border-l-2{
+  border-style: solid;
+  border-left-width: 4px;
+}
+.border-t-1{
+  border-style: solid;
+  border-top-width: 2px;
+}
+.border-b-1{
+  border-style: solid;
+  border-bottom-width: 2px;
+}
+.border-t-2{
+  border-style: solid;
+  border-top-width: 4px;
+}
+.border-b-2{
+  border-style: solid;
+  border-bottom-width: 4px;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+.nav-link{
+  text-decoration: none;
+  // color: inherit;
+}
+hr{
+  border-top:2px solid $color-base;
+  border-bottom:none;
+  border-left:none;
+  border-right:none;
+  margin:0;
+}
+
+.caret-tl{
+  &:before{
+    content: ' ';
+    width: 2rem;
+    height: 2rem;
+    position:absolute;
+    top:-2rem;
+    left:0;
+    border-left: 1.5rem solid transparent;
+    border-right: 1.5rem solid transparent;
+    border-top: 0 solid transparent;
+    border-bottom: 1.5rem solid $color-teal;
+    @media (prefers-color-scheme: dark) {
+      border-bottom: 1.5rem solid $color-base;
+    }   
+  }
+}
+
+.hover-zoom{
+  transition: 0.2s all ease-in-out;
+  transform:scale(1);
+  &:focus,
+  &:hover{
+    transform:scale(1.2);
+  }
+}
+.hover-underline{
+  position:relative;
+  &:after{
+    transition: 0.2s all ease-in-out;
+    content: ' ';
+    display:block;
+    position:absolute;
+    bottom:4px;
+    left:50%;
+    width: 0;
+    height:4px;
+    background-color: $gray-1;
+  }
+  &:focus,
+  &:hover{
+    &:after{
+      left:5%;
+      width:90%;  
+    }
+  }
+}
+
+.mobile-hide{
+  @include for-phone-only{
+    display:none;
+  }
+}
+.bold{
+  font-weight: bold;
+}
