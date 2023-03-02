@@ -21,6 +21,7 @@ const Layout: React.FC<Props> = ({ children, pageMeta, subNavData }) => {
   const { data: session } = useSession();
   const darkMode = userMeta?.darkMode;
   const showLoadingSession = !session || (!!session && !userMeta);
+  console.log('?showLoadingSession?', session, userMeta);
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', `${darkMode}`);
   }, [darkMode]);

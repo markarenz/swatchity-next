@@ -80,7 +80,6 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
           className={`w-full text-left py-0-9 ${linkClasses}`}
           tabIndex={isOpen ? 0 : -1}
         >
-          {isOpen ? 'WIDE OPEN' : 'SO CLOSED'}
           <FormattedMessage id="header__profile_menu__log_out" />
         </button>
       </nav>
