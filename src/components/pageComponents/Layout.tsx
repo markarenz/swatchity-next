@@ -20,8 +20,7 @@ const Layout: React.FC<Props> = ({ children, pageMeta, subNavData }) => {
   const { userMeta } = useUserContext();
   const { data: session } = useSession();
   const darkMode = userMeta?.darkMode;
-  const showLoadingSession = !session || (!!session && !userMeta);
-  console.log('?showLoadingSession?', session, userMeta);
+  const showLoadingSession = session === undefined && userMeta === null;
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', `${darkMode}`);
   }, [darkMode]);
@@ -45,7 +44,7 @@ const Layout: React.FC<Props> = ({ children, pageMeta, subNavData }) => {
       >
         Sidebar
       </div>
-      {/* {showLoadingSession && <LoadingSession />} */}
+      {showLoadingSession && <LoadingSession />}
     </div>
   );
 };
