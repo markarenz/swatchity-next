@@ -1,4 +1,4 @@
-import { UserMeta } from '.prisma/client';
+import { Avatar } from '@/types';
 import PatternAbstract1 from '@/components/common/avatar/patterns/PatternAbstract1';
 import PatternAbstract2 from '@/components/common/avatar/patterns/PatternAbstract2';
 import PatternBullseye from '@/components/common/avatar/patterns/PatternBullseye';
@@ -32,16 +32,17 @@ import PatternSwirl from '@/components/common/avatar/patterns/PatternSwirl';
 import PatternTriPi from '@/components/common/avatar/patterns/PatternTriPi';
 import PatternWaveH from '@/components/common/avatar/patterns/PatternWaveH';
 import PatternWaveV from '@/components/common/avatar/patterns/PatternWaveV';
+import IconLock from '@/components/icons/IconLock';
 
 type Props = {
-  userMeta: UserMeta;
+  avatarData: Avatar;
+  displayOnly?: boolean;
+  isLocked?: boolean;
 };
 
-const Avatar: React.FC<Props> = ({ userMeta }) => {
-  const getHexfromRGBVals = (r: number, g: number, b: number): string => {
-    return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
-  };
+const Avatar: React.FC<Props> = ({ avatarData, displayOnly, isLocked }) => {
   const {
+    avatarPattern,
     avatarColor1r,
     avatarColor1g,
     avatarColor1b,
@@ -51,15 +52,19 @@ const Avatar: React.FC<Props> = ({ userMeta }) => {
     avatarColor3r,
     avatarColor3g,
     avatarColor3b,
-  } = userMeta;
+  } = avatarData;
   const colors = {
-    color1: getHexfromRGBVals(avatarColor1r, avatarColor1g, avatarColor1b),
-    color2: getHexfromRGBVals(avatarColor2r, avatarColor2g, avatarColor2b),
-    color3: getHexfromRGBVals(avatarColor3r, avatarColor3g, avatarColor3b),
+    color1: `rgb(${avatarColor1r}, ${avatarColor1g}, ${avatarColor1b})`,
+    color2: `rgb(${avatarColor2r}, ${avatarColor2g}, ${avatarColor2b})`,
+    color3: `rgb(${avatarColor3r}, ${avatarColor3g}, ${avatarColor3b})`,
   };
-  const { avatarPattern } = userMeta;
   return (
-    <div className="round w-full h-full bg-yellow border-2 border-base dark-border-gray-2 hover-zoom hover-border-teal dark-hover-border-yellow">
+    <div
+      data-testid="avatar"
+      className={`relative round w-full h-full bg-yellow border-2 border-base dark-border-gray-2 ${
+        displayOnly ? '' : 'hover-zoom hover-border-teal dark-hover-border-yellow'
+      }`}
+    >
       {avatarPattern === 0 && <PatternDiagStripes colors={colors} />}
       {avatarPattern === 1 && <PatternWaveH colors={colors} />}
       {avatarPattern === 2 && <PatternWaveV colors={colors} />}
@@ -80,19 +85,29 @@ const Avatar: React.FC<Props> = ({ userMeta }) => {
       {avatarPattern === 17 && <PatternRaysR colors={colors} />}
       {avatarPattern === 18 && <PatternRaysB colors={colors} />}
       {avatarPattern === 19 && <PatternRaysL colors={colors} />}
-      {avatarPattern === 20 && <PatternEye colors={colors} />}
-      {avatarPattern === 21 && <PatternPyramidEye colors={colors} />}
-      {avatarPattern === 22 && <PatternCircleCorners colors={colors} />}
-      {avatarPattern === 23 && <PatternCirclesR colors={colors} />}
-      {avatarPattern === 24 && <PatternCirclesB colors={colors} />}
-      {avatarPattern === 25 && <PatternCirclesL colors={colors} />}
-      {avatarPattern === 26 && <PatternCirclesT colors={colors} />}
-      {avatarPattern === 27 && <PatternCubes colors={colors} />}
-      {avatarPattern === 28 && <PatternCheckers colors={colors} />}
-      {avatarPattern === 29 && <PatternAbstract1 colors={colors} />}
-      {avatarPattern === 30 && <PatternAbstract2 colors={colors} />}
-      {avatarPattern === 31 && <PatternRaysCenter colors={colors} />}
-      {avatarPattern === 32 && <PatternSwirl colors={colors} />}
+      {avatarPattern === 20 && <PatternCircleCorners colors={colors} />}
+      {avatarPattern === 21 && <PatternCirclesR colors={colors} />}
+      {avatarPattern === 22 && <PatternCirclesB colors={colors} />}
+      {avatarPattern === 23 && <PatternCirclesL colors={colors} />}
+      {avatarPattern === 24 && <PatternCirclesT colors={colors} />}
+      {avatarPattern === 25 && <PatternCubes colors={colors} />}
+      {avatarPattern === 26 && <PatternCheckers colors={colors} />}
+      {avatarPattern === 27 && <PatternAbstract1 colors={colors} />}
+      {avatarPattern === 28 && <PatternAbstract2 colors={colors} />}
+      {avatarPattern === 29 && <PatternRaysCenter colors={colors} />}
+      {avatarPattern === 30 && <PatternSwirl colors={colors} />}
+      {avatarPattern === 31 && <PatternEye colors={colors} />}
+      {avatarPattern === 32 && <PatternPyramidEye colors={colors} />}
+      {isLocked && (
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-gray-7 round flex items-center justify-center"
+          style={{ opacity: 0.5 }}
+        >
+          <div className="w-4 h-4 ">
+            <IconLock color="gray-1" colorDark="gray-1" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

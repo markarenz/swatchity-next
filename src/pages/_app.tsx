@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import { IntlProvider } from 'react-intl';
+import { ToastContainer } from 'react-toastify';
 import { UserContextProvider } from '@/context/UserContext';
 import messages, { getLangPackKey, defaultLocale } from '@/locale';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import '@/styles/globals.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 import type { AppProps } from 'next/app';
 
@@ -22,6 +24,7 @@ export default function App({
       <UserContextProvider locale={locale || defaultLocale}>
         <IntlProvider messages={msg} locale={locale || defaultLocale} defaultLocale="en">
           <Component {...pageProps} />
+          <ToastContainer />
         </IntlProvider>
       </UserContextProvider>
     </SessionProvider>

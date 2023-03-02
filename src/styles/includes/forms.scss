@@ -1,0 +1,73 @@
+
+form{
+  margin:0;
+  padding:1rem 0;
+}
+label{
+  span{
+    display:block;
+    margin-bottom:0.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+}
+.label{
+  display:block;
+  margin-bottom:0.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.select,
+.input-text,
+input[type="text"] {
+  width:100%;
+  font-size: 1rem;
+  padding:1rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid $gray-6;
+  background-color: $gray-1;
+  color: $color-base;
+  @include dark{
+    background-color: $gray-6;
+    color: $gray-1;
+    border-color: $gray-2;
+  }
+  &:focus{
+    background-color: white;
+    @include dark{
+      background-color: $gray-7;
+    }
+  }
+}
+
+.select{
+  width:100%;
+  font-size: 1rem;
+  padding:1rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid $gray-6;
+  background-color: $gray-1;
+  color: $color-base;  
+  @include dark{
+    background-color: $gray-6;
+    color: $gray-1;
+    border-color: $gray-2;
+  }
+  &:focus{
+    background-color: white;
+    @include dark{
+      background-color: $gray-7;
+    }
+  }
+
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  @include dark{
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  }
+}

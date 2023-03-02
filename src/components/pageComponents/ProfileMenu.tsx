@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import Avatar from '@/components/common/avatar/Avatar';
 import { UserMeta } from '.prisma/client';
 import { profileLinks } from '@/constants';
+import { getAvatarFromUserMeta } from '@/utils/profileFunctions';
 import styles from '@/styles/modules/profileMenu.module.scss';
 
 type Props = {
@@ -19,11 +20,19 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
   };
   const linkClasses =
     'block no-wrap uppercase text-1 text-base dark-text-gray-2 hover-text-gray-1 dark-hover-text-gray-1';
+  const avatarData: Avatar = getAvatarFromUserMeta(userMeta);
   return (
-    <div className="relative" data-testid="profile-menu">
+    <div className="relative" data-testid="profile-menu" style={{ zIndex: 10 }}>
       <ButtonIcon onClick={handleProfileClick} label={userMeta?.name}>
-        <Avatar userMeta={userMeta} />
+        <Avatar avatarData={avatarData} />
       </ButtonIcon>
+      {isOpen && (
+        <div
+          id="profileModalBG"
+          className="fixed wh-screen top-0 left-0"
+          onClick={handleProfileClick}
+        />
+      )}
       <nav
         aria-label="Profile Menu"
         data-testid="profile-nav"
@@ -31,10 +40,23 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
           isOpen ? styles.open : ''
         } absolute mobile-w-full bg-teal dark-bg-base pt-1 pb-0-5 px-1 round-tr round-bl round-br t-5 caret-tl`}
       >
-        <div className="pb-0-5">
+        <div className="pb-1">
           <span className={`block no-wrap bold text-1 uppercase text-gray-1 dark-text-yellow`}>
             @{userMeta.username}
           </span>
+        </div>
+        <div className="grid">
+          <div className="grid-row grid-row-2 pb-0-5">
+            <div className="text-center">
+              <div className="uppercase bold pb-0-5">Level</div>
+              <div>{userMeta.score}</div>
+            </div>
+            <div className="text-center">
+              <div className="uppercase bold pb-0-5">Score</div>
+              <div>12345</div>
+              {/* {userMeta.level} */}
+            </div>
+          </div>
         </div>
         <hr className="mt-0-5 mb-0-5 border-base dark-border-gray-2" />
 
@@ -58,7 +80,6 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
           className={`w-full text-left py-0-9 ${linkClasses}`}
           tabIndex={isOpen ? 0 : -1}
         >
-          {isOpen ? 'WIDE OPEN' : 'SO CLOSED'}
           <FormattedMessage id="header__profile_menu__log_out" />
         </button>
       </nav>

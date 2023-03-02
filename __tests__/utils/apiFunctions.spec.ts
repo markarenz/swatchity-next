@@ -5,6 +5,8 @@ import {
   getDefaultLanguage,
   cleanSlug,
   cleanSlugWithRandomNums,
+  checkUsername,
+  updateUserProfile,
 } from '../../src/utils/apiFunctions';
 import fetchMock from 'jest-fetch-mock';
 
@@ -116,5 +118,55 @@ describe('createUserMeta', () => {
     fetchMock.mockOnce(JSON.stringify(mockResponse));
     const result = await createUserMeta('email@domain.com', 'Test Name', 'en-US');
     expect(result).toBe(null);
+  });
+});
+
+describe('checkUsername', () => {
+  it('returns true if name is unique', async () => {
+    fetchMock.mockOnce(
+      JSON.stringify({
+        unique: true,
+      }),
+    );
+    const result = await checkUsername('testUsername');
+    expect(result).toBe(true);
+  });
+});
+describe('updateUserProfile', () => {
+  const formData = {
+    name: 'Test Name',
+    username: 'testuser',
+    usernameUnique: true,
+    bio: 'ryb',
+    avatarPattern: 1,
+    color1: { r: 100, g: 100, b: 100 },
+    color2: { r: 100, g: 100, b: 100 },
+    color3: { r: 100, g: 100, b: 100 },
+    darkMode: 'auto',
+    prefLang: 'auto',
+  };
+  it('calls ', async () => {
+    fetchMock.mockOnce(
+      JSON.stringify({
+        success: true,
+      }),
+    );
+
+    const result = await updateUserProfile(formData, 'email@domain.com');
+    expect(result).toBe(true);
+  });
+  it('returns false for invalid formData', async () => {
+    fetchMock.mockOnce(
+      JSON.stringify({
+        success: false,
+      }),
+    );
+    const result = await updateUserProfile(null, 'email@domain.com');
+    expect(result).toBe(false);
+  });
+  it('returns false for null response', async () => {
+    fetchMock.mockOnce(JSON.stringify(null));
+    const result = await updateUserProfile(formData, 'email@domain.com');
+    expect(result).toBe(false);
   });
 });

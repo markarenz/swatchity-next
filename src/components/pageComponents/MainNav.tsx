@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { mainNavData } from '@/constants';
 import IconHome from '../icons/IconHome';
 import IconAlerts from '../icons/IconAlerts';
 import IconMessages from '../icons/IconMessages';
@@ -10,48 +11,47 @@ const MainNav = () => {
   const { pathname } = useRouter();
   const [pathRoot] = pathname.split('/');
   const isActive = (keys: string[]): boolean => keys.includes(pathRoot);
-  const linksData = [
-    {
-      href: '/',
-      rootPaths: ['', 'feed'],
-      linkIcon: IconHome,
-      hasDot: false,
-    },
-    {
-      href: '/alerts',
-      rootPaths: ['alerts'],
-      linkIcon: IconAlerts,
-      hasDot: true, // TODO: detect unread alerts
-    },
-    {
-      href: '/messages',
-      rootPaths: ['messages'],
-      linkIcon: IconMessages,
-      hasDot: false, // TODO: detect unread messages
-    },
-    {
-      href: '/news',
-      rootPaths: ['news'],
-      linkIcon: IconNews,
-      hasDot: false, // TODO: detect unread news
-    },
-    {
-      href: '/search',
-      rootPaths: ['search'],
-      linkIcon: IconSearch,
-      hasDot: false,
-    },
-  ];
+
+  const getIcon = (iconName: string, rootPaths: string[]) => {
+    const iconProps = {
+      color: isActive(rootPaths) ? 'gray-1' : 'gray-2',
+      colorDark: isActive(rootPaths) ? 'gray-2' : 'gray-3',
+      filled: isActive(rootPaths),
+    };
+    switch (iconName) {
+      case 'search':
+        return <IconSearch {...iconProps} />;
+      case 'news':
+        return <IconNews {...iconProps} />;
+      case 'messages':
+        return <IconMessages {...iconProps} />;
+      case 'alerts':
+        return <IconAlerts {...iconProps} />;
+      case 'home':
+      default:
+        return <IconHome {...iconProps} />;
+    }
+  };
+  // TODO: check for "new" items for alerts, messages, news
+  // TODO: reset badges when we visit these pages
+  // TODO: get latest news publish date on app load
+  // TODO: get unread alerts as userMeta
+  // TODO: get unread messages as userMeta
   return (
     <nav
       aria-label="Main Navigation"
-      className="bg-gray-5 dark-bg-gray-7 pt-1 pb-3 fixed bottom-0 left-0 w-full"
+      className="bg-gray-5 dark-bg-gray-7 pt-2 pb-3 fixed bottom-0 left-0 w-full"
+      style={{ zIndex: 10 }}
     >
       <div className="contained">
         <div className="flex items-center justify-between">
-          {linksData.map((item, idx) => (
-            <Link href={item.href} className="hover-zoom outline-rev" key={`${item.href}-${idx}`}>
-              <div className="w-4 h-4 px-1 py-1">
+          {mainNavData.map((item, idx) => (
+            <Link
+              href={item.href}
+              className="hover-zoom outline-light round"
+              key={`${item.href}-${idx}`}
+            >
+              <div className="w-3 h-3 px-0-5 py-0-5">
                 {item.hasDot && (
                   <div>
                     <div
@@ -61,11 +61,7 @@ const MainNav = () => {
                     />
                   </div>
                 )}
-                <item.linkIcon
-                  color={isActive(item.rootPaths) ? 'gray-1' : 'gray-2'}
-                  colorDark={isActive(item.rootPaths) ? 'gray-2' : 'gray-3'}
-                  filled={isActive(item.rootPaths)}
-                />
+                {getIcon(item.linkIcon, item.rootPaths)}
               </div>
             </Link>
           ))}

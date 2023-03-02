@@ -9,6 +9,15 @@ import IconNews from '@/components/icons/IconNews';
 import IconReply from '@/components/icons/IconReply';
 import IconSearch from '@/components/icons/IconSearch';
 import IconThread from '@/components/icons/IconThread';
+import IconClose from '@/components/icons/IconClose';
+import IconAuto from '@/components/icons/IconAuto';
+import IconCorrect from '@/components/icons/IconCorrect';
+import IconLeft from '@/components/icons/IconLeft';
+import IconRight from '@/components/icons/IconRight';
+import IconLoading from '@/components/icons/IconLoading';
+import IconSun from '@/components/icons/IconSun';
+import IconLock from '@/components/icons/IconLock';
+import IconMoon from '@/components/icons/IconMoon';
 
 describe('Icons - all', () => {
   const allIcons = [
@@ -61,6 +70,52 @@ describe('Icons - all', () => {
     });
     it(`${item.label}: renders filled icon`, () => {
       render(<item.icon color="red" colorDark="yellow" filled={true} />);
+      const element = document.querySelector('g');
+      expect(element).toBeInTheDocument();
+    });
+  });
+
+  it('renders simple icons', () => {
+    const simpleIcons = [
+      {
+        label: 'IconClose',
+        icon: IconClose,
+      },
+      {
+        label: 'IconAuto',
+        icon: IconAuto,
+      },
+      {
+        label: 'IconCorrect',
+        icon: IconCorrect,
+      },
+      {
+        label: 'IconLeft',
+        icon: IconLeft,
+      },
+      {
+        label: 'IconRight',
+        icon: IconRight,
+      },
+      {
+        label: 'IconLoading',
+        icon: IconLoading,
+      },
+      {
+        label: 'IconLock',
+        icon: IconLock,
+      },
+      {
+        label: 'IconSun',
+        icon: IconSun,
+      },
+      {
+        label: 'IconMoon',
+        icon: IconMoon,
+      },
+    ];
+    simpleIcons.map((item) => {
+      render(<item.icon color="red" colorDark="yellow" />);
       const element = document.querySelector('g');
       expect(element).toBeInTheDocument();
     });

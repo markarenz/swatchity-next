@@ -16,7 +16,7 @@ const SubNav: React.FC<Props> = ({ subNavData }) => {
           <Link
             href={item.href}
             key={item.labelKey}
-            className={`nav-link py-1 px-1 uppercase text-gray-1 hover-underline ${
+            className={`nav-link py-1 px-1 uppercase text-gray-1 hover-underline outline-offset-0 outline-light ${
               isActive(item.href) ? 'bg-base' : ''
             }`}
           >

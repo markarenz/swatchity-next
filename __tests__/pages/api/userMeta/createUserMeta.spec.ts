@@ -34,11 +34,11 @@ jest.mock('@/lib/prismadb', () => ({
   default: mockDeep<PrismaClient>(),
 }));
 
+export const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
+
 beforeEach(() => {
   mockReset(prismaMock);
 });
-
-export const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
 
 describe('/api/userMeta/createUserMeta API endpoint', () => {
   function mockRequestResponse(method: RequestMethod = 'GET') {

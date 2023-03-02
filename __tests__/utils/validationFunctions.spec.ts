@@ -1,3 +1,5 @@
+import { Rule } from '@/types';
+import { REQ, MINLEN, EMAIL, COLOR, TRUE } from '@/validation/ruleConstants';
 import { isValidEmail, validateWithRules } from '../../src/utils/validationFunctions';
 
 describe('isValidEmail', () => {
@@ -13,24 +15,25 @@ describe('isValidEmail', () => {
 });
 
 describe('validateWithRules', () => {
-  const mockRules = [
+  const mockRules: Rule[] = [
     {
       field: 'email',
-      rule: 'required',
-    },
-    {
-      field: 'email',
-      rule: 'validEmail',
+      rules: [REQ, EMAIL],
     },
     {
       field: 'username',
-      rule: 'required',
+      rules: [REQ, MINLEN],
     },
     {
-      field: 'username',
-      rule: 'minLen3',
+      field: 'avatarColor1',
+      rules: [REQ, COLOR],
+    },
+    {
+      field: 'isUnique',
+      rules: [REQ, TRUE],
     },
   ];
+
   it('returns false for malformed email', () => {
     expect(
       validateWithRules(
@@ -66,6 +69,29 @@ describe('validateWithRules', () => {
     ).toBe(false);
   });
 
+  it('returns true for valid color', () => {
+    expect(
+      validateWithRules(
+        {
+          email: 'avatarColor1',
+          username: 'DD00AA',
+        },
+        mockRules,
+      ),
+    ).toBe(false);
+  });
+  it('returns false for invalid color', () => {
+    expect(
+      validateWithRules(
+        {
+          email: 'avatarColor1',
+          username: '1234',
+        },
+        mockRules,
+      ),
+    ).toBe(false);
+  });
+
   it('returns false for unmatched rule', () => {
     expect(
       validateWithRules(
@@ -77,7 +103,7 @@ describe('validateWithRules', () => {
           ...mockRules,
           {
             field: 'username',
-            rule: 'fakeRule',
+            rules: ['fakeRule'],
           },
         ],
       ),
@@ -90,6 +116,8 @@ describe('validateWithRules', () => {
         {
           email: 'email@domain.com',
           username: 'validUsername',
+          avatarColor1: 'BB8800',
+          isUnique: true,
         },
         mockRules,
       ),

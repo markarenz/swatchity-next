@@ -1,22 +1,16 @@
+import { REQ, EMAIL, MINLEN, TRUE } from './ruleConstants';
+
 export const createUserRules = [
   {
     field: 'email',
-    rule: 'required',
-  },
-  {
-    field: 'email',
-    rule: 'validEmail',
+    rules: [REQ, EMAIL],
   },
   {
     field: 'name',
-    rule: 'required',
-  },
-  {
-    field: 'name',
-    rule: 'minLen3',
+    rules: [REQ, MINLEN],
   },
   {
     field: 'locale',
-    rule: 'required',
+    rules: [REQ],
   },
 ];
