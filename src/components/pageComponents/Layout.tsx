@@ -44,7 +44,7 @@ const Layout: React.FC<Props> = ({ children, pageMeta, subNavData }) => {
       >
         Sidebar
       </div>
-      {showLoadingSession && <LoadingSession />}
+      {/* {showLoadingSession && <LoadingSession />} */}
     </div>
   );
 };
