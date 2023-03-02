@@ -1,10 +1,11 @@
 @import '../config/colors';
+@import '../includes/darkMode';
 
 .root{
   .text{
     position:relative;
     fill: $color-base;
-    @media (prefers-color-scheme: dark) {
+    @include dark{
       fill: $color-teal;
     }
     .letterS{
@@ -70,7 +71,7 @@
   }
   .corner{
     fill: $color-base;
-    @media (prefers-color-scheme: dark) {
+    @include dark{
       fill: $gray-1;
     }
   }

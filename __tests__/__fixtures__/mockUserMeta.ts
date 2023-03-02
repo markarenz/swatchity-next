@@ -1,4 +1,6 @@
-const mockUserData = {
+import { UserMeta } from '@prisma/client';
+
+const mockUserData: UserMeta = {
   id: '12345abcdef',
   name: 'Test Name',
   username: 'test-name',

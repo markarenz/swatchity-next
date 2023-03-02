@@ -1,3 +1,5 @@
+import { ProfileFormFields } from '@/types';
+
 export const serializeDate = (dateObj: Date) => JSON.parse(JSON.stringify(dateObj));
 
 export const getUserMeta = async (email: string) => {
@@ -10,6 +12,18 @@ export const getUserMeta = async (email: string) => {
   });
   const data = await response.json();
   return data.success ? data.userMeta : null;
+};
+
+export const checkUsername = async (username: string) => {
+  const body = {
+    username,
+  };
+  const response = await fetch('/api/userMeta/uniqueUsername', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.unique;
 };
 
 export const createUserMeta = async (email: string, name: string, locale: string) => {
@@ -40,3 +54,19 @@ export const cleanSlug = (str: string): string =>
 
 export const cleanSlugWithRandomNums = (str: string): string =>
   `${cleanSlug(str)}${Math.floor(Math.random() * 8999 + 1000)}`;
+
+export const updateUserProfile = async (formData: ProfileFormFields | null, email: string) => {
+  if (!formData) {
+    return false;
+  }
+  const body = {
+    formData,
+    email,
+  };
+  const response = await fetch('/api/userMeta/updateUserMeta', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data?.success || false;
+};

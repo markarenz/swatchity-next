@@ -5,7 +5,7 @@
   background-color: $color-teal;
 }
 .dark-bg-teal{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $color-teal !important;
   }
 }
@@ -13,7 +13,7 @@
   background-color: $color-yellow;
 }
 .dark-bg-yellow {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $color-yellow !important;
   }
 }
@@ -21,7 +21,7 @@
   background-color: $color-orange;
 }
 .dark-bg-orange {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $color-orange !important;
   }
 }
@@ -29,7 +29,7 @@
   background-color: $color-red;
 }
 .dark-bg-red {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $color-red !important;
   }
 }
@@ -37,7 +37,7 @@
   background-color: $color-base;
 }
 .dark-bg-base {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $color-base !important;
   }
 }
@@ -45,7 +45,7 @@
   background-color: $gray-1;
 }
 .dark-bg-gray-1 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-1 !important;
   }
 }
@@ -53,7 +53,7 @@
   background-color: $gray-2;
 }
 .dark-bg-gray-2 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-2 !important;
   }
 }
@@ -61,7 +61,7 @@
   background-color: $gray-3;
 }
 .dark-bg-gray-3 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-3 !important;
   }
 }
@@ -69,7 +69,7 @@
   background-color: $gray-4;
 }
 .dark-bg-gray-4 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-4 !important;
   }
 }
@@ -77,7 +77,7 @@
   background-color: $gray-5;
 }
 .dark-bg-gray-5 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-5 !important;
   }
 }
@@ -85,7 +85,7 @@
   background-color: $gray-6;
 }
 .dark-bg-gray-6 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-6 !important;
   }
 }
@@ -93,7 +93,7 @@
   background-color: $gray-7;
 }
 .dark-bg-gray-7 {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-7 !important;
   }
 }
@@ -104,7 +104,7 @@
   border-color: $color-teal;
 }
 .dark-border-teal {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $color-teal !important;
   }
 }
@@ -119,14 +119,14 @@
   border-color: $color-yellow;
 }
 .dark-border-yellow {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $color-yellow !important;
   }
 }
 .dark-hover-border-yellow{
   &:focus,
   &:hover{
-    @media (prefers-color-scheme: dark) {
+    @include dark{
       border-color: $color-yellow !important;
     }  
   }
@@ -135,7 +135,7 @@
   border-color: $color-orange;
 }
 .dark-border-orange {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $color-orange !important;
   }
 }
@@ -143,7 +143,7 @@
   border-color: $color-red;
 }
 .dark-border-red {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $color-red !important;
   }
 }
@@ -151,7 +151,7 @@
   border-color: $color-base;
 }
 .dark-border-base {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $color-base !important;
   }
 }
@@ -159,7 +159,7 @@
   border-color: $gray-1;
 }
 .dark-border-gray-1{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-1 !important;
   }
 }
@@ -167,7 +167,7 @@
   border-color: $gray-2;
 }
 .dark-border-gray-2{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-2 !important;
   }
 }
@@ -175,7 +175,7 @@
   border-color: $gray-3;
 }
 .dark-border-gray-3{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-3 !important;
   }
 }
@@ -183,7 +183,7 @@
   border-color: $gray-4;
 }
 .dark-border-gray-4{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-4 !important;
   }
 }
@@ -191,7 +191,7 @@
   border-color: $gray-5;
 }
 .dark-border-gray-5{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-5 !important;
   }
 }
@@ -199,7 +199,7 @@
   border-color: $gray-6;
 }
 .dark-border-gray-6{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-6 !important;
   }
 }
@@ -207,7 +207,7 @@
   border-color: $gray-7;
 }
 .dark-border-gray-7{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     border-color: $gray-7 !important;
   }
 }
@@ -219,7 +219,7 @@
   fill: $color-teal;
 }
 .dark-fill-teal {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $color-teal !important;
   }
 }
@@ -227,7 +227,7 @@
   fill: $color-yellow;
 }
 .dark-fill-yellow {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $color-yellow !important;
   }
 }
@@ -235,7 +235,7 @@
   fill: $color-orange;
 }
 .dark-fill-orange {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $color-orange !important;
   }
 }
@@ -243,7 +243,7 @@
   fill: $color-red;
 }
 .dark-fill-red {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $color-red !important;
   }
 }
@@ -251,7 +251,7 @@
   fill: $color-base;
 }
 .dark-fill-base {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $color-base !important;
   }
 }
@@ -259,7 +259,7 @@
   fill: $gray-1 !important;
 }
 .dark-fill-gray-1{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-1 !important;
   }
 }
@@ -267,7 +267,7 @@
   fill: $gray-2;
 }
 .dark-fill-gray-2{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-2 !important;
   }
 }
@@ -275,7 +275,7 @@
   fill: $gray-3;
 }
 .dark-fill-gray-3{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-3 !important;
   }
 }
@@ -283,7 +283,7 @@
   fill: $gray-4;
 }
 .dark-fill-gray-4{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-4 !important;
   }
 }
@@ -291,7 +291,7 @@
   fill: $gray-5;
 }
 .dark-fill-gray-5{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-5 !important;
   }
 }
@@ -299,7 +299,7 @@
   fill: $gray-6;
 }
 .dark-fill-gray-6{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-6 !important;
   }
 }
@@ -307,7 +307,7 @@
   fill: $gray-7;
 }
 .dark-fill-gray-7{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     fill: $gray-7 !important;
   }
 }
@@ -318,7 +318,7 @@
   color: $color-teal;
 }
 .dark-text-teal {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $color-teal !important;
   }
 }
@@ -326,7 +326,7 @@
   color: $color-yellow;
 }
 .dark-text-yellow {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $color-yellow !important;
   }
 }
@@ -334,7 +334,7 @@
   color: $color-orange;
 }
 .dark-text-orange {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $color-orange !important;
   }
 }
@@ -342,7 +342,7 @@
   color: $color-red;
 }
 .dark-text-red {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $color-red !important;
   }
 }
@@ -350,7 +350,7 @@
   color: $color-base;
 }
 .dark-text-base {
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $color-base !important;
   }
 }
@@ -359,7 +359,7 @@
   color: $gray-1;
 }
 .dark-text-gray-1{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-1 !important;
   }
 }
@@ -372,7 +372,7 @@
 .dark-hover-text-gray-1{
   &:focus,
   &:hover{
-    @media (prefers-color-scheme: dark) {
+    @include dark{
       color: $gray-1 !important;
     }  
   }
@@ -382,7 +382,7 @@
   color: $gray-2;
 }
 .dark-text-gray-2{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-2 !important;
   }
 }
@@ -391,7 +391,7 @@
   color: $gray-3;
 }
 .dark-text-gray-3{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-3 !important;
   }
 }
@@ -400,7 +400,7 @@
   color: $gray-4;
 }
 .dark-text-gray-4{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-4 !important;
   }
 }
@@ -409,7 +409,7 @@
   color: $gray-5;
 }
 .dark-text-gray-5{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-5 !important;
   }
 }
@@ -418,7 +418,7 @@
   color: $gray-6;
 }
 .dark-text-gray-6{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-6 !important;
   }
 }
@@ -427,7 +427,7 @@
   color: $gray-7;
 }
 .dark-text-gray-7{
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     color: $gray-7 !important;
   }
 }

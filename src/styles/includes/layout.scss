@@ -4,11 +4,27 @@
 .justify-between{
   justify-content: space-between;
 }
+.justify-center{
+  justify-content: center;
+}
+.justify-right{
+  justify-content: right;
+}
+.justify-left{
+  justify-content: left;
+}
+
 .items-center{
   align-items: center;
 }
 .dir-row{
   flex-direction: row;
+}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.gap-1{
+  gap: 1rem;
 }
 
 .fixed{
@@ -19,6 +35,15 @@
 }
 .right-0{
   right:0;
+}
+.right-1{
+  right:1rem;
+}
+.top-0{
+  top:0;
+}
+.top-1{
+  top:1rem;
 }
 .bottom-0{
   bottom:0;
@@ -66,6 +91,18 @@
 .round-br{
   border-bottom-right-radius: 0.5rem;
 }
+.round-0-5{
+  border-radius: 0.5rem;
+}
+.round-1{
+  border-radius: 1rem;
+}
+.round-2{
+  border-radius: 2rem;
+}
+.round-3{
+  border-radius: 3rem;
+}
 
 .relative{
   position: relative;
@@ -91,7 +128,18 @@
 .text-center{
   text-align:center;
 }
+.text-right{
+  text-align:right;
+}
 
 .text-left{
   text-align:left;
+}
+
+main{
+  padding-bottom:10rem;
+}
+
+.modal-bg{
+  background-color: rgba(0,0,0,0.6);
 }

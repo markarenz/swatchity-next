@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { render, act, screen, fireEvent, waitFor } from '@testing-library/react';
 import { UserContextProvider, useUserContext } from '@/context/UserContext';
 import { SessionProvider } from 'next-auth/react';
+import { ProfileFormFields } from '@/types';
 import { Session } from 'next-auth';
+import { update } from 'lodash';
+
+// jest.mock('next-auth/react', () => ({
+//   useSession: jest.fn().mockReturnValue({
+//     session: {
+//       email: 'email@test.com',
+//     },
+//   }),
+// }));
 
 jest.mock('@/utils/apiFunctions', () => ({
   getUserMeta: jest.fn((email) =>
@@ -48,9 +58,7 @@ describe('UserContext', () => {
         </SessionProvider>,
       );
     });
-    // const element = await screen.findByTestId('grid-wrap');
-    // expect(element).toBeInTheDocument();
-    // expect(element).toMatchSnapshot();
+    expect(screen).toMatchSnapshot();
   });
   it('renders user context when user does exist', async () => {
     await act(async () => {
@@ -62,9 +70,7 @@ describe('UserContext', () => {
         </SessionProvider>,
       );
     });
-    // const element = await screen.findByTestId('grid-wrap');
-    // expect(element).toBeInTheDocument();
-    // expect(element).toMatchSnapshot();
+    expect(screen).toMatchSnapshot();
   });
 
   it('renders user context when user does exist', async () => {
@@ -82,8 +88,6 @@ describe('UserContext', () => {
     await act(async () => {
       render(<TestComponent />);
     });
-    // const element = await screen.findByTestId('grid-wrap');
-    // expect(element).toBeInTheDocument();
-    // expect(element).toMatchSnapshot();
+    expect(screen).toMatchSnapshot();
   });
 });

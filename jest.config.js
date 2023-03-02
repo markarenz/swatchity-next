@@ -16,6 +16,7 @@ const customJestConfig = {
   coveragePathIgnorePatterns: [
     '<rootDir>/src/validation/',
     '<rootDir>/src/constants.ts',
+    '<rootDir>/src/utils/colorPickerConstants.ts',
     '<rootDir>/src/lib/prismadb.ts',
     '<rootDir>/src/pages/api/auth/',
     '<rootDir>/src/pages/_app.tsx',

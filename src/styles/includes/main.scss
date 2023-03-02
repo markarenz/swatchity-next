@@ -5,7 +5,7 @@ body {
   font-size: 1rem;
   background-color: $gray-2;
   color: $color-base;
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     background-color: $gray-5;
     color: $gray-1;
   }
@@ -22,20 +22,29 @@ select,
   outline-style: dotted;
   outline-width: 2px;
   outline-color: transparent;
+  &.outline-offset-0{
+    outline-offset: 0!important;
+  }
 }
 :focus{
   outline-color: $color-base;
-  @media (prefers-color-scheme: dark) {
+  @include dark{
     outline-color: $gray-1;
   }
 }
 .outline-rev{
   &:focus{
     outline-color: $gray-1;
-    @media (prefers-color-scheme: dark) {
+    @include dark{
       outline-color: $color-base;
     }  
   }
+}
+.outline-light{
+  &:focus{
+    outline-color: $gray-1!important;
+  }
+
 }
 
 .skip-link{
@@ -114,12 +123,15 @@ hr{
     border-right: 1.5rem solid transparent;
     border-top: 0 solid transparent;
     border-bottom: 1.5rem solid $color-teal;
-    @media (prefers-color-scheme: dark) {
+    @include dark{
       border-bottom: 1.5rem solid $color-base;
     }   
   }
 }
 
+.transition{
+  transition: 0.2s all ease-in-out;
+};
 .hover-zoom{
   transition: 0.2s all ease-in-out;
   transform:scale(1);
@@ -135,7 +147,7 @@ hr{
     content: ' ';
     display:block;
     position:absolute;
-    bottom:4px;
+    bottom:6px;
     left:50%;
     width: 0;
     height:4px;
@@ -149,7 +161,17 @@ hr{
     }
   }
 }
-
+.hover-rotate-icon{
+  svg {
+    transition: 0.2s all ease-in-out;
+    transform: rotate(0deg);
+  }
+  &:hover{
+    svg {
+      transform: rotate(90deg);
+    }
+  }  
+}
 .mobile-hide{
   @include for-phone-only{
     display:none;
@@ -157,4 +179,56 @@ hr{
 }
 .bold{
   font-weight: bold;
+}
+
+.anim-pulse{
+  animation: 2.0s kf-pulse infinite ease-in-out;
+}
+@keyframes kf-pulse {
+  0% {
+    transform: scale(1);
+  }  
+  50% {
+    transform: scale(1.5);
+  }  
+  100% {
+    transform: scale(1);
+  }  
+}
+.italic {
+  font-style:italic;
+}
+.leading-1-5{
+  line-height: 1.5;
+}
+.leading-2{
+  line-height: 2;
+}
+
+.anim-spin{
+  animation: 2.0s kf-spin infinite linear;
+}
+@keyframes kf-spin {
+  0% {
+    transform: rotate(0);
+  }  
+  50% {
+    transform: rotate(180deg);
+  }  
+  100% {
+    transform: rotate(360deg);
+  }  
+}
+
+.opacity-0{
+  opacity: 0;
+}
+.opacity-1{
+  opacity:1;
+}
+.pointer-none{
+  pointer-events: none;
+}
+.pointer-all{
+  pointer-events: all;
 }
