@@ -5,6 +5,7 @@ import { altBtnData } from '@/utils/colorPickerConstants';
 import ColorPickerAltColorBtn from '@/components/common/ColorPickerAltColorBtn';
 import IconClose from '../icons/IconClose';
 import { Color } from '@/types';
+import NonSSRWrapper from './NonSSRWrapper';
 import {
   getRandomColor,
   getRandomGray,
@@ -48,10 +49,13 @@ const ColorPicker: React.FC<Props> = ({ color, isOpen, closeColorPicker, onChang
   const [altColors, setAltColors] = useState<Color[]>(getAltColors(color));
   const { formatMessage } = useIntl();
   useEffect(() => {
-    setAnimStatus('');
-    setNewColor(color);
-    const alts = getAltColors(color);
-    setAltColors(alts);
+    if (isOpen) {
+      setAnimStatus('');
+      setNewColor(color);
+      const alts = getAltColors(color);
+      setAltColors(alts);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color]);
 
   useEffect(() => {
@@ -80,46 +84,51 @@ const ColorPicker: React.FC<Props> = ({ color, isOpen, closeColorPicker, onChang
   };
   return (
     <div
-      className={`fixed top-0 left-0 wh-screen transition ${styles.modal} ${
+      className={`colorPicker fixed top-0 left-0 wh-screen transition ${styles.modal} ${
         isOpen ? 'opacity-1 pointer-all' : `opacity-0 pointer-none ${styles.isClosed}`
       } ${isOpening && styles.isOpening}`}
       style={{ zIndex: 20 }}
       data-testid="color-picker"
     >
-      <div className="relative">
-        <div className="absolute right-1 top-1">
-          <ButtonIcon
-            onClick={() => handleClickClose()}
-            label={formatMessage({ id: 'icon_close' })}
-            extraClasses="hover-zoom h-3 w-3"
-          >
-            <IconClose color="gray-1" colorDark="gray-1" />
-          </ButtonIcon>
-        </div>
-        <div className="flex justify-center items-center wh-screen">
-          <div className={styles.pickerMain}>
-            <button
-              className={`${styles.colorButton} ${styles.colorButtonMain} ${styles.posCC} ${
-                animStatus === 'out' && styles.animOut
-              } ${animStatus === 'in' && styles.animIn}`}
-              aria-label={formatMessage({ id: 'color_picker__main' })}
-              style={{ backgroundColor: getRGBfromColorObj(newColor) }}
-              onClick={() => onChange(newColor)}
-              data-testid="picker-btn-ok"
-            />
-            {altBtnData.map((item) => (
-              <ColorPickerAltColorBtn
-                key={`${item.labelKey}-${item.idx}`}
-                label={formatMessage({ id: item.labelKey })}
-                posStyle={item.posStyle}
-                clickAltColor={clickAltColor}
-                animStatus={animStatus}
-                color={altColors[item.idx]}
+      <NonSSRWrapper>
+        <div className="relative">
+          <div className="absolute right-1 top-1">
+            <ButtonIcon
+              onClick={() => handleClickClose()}
+              label={formatMessage({ id: 'icon_close' })}
+              extraClasses="hover-zoom h-3 w-3 pickerClose"
+              testID="picker-close"
+            >
+              <IconClose color="gray-1" colorDark="gray-1" />
+            </ButtonIcon>
+          </div>
+          <div className="flex justify-center items-center wh-screen">
+            <div className={styles.pickerMain}>
+              <button
+                className={`pickerOK ${styles.colorButton} ${styles.colorButtonMain} ${
+                  styles.posCC
+                } ${animStatus === 'out' && styles.animOut} ${
+                  animStatus === 'in' && styles.animIn
+                }`}
+                aria-label={formatMessage({ id: 'color_picker__main' })}
+                style={{ backgroundColor: getRGBfromColorObj(newColor) }}
+                onClick={() => onChange(newColor)}
+                data-testid="picker-btn-ok"
               />
-            ))}
+              {altBtnData.map((item) => (
+                <ColorPickerAltColorBtn
+                  key={`${item.labelKey}-${item.idx}`}
+                  label={formatMessage({ id: item.labelKey })}
+                  posStyle={item.posStyle}
+                  clickAltColor={clickAltColor}
+                  animStatus={animStatus}
+                  color={altColors[item.idx]}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </NonSSRWrapper>
     </div>
   );
 };

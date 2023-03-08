@@ -14,9 +14,10 @@ type Props = {
   children: JSX.Element;
   pageMeta: PageMeta;
   subNavData?: SubNavItem[];
+  headerButtons?: JSX.Element;
 };
 
-const Layout: React.FC<Props> = ({ children, pageMeta, subNavData }) => {
+const Layout: React.FC<Props> = ({ children, pageMeta, subNavData, headerButtons }) => {
   const { userMeta } = useUserContext();
   const { data: session } = useSession();
   const darkMode = userMeta?.darkMode;
@@ -30,7 +31,7 @@ const Layout: React.FC<Props> = ({ children, pageMeta, subNavData }) => {
       <div id="app-panel" className="over-y-hidden wide-col-main">
         <SkipLink />
         <PageSeo pageMeta={pageMeta} />
-        <HeaderMenu />
+        <HeaderMenu headerButtons={headerButtons} />
         <MainNav />
         {subNavData && <SubNav subNavData={subNavData} />}
         <main id="main-content" className="h-min-screen pb-5">

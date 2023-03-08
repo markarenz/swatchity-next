@@ -21,12 +21,14 @@ export default function App({
   const session = pageProps?.session;
   return (
     <SessionProvider session={session}>
-      <UserContextProvider locale={locale || defaultLocale}>
-        <IntlProvider messages={msg} locale={locale || defaultLocale} defaultLocale="en">
-          <Component {...pageProps} />
-          <ToastContainer />
-        </IntlProvider>
-      </UserContextProvider>
+      <IntlProvider messages={msg} locale={locale || defaultLocale} defaultLocale="en">
+        <UserContextProvider locale={locale || defaultLocale}>
+          <div>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </div>
+        </UserContextProvider>
+      </IntlProvider>
     </SessionProvider>
   );
 }

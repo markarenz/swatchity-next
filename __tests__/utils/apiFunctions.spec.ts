@@ -7,8 +7,20 @@ import {
   cleanSlugWithRandomNums,
   checkUsername,
   updateUserProfile,
+  createSwatch,
+  getSwatches,
+  setLikeSwatch,
 } from '../../src/utils/apiFunctions';
 import fetchMock from 'jest-fetch-mock';
+import mockSwatch from '../__fixtures__/mockSwatch';
+import mockUserData from '../__fixtures__/mockUserMeta';
+
+const mockSwatchExt = {
+  ...mockSwatch,
+  user: {
+    ...mockUserData,
+  },
+};
 
 // global.fetch = jest.fn(() =>
 //   Promise.resolve({
@@ -27,6 +39,7 @@ jest.mock('next-auth/next', () => {
 jest.useFakeTimers().setSystemTime(new Date('2023-02-10'));
 
 beforeEach(() => {
+  fetchMock.resetMocks();
   fetchMock.doMock();
 });
 
@@ -168,5 +181,68 @@ describe('updateUserProfile', () => {
     fetchMock.mockOnce(JSON.stringify(null));
     const result = await updateUserProfile(formData, 'email@domain.com');
     expect(result).toBe(false);
+  });
+});
+
+describe('createSwatch', () => {
+  it('creates Swatch with info provided - success', async () => {
+    const mockResponse = {
+      success: true,
+      swatch: mockSwatchExt,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createSwatch('test-email@domain.com', 123, 200, 17);
+    expect(result.id).toEqual('abcd1234');
+  });
+  it('creates Swatch with info provided - fail', async () => {
+    const mockResponse = {
+      success: false,
+      swatch: mockSwatchExt,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createSwatch('test-email@domain.com', 123, 200, 17);
+    expect(result).toBeNull();
+  });
+});
+describe('getSwatches', () => {
+  it('returns swatches for feed mode', async () => {
+    const mockResponse = {
+      swatches: [
+        { ...mockSwatchExt, id: '10' },
+        { ...mockSwatchExt, id: '11' },
+      ],
+      likes: ['10'],
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getSwatches('1234', 'feed', '', 0);
+  });
+  it('returns emptu array when an error occurs', async () => {
+    const mockResponse = {
+      swatches: null,
+      likes: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getSwatches('1234', 'feed', '', 0);
+  });
+});
+
+describe('setLikeSwatch', () => {
+  it('sets like for swatch - scuccess', async () => {
+    const mockResponse = {
+      success: true,
+      swatch: mockSwatchExt,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await setLikeSwatch('1234', 'abcdefg', '10', true);
+    expect(result?.id).toEqual('abcd1234');
+  });
+  it('sets like for swatch - fail', async () => {
+    const mockResponse = {
+      success: false,
+      swatch: mockSwatchExt,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await setLikeSwatch('1234', 'abcdefg', '10', true);
+    expect(result).toBeNull();
   });
 });

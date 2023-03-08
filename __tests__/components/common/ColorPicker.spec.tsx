@@ -1,5 +1,5 @@
 import ColorPicker from '@/components/common/ColorPicker';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 
 jest.useFakeTimers();
 
@@ -14,18 +14,25 @@ const mockProps = {
   onChange: jest.fn(),
 };
 describe('ColorPicker', () => {
-  it('renders component closed', () => {
-    render(<ColorPicker {...mockProps} isOpen={false} />);
+  it('renders component closed', async () => {
+    act(() => {
+      render(<ColorPicker {...mockProps} isOpen={false} />);
+    });
+    // await new Promise(process.nextTick);
     const element = document.querySelector('.fixed');
-    expect(element).toBeInTheDocument();
+    await waitFor(() => expect(element).toBeInTheDocument());
   });
-  it('renders component open', () => {
-    render(<ColorPicker {...mockProps} />);
+  it('renders component open', async () => {
+    act(() => {
+      render(<ColorPicker {...mockProps} />);
+    });
     const element = document.querySelector('.fixed');
     expect(element).toBeInTheDocument();
   });
   it('handles close button', () => {
-    render(<ColorPicker {...mockProps} />);
+    act(() => {
+      render(<ColorPicker {...mockProps} />);
+    });
     const element = screen.queryByLabelText('Close');
     if (element) {
       fireEvent(
@@ -43,7 +50,9 @@ describe('ColorPicker', () => {
   });
 
   it('handles OK button - center color', async () => {
-    render(<ColorPicker {...mockProps} />);
+    act(() => {
+      render(<ColorPicker {...mockProps} />);
+    });
     const element = await screen.findByTestId('picker-btn-ok');
     if (element) {
       fireEvent(
@@ -59,17 +68,21 @@ describe('ColorPicker', () => {
 
   it('handles alt color click', async () => {
     jest.useFakeTimers();
-    render(<ColorPicker {...mockProps} />);
+    act(() => {
+      render(<ColorPicker {...mockProps} />);
+    });
     const element = await screen.findByLabelText('Hue Twist Clockwise');
     if (element) {
       await act(async () => {
-        fireEvent(
-          element,
-          new MouseEvent('click', {
-            bubbles: true,
-            cancelable: true,
-          }),
-        );
+        await act(async () => {
+          fireEvent(
+            element,
+            new MouseEvent('click', {
+              bubbles: true,
+              cancelable: true,
+            }),
+          );
+        });
       });
     }
     act(() => {

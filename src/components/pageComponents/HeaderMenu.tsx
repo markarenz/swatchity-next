@@ -4,16 +4,17 @@ import { FormattedMessage } from 'react-intl';
 import { signIn } from 'next-auth/react';
 import ProfileMenu from '@/components/pageComponents/ProfileMenu';
 import SwatchityLogo from '@/components/common/SwatchityLogo';
-import IconAdmin from '../icons/IconAdmin';
+import SwatchityLogoMark from '../common/SwatchityLogoMark';
 
-type Props = {};
+type Props = {
+  headerButtons?: JSX.Element;
+};
 
-const HeaderMenu: React.FC<Props> = () => {
+const HeaderMenu: React.FC<Props> = ({ headerButtons = [] }) => {
   const { userMeta } = useUserContext();
-  const isAdmin = userMeta?.role === 'admin';
   return (
     <header className="pt-1 pb-1 bg-gray-2 dark-bg-gray-7">
-      <div className="flex justify-between items-center contained">
+      <div className="flex justify-between items-center contained ">
         <div>
           {!!userMeta ? (
             <ProfileMenu userMeta={userMeta} />
@@ -27,18 +28,17 @@ const HeaderMenu: React.FC<Props> = () => {
             </button>
           )}
         </div>
-        <Link href="/">
+        <Link href="/" className="flex-grow mobile-flex-grow-0 text-center">
           <div className="h-3 mobile-h-2">
-            <SwatchityLogo />
+            <div className="mobile-hide h-3">
+              <SwatchityLogo />
+            </div>
+            <div className="mobile-show h-2">
+              <SwatchityLogoMark />
+            </div>
           </div>
         </Link>
-        <div className="w-3 h-3 mobile-hide">
-          {isAdmin && (
-            <Link href="/admin" className="w-3 h-3 round block hover-zoom">
-              <IconAdmin filled={false} color="base" colorDark="gray-2" />
-            </Link>
-          )}
-        </div>
+        {headerButtons}
       </div>
     </header>
   );

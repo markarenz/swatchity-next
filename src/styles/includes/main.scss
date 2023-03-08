@@ -26,6 +26,10 @@ select,
     outline-offset: 0!important;
   }
 }
+p{
+  font-size: 1rem;
+  line-height: 1.5;
+}
 :focus{
   outline-color: $color-base;
   @include dark{
@@ -173,10 +177,18 @@ hr{
   }  
 }
 .mobile-hide{
+  display:block;
   @include for-phone-only{
     display:none;
   }
 }
+.mobile-show{
+  display:none;
+  @include for-phone-only{
+    display:block;
+  }
+}
+
 .bold{
   font-weight: bold;
 }

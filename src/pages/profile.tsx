@@ -52,7 +52,6 @@ export default function Profile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userMeta]);
   const isDirty = checkDirty(formData, userMeta);
-  console.log('isDirty', isDirty, !!formData, !!userMeta);
   const handleOK = async () => {
     if (isDirty) {
       const success = await updateUserProfile(formData, `${userMeta?.email}`);
@@ -124,7 +123,7 @@ export default function Profile() {
               </div>
 
               <div>
-                <div className="text-right" style={{ flexGrow: 1 }}>
+                <div className="text-right flex-grow">
                   {isValid && (
                     <button onClick={handleOK} className="btn btn-primary" data-testid="profile-ok">
                       <FormattedMessage id="btn_ok" />

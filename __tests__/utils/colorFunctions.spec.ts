@@ -5,6 +5,8 @@ import {
   tweakHue,
   tweakSaturation,
   tweakValue,
+  getCornerColor,
+  getColorScore,
 } from '../../src/utils/colorFunctions';
 
 beforeEach(() => {
@@ -71,17 +73,23 @@ describe('tweakValue', () => {
   });
 });
 
-// Running all the values below, it was clear that the h value in rgb2hsv was never > 1
-// describe('TEMP', () => {
-//   it('loads ALL COLORS', () => {
-//     const vals = [0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 255];
-//     vals.forEach((r) => {
-//       vals.forEach((g) => {
-//         vals.forEach((b) => {
-//           const result = rgb2hsv({ r, g, b });
-//           console.log('result');
-//         });
-//       });
-//     });
-//   });
-// });
+describe('getCornerColor', () => {
+  it('returns corner color for light base color', () => {
+    const result = getCornerColor({ r: 200, g: 200, b: 200 });
+    const expectedReult = { r: 123, g: 123, b: 123 };
+    expect(result).toEqual(expectedReult);
+  });
+  it('returns corner color for dark base color', () => {
+    const result = getCornerColor({ r: 50, g: 50, b: 50 });
+    const expectedReult = { r: 126, g: 126, b: 126 };
+    expect(result).toEqual(expectedReult);
+  });
+});
+
+describe('getColorScore', () => {
+  it('returns score', () => {
+    const resultHigh = getColorScore({ r: 200, g: 50, b: 50 });
+    const resultLow = getColorScore({ r: 200, g: 200, b: 200 });
+    expect(resultHigh > resultLow).toBe(true);
+  });
+});

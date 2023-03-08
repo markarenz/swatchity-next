@@ -14,7 +14,7 @@ import IconAuto from '@/components/icons/IconAuto';
 import IconCorrect from '@/components/icons/IconCorrect';
 import IconLeft from '@/components/icons/IconLeft';
 import IconRight from '@/components/icons/IconRight';
-import IconLoading from '@/components/icons/IconLoading';
+import IconRefresh from '@/components/icons/IconRefresh';
 import IconSun from '@/components/icons/IconSun';
 import IconLock from '@/components/icons/IconLock';
 import IconMoon from '@/components/icons/IconMoon';
@@ -98,8 +98,8 @@ describe('Icons - all', () => {
         icon: IconRight,
       },
       {
-        label: 'IconLoading',
-        icon: IconLoading,
+        label: 'IconRefresh',
+        icon: IconRefresh,
       },
       {
         label: 'IconLock',

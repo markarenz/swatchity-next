@@ -1,6 +1,17 @@
-import { ProfileFormFields } from '@/types';
+import { ProfileFormFields, SwatchExt } from '@/types';
 
 export const serializeDate = (dateObj: Date) => JSON.parse(JSON.stringify(dateObj));
+export const serializeSwatchDates = (swatches: SwatchExt[]) =>
+  swatches.map((s) => ({
+    ...s,
+    createdAt: serializeDate(s.createdAt),
+    modifiedAt: serializeDate(s.modifiedAt),
+    user: {
+      ...s.user,
+      createdAt: serializeDate(s.user.createdAt),
+      modifiedAt: serializeDate(s.user.modifiedAt),
+    },
+  }));
 
 export const getUserMeta = async (email: string) => {
   const body = {
@@ -69,4 +80,63 @@ export const updateUserProfile = async (formData: ProfileFormFields | null, emai
   });
   const data = await response.json();
   return data?.success || false;
+};
+
+export const createSwatch = async (
+  email: string,
+  colorR: number,
+  colorG: number,
+  colorB: number,
+) => {
+  const body = {
+    email,
+    colorR,
+    colorG,
+    colorB,
+  };
+  const response = await fetch('/api/swatch/createSwatch', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success ? data.swatch : null;
+};
+
+export const getSwatches = async (userID: string, mode: string, str: string, skip: number) => {
+  // str can be used as a flexible search key
+  const body = {
+    userID,
+    mode,
+    str,
+    skip,
+  };
+  const response = await fetch('/api/swatch/readSwatches', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return {
+    swatches: data.swatches || [],
+    likes: data.likes || [],
+  };
+};
+
+export const setLikeSwatch = async (
+  userID: string,
+  authorID: string,
+  swatchID: string,
+  value: boolean,
+) => {
+  const body = {
+    swatchID,
+    authorID,
+    value,
+    userID,
+  };
+  const response = await fetch('/api/swatch/setLikeSwatch', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success ? data.swatch : null;
 };

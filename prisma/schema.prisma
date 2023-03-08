@@ -96,7 +96,9 @@ model Swatch {
   colorR     Int
   colorG     Int
   colorB     Int
+  colorScore Int
   likes      Int
+  replies    Int
   active     Boolean
   createdAt  DateTime
   modifiedAt DateTime
@@ -107,6 +109,7 @@ model SwatchLike {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   swatchID   String   @db.ObjectId
   userID     String   @db.ObjectId
+  authorID   String   @db.ObjectId
   swatch     Swatch   @relation(fields: [swatchID], references: [id])
   createdAt  DateTime
   modifiedAt DateTime
@@ -131,6 +134,7 @@ model ReplyLike {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   replyID    String   @db.ObjectId
   userID     String   @db.ObjectId
+  authorID   String   @db.ObjectId
   reply      Reply    @relation(fields: [replyID], references: [id])
   createdAt  DateTime
   modifiedAt DateTime

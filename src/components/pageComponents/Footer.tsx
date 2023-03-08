@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
 
 const Footer = () => (
   <footer
@@ -7,11 +8,11 @@ const Footer = () => (
   >
     &copy;{new Date().getFullYear()} All Rights Reserved -{' '}
     <Link href="/privacy-policy" className="text-gray-2">
-      Privacy Policy
+      <FormattedMessage id="footer__privacy_polciy" />
     </Link>{' '}
     -{' '}
     <Link href="/terms-of-service" className="text-gray-2">
-      Terms of Service
+      <FormattedMessage id="footer__terms" />
     </Link>
   </footer>
 );

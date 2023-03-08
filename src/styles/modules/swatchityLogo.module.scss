@@ -1,7 +1,15 @@
 @import '../config/colors';
+@import '../includes/breakpoints';
 @import '../includes/darkMode';
 
 .root{
+  #swatchity-logo {
+    @include for-phone-only{
+      // aspect-ratio:1;
+      display: none;
+    }
+  }
+
   .text{
     position:relative;
     fill: $color-base;

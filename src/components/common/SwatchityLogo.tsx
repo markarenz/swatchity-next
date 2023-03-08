@@ -3,6 +3,7 @@ import styles from '@/styles/modules/swatchityLogo.module.scss';
 const SwatchityLogo = () => {
   return (
     <svg
+      id="swatchity-logo"
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       viewBox="0 0 127 20"
@@ -54,13 +55,7 @@ const SwatchityLogo = () => {
             ></path>
           </g>
           <path className={styles.mark} d="M20 60v20h10V70h10V60z"></path>
-          <path
-            className={styles.corner}
-            d="M30 80V70h10z"
-            fontFamily="Times"
-            fontStyle="italic"
-            fontWeight="bold"
-          ></path>
+          <path className={styles.corner} d="M30 80V70h10z"></path>
         </g>
       </g>
     </svg>
