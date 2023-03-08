@@ -15,6 +15,7 @@ import IconNew from '@/components/icons/IconNew';
 import { useRouter } from 'next/router';
 import IconRefresh from '@/components/icons/IconRefresh';
 import SearchColor from '@/components/common/SearchColor';
+import { initial } from 'lodash';
 
 type Props = {
   subNavData: SubNavItem[];

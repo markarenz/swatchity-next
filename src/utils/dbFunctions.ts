@@ -173,6 +173,7 @@ export const getSwatchesDB = async (
       });
       break;
   }
+
   if (isLoggedIn && mode !== 'liked') {
     const swatchIDs = swatches?.map((s) => s.id);
     const likedSwatches = await prisma.swatchLike.findMany({
@@ -183,6 +184,7 @@ export const getSwatchesDB = async (
     });
     likes = likedSwatches.map((ls) => ls.swatchID);
   }
+
   return {
     swatches,
     likes,
