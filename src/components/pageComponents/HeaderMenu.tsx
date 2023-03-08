@@ -7,7 +7,7 @@ import SwatchityLogo from '@/components/common/SwatchityLogo';
 import SwatchityLogoMark from '../common/SwatchityLogoMark';
 
 type Props = {
-  headerButtons?: JSX.Element[];
+  headerButtons?: JSX.Element;
 };
 
 const HeaderMenu: React.FC<Props> = ({ headerButtons = [] }) => {
