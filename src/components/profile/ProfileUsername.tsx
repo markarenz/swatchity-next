@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { debounce } from 'lodash';
 import { ProfileFormFields } from '@/types';
 import { FormattedMessage } from 'react-intl';
-import IconLoading from '../icons/IconLoading';
+import IconRefresh from '../icons/IconRefresh';
 import IconCorrect from '../icons/IconCorrect';
 import IconClose from '../icons/IconClose';
 import { checkUsername } from '@/utils/apiFunctions';
@@ -67,7 +67,7 @@ const ProfileUsername: React.FC<Props> = ({ username, setFormData }) => {
             <div className="flex items-center justify-right pr-0-5 h-full w-2">
               {isChecking && (
                 <div className="anim-spin block h-2 w-2">
-                  <IconLoading color="gray-5" colorDark="gray-2" />
+                  <IconRefresh color="gray-5" colorDark="gray-2" />
                 </div>
               )}
 

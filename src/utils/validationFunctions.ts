@@ -1,4 +1,4 @@
-import { REQ, MINLEN, EMAIL, COLOR, TRUE } from '@/validation/ruleConstants';
+import { REQ, MINLEN, EMAIL, COLOR, TRUE, COLOR_CHANNEL_VAL } from '@/validation/ruleConstants';
 import { Rule } from '@/types';
 
 export const isValidEmail = (email: string): boolean => {
@@ -34,6 +34,11 @@ export const validateWithRules = (data: any, rules: Rule[]): boolean => {
           break;
         case TRUE:
           if (!val) {
+            valid = false;
+          }
+          break;
+        case COLOR_CHANNEL_VAL:
+          if (isNaN(val) || val < 0 || val > 255) {
             valid = false;
           }
           break;

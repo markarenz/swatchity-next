@@ -1,15 +1,9 @@
-// import { unstable_getServerSession } from 'next-auth/next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/lib/prismadb';
 import { getDefaultLanguage, cleanSlug, cleanSlugWithRandomNums } from '@/utils/apiFunctions';
 import { getRandomColor } from '@/utils/colorFunctions';
 import { validateWithRules } from '@/utils/validationFunctions';
 import { createUserRules } from '@/validation/userRules';
-
-interface UserCreateInput {
-  email: String;
-  name: String;
-}
 
 /*
  * PATH: api/userMeta/createUserMeta

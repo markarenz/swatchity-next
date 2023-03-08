@@ -7,6 +7,15 @@
   "header__profile_menu__following": "Following",
   "header__profile_menu__own": "My Swatches",
 
+  "main_nav__main_nav": "Main Navigation",
+  "main_nav__home": "Home",
+  "main_nav__alerts": "Alerts",
+  "main_nav__messages": "Messages",
+  "main_nav__news": "News",
+  "main_nav__search": "Search",
+  "main_nav__badge": "New Items",
+
+
   "icon_admin": "Admin",
 
   "icon_alerts": "Alerts",
@@ -14,7 +23,7 @@
   "icon_home": "Home",
   "icon_incorrect": "Incorrect",
   "icon_like": "Like",
-  "icon_loading": "loading",
+  "icon_refresh": "Refresh",
   "icon_messages": "Messages",
   "icon_new": "New",
   "icon_news": "News",
@@ -23,10 +32,24 @@
   "icon_dark": "Dark Theme",
   "icon_auto": "Auto",
 
-  "header__subNav__feed__home": "Home",
-  "header__subNav__feed__new": "New",
-  "header__subNav__feed__saved": "Saved",
+  "header__subNav__feed__home": "Fresh",
+  "header__subNav__feed__liked": "Liked",
   "header__subNav__feed__featured": "Featured",
+  "header__subNav__feed__mood": "Mood",
+
+  "feed__home_title": "Welcome to Swatchity",
+  "feed__home_intro": "If you're looking for an escape from the typical social media experience, you've come to the right place. This is Swatchity, the social media app where you can ONLY post colors!",
+  "feed__liked_title": "Feed: Liked",
+  "feed__liked_intro": "You liked these Swatches, like, a lot. So, now we, like, put them in a feed for you. Like, Wow!",
+  "feed__featured_title": "Feed: Featured",
+  "feed__featured_intro": "Beep. Boop. The algorithm has selected these Swatches for your scrolling pleasure. Boop. Beep.",
+  "feed__mood_title": "Feed: Mood",
+  "feed__mood_intro": "Some colors are just a mood, you know?",
+  "feed__search_title": "Search",
+  "feed__search_intro": "We dug up some Swatches that are close to the color you picked. To search again, just click on the color to pick a new one.",
+
+  "search__search_color_btn": "Search Color",
+  "search__no_results": "We found no results matchng your search color. Please try again.",
 
   "icon_search": "Search",
   "icon_thread": "Thread",
@@ -64,5 +87,24 @@
   "color_picker__random": "Random Color",
   "color_picker__main": "Select Main Color",
 
+  "days_since__years": "{num}y",
+  "days_since__days": "{num}d",
+  "days_since__hours": "{num}h",
+  "days_since__minutes": "{num}m",
+  "days_since__now": "Now",
+
+  "feed__load_more": "Load More",
+  "feed__refresh": "Refessh",
+  "feed__new_swatch": "New Swatch",
+  "feed__liked__not_logged_in": "Howdy! Since you are not logged in, you cannot see Swatches you have liked. That seems logical, right?",
+  
+  "swatch__like": "Like",
+  "swatch__reply": "Reply",
+  "swatch__thread": "Thread",
+
+  "user_level_up": "Congrats! You have leveled up! Keep posting.",
+
+  "footer__privacy_polciy": "Privacy Policy",
+  "footer__terms": "Terms of Service",
   "": ""
 }

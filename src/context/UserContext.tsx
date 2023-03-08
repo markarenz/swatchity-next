@@ -1,13 +1,16 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { UserMeta } from '@prisma/client';
+import { useIntl } from 'react-intl';
 import { getUserMeta, createUserMeta } from '@/utils/apiFunctions';
 import { ProfileFormFields } from '@/types';
+import { toast } from 'react-toastify';
 
 type ContextValue = {
   userMeta: UserMeta | null;
   isNewUser: boolean;
   updateUserMeta: Function;
+  checkUserMeta: Function;
 };
 
 const UserContext = createContext({} as ContextValue);
@@ -22,6 +25,7 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
   const [isNewUser, setIsNewUser] = useState(false);
   const [isInitChecked, setIsInitChecked] = useState(false);
   const [userMeta, setUserMeta] = useState<UserMeta | null>(null);
+  const { formatMessage } = useIntl();
   const { data: session } = useSession();
   const updateUserMeta = (formData: ProfileFormFields) => {
     // @ts-ignore
@@ -50,6 +54,9 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
     const name = `${session?.user?.name}`;
     const userMetaResult = await getUserMeta(email);
     if (userMetaResult) {
+      if (!!userMeta?.level && userMetaResult?.level > (userMeta?.level || 1)) {
+        toast.info(formatMessage({ id: 'user_level_up' }));
+      }
       setUserMeta(userMetaResult);
       setIsNewUser(false);
     } else {
@@ -72,7 +79,9 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
       userMeta,
       isNewUser,
       updateUserMeta,
+      checkUserMeta,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userMeta, isNewUser]);
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

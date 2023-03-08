@@ -6,6 +6,10 @@ import messages from '@/locale/en-US.json';
 import mockUserData from '../../__fixtures__/mockUserMeta';
 import ProfileMenu from '@/components/pageComponents/ProfileMenu';
 
+jest.mock('@/context/UserContext', () => ({
+  useUserContext: jest.fn().mockImplementation(() => ({ checkUserMeta: jest.fn() })),
+}));
+
 jest.mock('next-auth/react', () => ({
   signOut: jest.fn(),
 }));

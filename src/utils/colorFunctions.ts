@@ -127,3 +127,18 @@ export const tweakValue = (color: Color, dir: number): Color => {
   });
   return newColor;
 };
+
+export const getCornerColor = (color: Color) => {
+  const { h, s, v } = rgb2hsv(color);
+  const newV = v >= 60 ? Math.max(v - 30, 0) : Math.min(v + 30, 100);
+  return hsv2rgb({
+    h,
+    s,
+    v: newV,
+  });
+};
+
+export const getColorScore = (color: Color): number => {
+  const hsv = rgb2hsv(color);
+  return hsv.s * 100 - hsv.v * 100;
+};

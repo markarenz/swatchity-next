@@ -1,5 +1,5 @@
 import { Rule } from '@/types';
-import { REQ, MINLEN, EMAIL, COLOR, TRUE } from '@/validation/ruleConstants';
+import { REQ, MINLEN, EMAIL, COLOR, TRUE, COLOR_CHANNEL_VAL } from '@/validation/ruleConstants';
 import { isValidEmail, validateWithRules } from '../../src/utils/validationFunctions';
 
 describe('isValidEmail', () => {
@@ -31,6 +31,10 @@ describe('validateWithRules', () => {
     {
       field: 'isUnique',
       rules: [REQ, TRUE],
+    },
+    {
+      field: 'colorR',
+      rules: [REQ, COLOR_CHANNEL_VAL],
     },
   ];
 
@@ -80,6 +84,21 @@ describe('validateWithRules', () => {
       ),
     ).toBe(false);
   });
+  it('returns false for invalid color channel value', () => {
+    expect(
+      validateWithRules(
+        {
+          email: 'email@domain.com',
+          username: 'validUsername',
+          avatarColor1: 'BB8800',
+          isUnique: true,
+          colorR: 360,
+        },
+        mockRules,
+      ),
+    ).toBe(false);
+  });
+
   it('returns false for invalid color', () => {
     expect(
       validateWithRules(
@@ -118,6 +137,7 @@ describe('validateWithRules', () => {
           username: 'validUsername',
           avatarColor1: 'BB8800',
           isUnique: true,
+          colorR: 150,
         },
         mockRules,
       ),

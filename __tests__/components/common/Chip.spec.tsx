@@ -1,9 +1,9 @@
 import Chip from '@/components/common/Chip';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Simulate } from 'react-dom/test-utils';
 
 const mockProps = {
   removeItem: jest.fn(),
+  idx: 1,
 };
 describe('Chip', () => {
   it('renders component', () => {

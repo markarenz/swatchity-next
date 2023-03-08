@@ -5,6 +5,15 @@ const nextConfig = {
     defaultLocale: 'en-US',
   },
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/feed',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
   env: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     MONGODB_URI: process.env.MONGODB_URI,

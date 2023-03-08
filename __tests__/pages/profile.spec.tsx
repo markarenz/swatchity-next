@@ -63,7 +63,6 @@ describe('Profile Page', () => {
       jest.advanceTimersToNextTimer();
     });
     const input = await screen.findByTestId('field__name');
-    console.log('INPUT?', !!input);
     if (input) {
       await act(async () => {
         await waitFor(() =>
@@ -78,8 +77,6 @@ describe('Profile Page', () => {
       // FormData should now be "dirty"
       await act(async () => {
         const element = await screen.findByTestId('profile-ok');
-        console.log('element', !!element);
-
         fireEvent(
           element,
           new MouseEvent('click', {
@@ -108,7 +105,6 @@ describe('Profile Page', () => {
       jest.advanceTimersToNextTimer();
     });
     const input = await screen.findByTestId('field__name');
-    console.log('INPUT?', !!input);
     if (input) {
       await act(async () => {
         await waitFor(() =>
@@ -123,7 +119,6 @@ describe('Profile Page', () => {
       // FormData should now be "dirty"
       await act(async () => {
         const element = await screen.findByTestId('profile-ok');
-        console.log('element', !!element);
 
         fireEvent(
           element,

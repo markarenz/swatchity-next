@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import ButtonIcon from '@/components/common/ButtonIcon';
 import { FormattedMessage } from 'react-intl';
 import Avatar from '@/components/common/avatar/Avatar';
+import { useUserContext } from '@/context/UserContext';
 import { UserMeta } from '.prisma/client';
 import { profileLinks } from '@/constants';
 import { getAvatarFromUserMeta } from '@/utils/profileFunctions';
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
+  const { checkUserMeta } = useUserContext();
   const [isOpen, setIsOpen] = useState(false);
   const handleProfileClick = () => {
     setIsOpen((prev) => !prev);
@@ -21,6 +23,12 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
   const linkClasses =
     'block no-wrap uppercase text-1 text-base dark-text-gray-2 hover-text-gray-1 dark-hover-text-gray-1';
   const avatarData: Avatar = getAvatarFromUserMeta(userMeta);
+  useEffect(() => {
+    if (isOpen) {
+      checkUserMeta();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
   return (
     <div className="relative" data-testid="profile-menu" style={{ zIndex: 10 }}>
       <ButtonIcon onClick={handleProfileClick} label={userMeta?.name}>
@@ -49,11 +57,11 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
           <div className="grid-row grid-row-2 pb-0-5">
             <div className="text-center">
               <div className="uppercase bold pb-0-5">Level</div>
-              <div>{userMeta.score}</div>
+              <div>{userMeta.level}</div>
             </div>
             <div className="text-center">
               <div className="uppercase bold pb-0-5">Score</div>
-              <div>12345</div>
+              <div>{userMeta.score}</div>
               {/* {userMeta.level} */}
             </div>
           </div>
