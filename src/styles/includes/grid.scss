@@ -1,0 +1,26 @@
+.grid {
+  width:100%;
+  .grid-row{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    @include for-tablet-landscape-up{
+      gap: 0 1rem;  
+    }
+  }
+  .grid-row-2{
+    @include for-tablet-landscape-up{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .grid-row-3{
+    @include for-tablet-landscape-up{
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  .grid-row-4{
+    @include for-tablet-landscape-up{
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }  
+}

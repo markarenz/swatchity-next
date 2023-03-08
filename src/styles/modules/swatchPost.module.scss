@@ -1,0 +1,136 @@
+@import '../config/colors';
+@import '../includes/darkMode';
+
+$swatch-border-color: $gray-2;
+
+.btnRow{
+  padding-right:3rem;
+  display:flex;
+  align-items: center;
+  justify-content: right;
+  padding-top: 0.5rem;
+}
+.swatchBody{
+  position:relative;
+  width:100%;
+  min-height:6rem;
+  // border:2px solid $swatch-border-color;
+  .corner{
+    position:absolute;
+    bottom:0;
+    right:0;
+    // bottom:-2px;
+    // right:-2px;
+    width:3rem;
+    height:3rem;
+    // .cornerFill{
+    //   fill: $gray-4;
+    // }
+    .cornerBG{
+      fill: $gray-1;
+      @include dark{
+        fill: $gray-6;
+      }      
+    }
+    // .cornerBorder{
+    //   fill: none;
+    // }
+  }
+}
+
+
+$pulseBG: 2.0s kf-pulse-bg infinite ease-in-out;
+$pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
+.skeletonSwatch{
+  opacity:0.5;
+  @include dark{
+    opacity:0.9;
+  }
+  .swatchBody{
+    animation: $pulseBG;
+    @include dark{
+      animation: $pulseBGDark;
+    }
+  }
+  .skeletonAvatar{
+    animation: $pulseBG;
+    @include dark{
+      animation: $pulseBGDark;
+    }
+
+  }
+  .skeletonTextLong{
+    display: inline-block;
+    width:12rem;
+    height:1rem;
+    animation: $pulseBG;
+    @include dark{
+      animation: $pulseBGDark;
+    }
+  }
+  .skeletonTextShort{
+    display: inline-block;
+    width:2rem;
+    height:1rem;
+    animation: $pulseBG;
+    @include dark{
+      animation: $pulseBGDark;
+    }
+  }
+  .cornerFill{
+    animation: 2.0s kf-pulse-fill infinite ease-in-out;
+    @include dark{
+      animation: 2.0s kf-pulse-fill-dark infinite ease-in-out;
+    }
+  }
+}
+
+@keyframes kf-pulse-bg {
+  0% {
+    background-color: $gray-3;
+    border-color: $gray-3;
+  }
+  50% {
+    background-color: $gray-2;
+    border-color: $gray-2;
+  }  
+  100% {
+    background-color: $gray-3;
+    border-color: $gray-3;
+  }  
+}
+@keyframes kf-pulse-bg-dark {
+  0% {
+    background-color: $gray-2;
+  }
+  50% {
+    background-color: $gray-4;
+  }  
+  100% {
+    background-color: $gray-2;
+  }  
+}
+
+@keyframes kf-pulse-fill {
+  0% {
+    fill: $gray-4;
+  }
+  50% {
+    fill: $gray-3;
+  }  
+  100% {
+    fill: $gray-4;
+  }  
+}
+
+@keyframes kf-pulse-fill-dark {
+  0% {
+    fill: $gray-3;
+  }
+  50% {
+    fill: $gray-5;
+  }  
+  100% {
+    fill: $gray-3;
+  }  
+}
