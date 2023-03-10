@@ -43,6 +43,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         prefLang: getDefaultLanguage(data.locale),
         bio: '', // TODO: randomize color dot emoji?
         role: 'user',
+        numSwatches: 0,
         avatarPattern: Math.floor(Math.random() * 20),
         avatarColor1r: color1.r,
         avatarColor1g: color1.g,
