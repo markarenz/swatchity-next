@@ -3,8 +3,7 @@ import Profile from '@/pages/profile';
 import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
-import mockUserMeta from '../__fixtures__/mockUserMeta';
-import { updateUserProfile } from '@/utils/apiFunctions';
+import mockUserMeta from '../../__fixtures__/mockUserMeta';
 
 jest.useFakeTimers();
 

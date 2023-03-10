@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../pageComponents/Layout';
 import { useIntl } from 'react-intl';
 import { UserMeta } from '@prisma/client';
-import { SwatchExt, Color, PageMeta, SubNavItem } from '@/types';
+import { SwatchExt, Color, PageMeta, SubNavItem, UserProfile } from '@/types';
 import { swatchesPerPage } from '@/constants';
 import SwatchPost from './SwatchPost';
 import SwatchSkeleton from './SwatchSkeleton';
@@ -15,7 +15,7 @@ import IconNew from '@/components/icons/IconNew';
 import { useRouter } from 'next/router';
 import IconRefresh from '@/components/icons/IconRefresh';
 import SearchColor from '@/components/common/SearchColor';
-import { initial } from 'lodash';
+import UserProfileBlock from '@/components/common/UserProfileBlock';
 
 type Props = {
   subNavData: SubNavItem[];
@@ -26,6 +26,7 @@ type Props = {
   str: string;
   titleKey: string;
   introKey: string;
+  userProfile?: UserProfile;
 };
 const SwatchFeed: React.FC<Props> = ({
   subNavData,
@@ -36,6 +37,7 @@ const SwatchFeed: React.FC<Props> = ({
   str,
   titleKey,
   introKey,
+  userProfile,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [swatches, setSwatches] = useState<SwatchExt[]>(initialSwatches);
@@ -52,8 +54,14 @@ const SwatchFeed: React.FC<Props> = ({
   const closeNewSwatch = () => {
     setIsNewSwatchOpen(false);
   };
-  const pageTitle = formatMessage({ id: titleKey });
-  const pageIntro = formatMessage({ id: introKey });
+  const pageTitle =
+    mode === 'profile'
+      ? formatMessage({ id: titleKey }, { name: `${userProfile?.name}` })
+      : formatMessage({ id: titleKey });
+  const pageIntro =
+    mode === 'profile'
+      ? formatMessage({ id: introKey }, { name: `${userProfile?.name}` })
+      : formatMessage({ id: introKey });
   const pageMeta: PageMeta = {
     title: pageTitle,
     metadesc: pageIntro,
@@ -141,12 +149,16 @@ const SwatchFeed: React.FC<Props> = ({
     <Layout pageMeta={pageMeta} subNavData={subNavData} headerButtons={headerButtons}>
       <div className="contained pt-1 pb-4" id="swatch-feed">
         <div className="flex items-center">
-          <div className="flex-grow">
-            <h1>{pageTitle}</h1>
-            <div className="mb-1 italic">
-              <p>{pageIntro}</p>
+          {mode === 'profile' && !!userProfile ? (
+            <UserProfileBlock userProfile={userProfile} />
+          ) : (
+            <div className="flex-grow">
+              <h1 className="text-3">{pageTitle}</h1>
+              <div className="mb-1 italic">
+                <p>{pageIntro}</p>
+              </div>
             </div>
-          </div>
+          )}
           {isSearch && (
             <div className="pl-2">
               <SearchColor color={searchColor} onChange={handleSearchColorChange} />

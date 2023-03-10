@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useUserContext } from '@/context/UserContext';
 import { ProfileFormFields } from '@/types';
 import Chip from '@/components/common/Chip';
-import { UserMeta } from '@prisma/client';
 import styles from '@/styles/modules/profileBioEdit.module.scss';
 import { bioLetters, getColorEmoji } from '@/utils/profileFunctions';
 

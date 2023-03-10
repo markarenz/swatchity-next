@@ -54,3 +54,23 @@ export type ProfileFormFields = {
 export interface SwatchExt extends Swatch {
   user: UserMeta;
 }
+
+export type UserProfile = {
+  name: string;
+  username: string;
+  numSwatches: number;
+  level: number;
+  score: number;
+  bio: string;
+  avatarPattern: number;
+  avatarColor1r: number;
+  avatarColor1g: number;
+  avatarColor1b: number;
+  avatarColor2r: number;
+  avatarColor2g: number;
+  avatarColor2b: number;
+  avatarColor3r: number;
+  avatarColor3g: number;
+  avatarColor3b: number;
+  numPosts?: number;
+};

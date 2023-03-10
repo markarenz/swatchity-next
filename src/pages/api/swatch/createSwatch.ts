@@ -6,6 +6,8 @@ import { authOptions } from '../auth/[...nextauth]';
 import { validateWithRules } from '@/utils/validationFunctions';
 import { createSwatchRules } from '@/validation/swatchRules';
 import { getColorScore } from '@/utils/colorFunctions';
+import { checkUserScore } from '@/utils/scoreFunctions';
+
 /*
  * PATH: api/swatch/createSwatch
  * PURPOSE: Create swatch record from input for logged in user
@@ -55,8 +57,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       user,
     };
     success = !!swatch?.id && !!swatchExt?.user?.name;
+    if (user) {
+      await checkUserScore(user?.id, prisma);
+    }
     return res.status(200).json({ success, swatch: swatchExt });
   } catch (err) {
+    console.error('OK OK', err);
     return res.status(500).json({ success: false, swatch: null });
   }
 }

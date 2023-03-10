@@ -26,13 +26,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const email = userMeta?.email;
       isLoggedIn = !!email && email === session?.user?.email;
     }
-    if (!!str || !['feed', 'liked', 'featured', 'mood', 'search'].includes(mode)) {
+    const modes = ['feed', 'liked', 'profile', 'featured', 'mood', 'search'];
+    if (!modes.includes(mode)) {
       throw 'invalid data';
     }
     const swatchData = await getSwatchesDB(session, mode, str, skip);
     const { swatches, likes } = swatchData;
     return res.status(200).json({ swatches, likes });
   } catch (err) {
+    console.error('READSWATCHES ERR', err);
     return res.status(500).json({ swatch: null, likes: [] });
   }
 }

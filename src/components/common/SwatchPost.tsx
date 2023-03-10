@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import TimeSince from './TimeSince';
 import Avatar from './avatar/Avatar';
 import { SwatchExt } from '@/types';
@@ -53,7 +54,9 @@ const SwatchPost: React.FC<Props> = ({ userID, swatch, isLiked, setUserLikes, se
     <div>
       <div className="flex gap-1 mb-1">
         <div className="w-4 h-4">
-          <Avatar avatarData={avatarData} />
+          <Link href={`/profile/${user?.id}`}>
+            <Avatar avatarData={avatarData} />
+          </Link>
         </div>
         <div className="flex-grow">
           <div className="pb-1">

@@ -1,7 +1,7 @@
 import { Session } from 'next-auth';
 import prisma from '@/lib/prismadb';
 import { UserMeta } from '@prisma/client';
-import { SwatchExt } from '@/types';
+import { SwatchExt, UserProfile } from '@/types';
 import { swatchesPerPage } from '@/constants';
 import { getColorScore } from './colorFunctions';
 
@@ -44,13 +44,40 @@ export const sortByLikeIdx = (swatchesRaw: SwatchExt[], likes: string[]) => {
   });
   return newSwatches;
 };
+
+export const getUserProfileDB = async (id: string) => {
+  const userMeta: UserProfile | null = await prisma.userMeta.findUnique({
+    where: {
+      id,
+    },
+  });
+  const userProfile: UserProfile = {
+    name: `${userMeta?.name}`,
+    username: `${userMeta?.username}`,
+    level: userMeta?.level || 1,
+    score: userMeta?.score || 0,
+    bio: `${userMeta?.bio}`,
+    numSwatches: userMeta?.numSwatches || 0,
+    avatarPattern: userMeta?.avatarPattern || 1,
+    avatarColor1r: userMeta?.avatarColor1r || 0,
+    avatarColor1g: userMeta?.avatarColor1g || 0,
+    avatarColor1b: userMeta?.avatarColor1b || 0,
+    avatarColor2r: userMeta?.avatarColor2r || 0,
+    avatarColor2g: userMeta?.avatarColor2g || 0,
+    avatarColor2b: userMeta?.avatarColor2b || 0,
+    avatarColor3r: userMeta?.avatarColor3r || 0,
+    avatarColor3g: userMeta?.avatarColor3g || 0,
+    avatarColor3b: userMeta?.avatarColor3b || 0,
+  };
+  return userProfile;
+};
+
 export const getSwatchesDB = async (
   session: Session | null,
   mode: string,
   str: string,
   skip: number,
 ) => {
-  // await updateSwatchColorScores();
   let swatches: SwatchExt[] | null = [];
   let likes: string[] = [];
   let isLoggedIn = false;
@@ -88,6 +115,22 @@ export const getSwatchesDB = async (
             gte: b - moe,
             lte: b + moe,
           },
+        },
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+      break;
+    case 'profile':
+      swatches = await prisma.swatch.findMany({
+        skip,
+        take: swatchesPerPage,
+        where: {
+          active: true,
+          userID: str,
         },
         include: {
           user: true,
