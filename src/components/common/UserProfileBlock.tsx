@@ -33,9 +33,9 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile }) => {
             <div className="grid-row grid-row-2">
               <div>
                 <div className="pb-1">
-                  <h1 className="text-3 flex items-center">
-                    {userProfile?.name}
-                    <div className="ml-1">
+                  <h1 className="text-3 word-break-all leading-1">
+                    {userProfile?.name}{' '}
+                    <span>
                       <ButtonIcon
                         onClick={() => {}}
                         label={formatMessage({ id: 'feed__profile_message' })}
@@ -44,7 +44,7 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile }) => {
                           <IconMessages filled={true} color="gray-6" colorDark="gray-2" />
                         </div>
                       </ButtonIcon>
-                    </div>
+                    </span>
                   </h1>
                 </div>
                 <div className="pb-1">
