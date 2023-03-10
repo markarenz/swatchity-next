@@ -79,6 +79,20 @@
 .pt-3{
   padding-top: 3rem;
 }
+.pt-4{
+  padding-top: 4rem;
+}
+.pt-5{
+  padding-top: 5rem;
+}
+.pt-6{
+  padding-top: 6rem;
+}
+.md-pt-6 {
+  @include for-tablet-portrait-up{
+    padding-top: 6rem;
+  }
+}
 
 .pb-0-5{
   padding-bottom: 0.5rem;
@@ -216,7 +230,9 @@
 .h-10{
   height:10rem;
 }
-
+.aspect-1{
+  aspect-ratio: 1;
+}
 
 .max-h-1{
   max-height: 1rem;

@@ -49,6 +49,7 @@
   "feed__search_intro": "We dug up some Swatches that are close to the color you picked. To search again, just click on the color to pick a new one.",
   "feed__profile_title": "Profile: {name}",
   "feed__profile_intro": "This is the Swatchity user profile for {name}. Join the colorful characters on Swatchity.com today!",
+  "feed__profile_message": "Message User",
 
   "search__search_color_btn": "Search Color",
   "search__no_results": "We found no results matchng your search color. Please try again.",
