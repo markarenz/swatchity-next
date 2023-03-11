@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useUserContext } from '@/context/UserContext';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import { mainNavData } from '@/constants';
@@ -13,6 +14,7 @@ import { Color } from '@/types';
 import { getRandomColor } from '@/utils/colorFunctions';
 
 const MainNav = () => {
+  const { userMeta } = useUserContext();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { formatMessage } = useIntl();
   const router = useRouter();
@@ -39,12 +41,6 @@ const MainNav = () => {
         return <IconHome {...iconProps} />;
     }
   };
-  // TODO: check for "new" items for alerts, messages, news
-  // TODO: reset badges when we visit these pages
-  // TODO: get latest news publish date on app load
-  // TODO: get unread alerts as userMeta
-  // TODO: get unread messages as userMeta
-
   const searchRedirect = (color: Color) => {
     setIsSearchOpen(false);
     const path = `/search/${color.r}-${color.g}-${color.b}`;
@@ -55,6 +51,34 @@ const MainNav = () => {
   };
   const handleSearchClose = () => {
     setIsSearchOpen(false);
+  };
+
+  const getItemHasDot = (icon: string) => {
+    let lastAlertsView = null;
+    let lastMessagesView = null;
+    if (typeof window !== 'undefined') {
+      lastAlertsView = localStorage.getItem('lastAlertView');
+      lastMessagesView = localStorage.getItem('lastMessagesView');
+    }
+    if (
+      icon === 'alerts' &&
+      !!userMeta?.lastAlert &&
+      (!lastAlertsView ||
+        (!!lastAlertsView &&
+          userMeta.lastAlert.toISOString() > new Date(lastAlertsView).toISOString()))
+    ) {
+      return true;
+    }
+    if (
+      icon === 'messages' &&
+      !!userMeta?.lastMessage &&
+      (!lastMessagesView ||
+        (!!lastMessagesView &&
+          userMeta.lastMessage.toISOString() > new Date(lastMessagesView).toISOString()))
+    ) {
+      return true;
+    }
+    return false;
   };
   return (
     <nav
@@ -73,7 +97,7 @@ const MainNav = () => {
                 aria-label={formatMessage({ id: item.labelKey })}
               >
                 <div className="w-3 h-3 px-0-5 py-0-5">
-                  {item.hasDot && (
+                  {getItemHasDot(item.linkIcon) && (
                     <div>
                       <div
                         className="h-1 w-1 round bg-yellow absolute top-0 right-0"

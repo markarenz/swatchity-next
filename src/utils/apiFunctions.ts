@@ -1,4 +1,4 @@
-import { ProfileFormFields, SwatchExt } from '@/types';
+import { ProfileFormFields, SwatchExt, ReplyExt } from '@/types';
 
 export const serializeDate = (dateObj: Date) => JSON.parse(JSON.stringify(dateObj));
 export const serializeSwatchDates = (swatches: SwatchExt[]) =>
@@ -10,6 +10,19 @@ export const serializeSwatchDates = (swatches: SwatchExt[]) =>
       ...s.user,
       createdAt: serializeDate(s.user.createdAt),
       modifiedAt: serializeDate(s.user.modifiedAt),
+      lastAlert: s.user.lastAlert ? serializeDate(s.user.lastAlert) : null,
+    },
+  }));
+export const serializeReplyDates = (replies: ReplyExt[]) =>
+  replies.map((r) => ({
+    ...r,
+    createdAt: serializeDate(r.createdAt),
+    modifiedAt: serializeDate(r.modifiedAt),
+    user: {
+      ...r.user,
+      createdAt: serializeDate(r.user.createdAt),
+      modifiedAt: serializeDate(r.user.modifiedAt),
+      lastAlert: r.user.lastAlert ? serializeDate(r.user.lastAlert) : null,
     },
   }));
 
@@ -139,4 +152,67 @@ export const setLikeSwatch = async (
   });
   const data = await response.json();
   return data.success ? data.swatch : null;
+};
+
+export const setLikeReply = async (
+  userID: string,
+  authorID: string,
+  replyID: string,
+  value: boolean,
+) => {
+  const body = {
+    userID,
+    authorID,
+    replyID,
+    value,
+  };
+  const response = await fetch('/api/reply/setLikeReply', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success;
+};
+
+export const getReplies = async (userID: string, swatchID: string, skip: number) => {
+  const body = {
+    userID,
+    swatchID,
+    skip,
+  };
+  const response = await fetch('/api/reply/readReplies', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return {
+    replies: data.replies || [],
+    replyLikes: data.replyLikes || [],
+  };
+};
+
+export const createReply = async (
+  email: string,
+  swatchID: string,
+  colorR: number,
+  colorG: number,
+  colorB: number,
+  link: string,
+) => {
+  const body = {
+    email,
+    swatchID,
+    colorR,
+    colorG,
+    colorB,
+    link,
+  };
+  const response = await fetch('/api/reply/createReply', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success
+    ? { reply: data.reply, numReplies: data.numReplies }
+    : { reply: null, numReplies: 0 };
 };

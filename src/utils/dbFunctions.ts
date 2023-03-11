@@ -236,3 +236,63 @@ export const getSwatchesDB = async (
     likes,
   };
 };
+
+export const getSwatchThreadDB = async (session: Session | null, id: string, skip: number) => {
+  let userMeta: UserMeta | null = null;
+  let swatchLikes: string[] = [];
+  let isLoggedIn = false;
+  let replyLikes: string[] = [];
+  if (!!session?.user) {
+    userMeta = await prisma.userMeta.findUnique({
+      where: {
+        email: `${session?.user?.email}`,
+      },
+    });
+    const email = userMeta?.email;
+    isLoggedIn = !!email && email === session?.user?.email;
+  }
+  const swatch = await prisma.swatch.findUnique({
+    where: { id },
+    include: {
+      user: true,
+    },
+  });
+  const likedSwatches = await prisma.swatchLike.findMany({
+    where: {
+      swatchID: id,
+      userID: userMeta?.id,
+    },
+  });
+  swatchLikes = likedSwatches.map((ls) => ls.swatchID);
+
+  const replies = await prisma.reply.findMany({
+    skip,
+    take: swatchesPerPage,
+    where: {
+      swatchID: id,
+      active: true,
+    },
+    include: {
+      user: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  if (isLoggedIn && replies.length > 0) {
+    const replyIDs = replies?.map((s) => s.id);
+    const likedReplies = await prisma.swatchLike.findMany({
+      where: {
+        swatchID: { in: replyIDs },
+        userID: userMeta?.id,
+      },
+    });
+    replyLikes = likedReplies.map((lr) => lr.swatchID);
+  }
+  return {
+    swatch,
+    swatchLikes,
+    replies,
+    replyLikes,
+  };
+};

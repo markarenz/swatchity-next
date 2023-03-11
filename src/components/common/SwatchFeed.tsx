@@ -67,12 +67,12 @@ const SwatchFeed: React.FC<Props> = ({
     metadesc: pageIntro,
   };
   const createNewSwatch = async (color: Color) => {
+    closeNewSwatch();
     if (userMeta && userMeta.email) {
       const newSwatch = await createSwatch(userMeta.email, color.r, color.g, color.b);
       if (newSwatch) {
         setSwatches([newSwatch, ...swatches]);
       }
-      closeNewSwatch();
       // if we are not on the home page, redirect to /
       if (router.pathname !== '/') {
         router.push('/');

@@ -41,6 +41,11 @@
 .flex-col{
   flex-direction: column;
 }
+.sm-flex-col{
+  @include for-phone-only{
+    flex-direction: column;
+  }
+}
 .flex-wrap{
   flex-wrap: wrap;
 }

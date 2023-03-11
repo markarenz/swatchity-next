@@ -11,7 +11,18 @@ export const getUserLevel = (score: number): number => {
   });
   return level > 1 ? level : 1;
 };
-export const checkUserScore = async (userID: string, prisma: PrismaClient) => {
+type UserMetaUpdateData = {
+  score: number;
+  numSwatches: number;
+  level?: number;
+  lastAlert?: Date;
+};
+
+export const checkUserScore = async (
+  userID: string,
+  prisma: PrismaClient,
+  updateLastAlert = false,
+) => {
   const numPosts = await prisma.swatch.count({
     where: {
       userID,
@@ -22,7 +33,12 @@ export const checkUserScore = async (userID: string, prisma: PrismaClient) => {
       authorID: userID,
     },
   });
-  const score = numPosts + numLikes * 5;
+  const numReplyLikes = await prisma.replyLike.count({
+    where: {
+      authorID: userID,
+    },
+  });
+  const score = numPosts + numLikes * 5 + numReplyLikes * 3;
   // did use level up?
   const userMeta = await prisma.userMeta.findUnique({
     where: {
@@ -31,7 +47,7 @@ export const checkUserScore = async (userID: string, prisma: PrismaClient) => {
   });
   if (userMeta) {
     const level = getUserLevel(score);
-    const data =
+    const data: UserMetaUpdateData =
       userMeta?.level !== level
         ? {
             score,
@@ -42,6 +58,9 @@ export const checkUserScore = async (userID: string, prisma: PrismaClient) => {
             score,
             numSwatches: numPosts,
           };
+    if (updateLastAlert) {
+      data.lastAlert = new Date();
+    }
     await prisma.userMeta.update({
       where: {
         id: userID,

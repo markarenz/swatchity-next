@@ -9,15 +9,24 @@ import IconReply from '../icons/IconReply';
 import { getCornerColor, getRGBfromColorObj } from '@/utils/colorFunctions';
 import { setLikeSwatch } from '@/utils/apiFunctions';
 import { useIntl } from 'react-intl';
+
 type Props = {
   swatch: SwatchExt;
   userID?: string;
   isLiked: boolean;
   setUserLikes: Function;
   setSwatches: Function;
+  isFeatured?: boolean;
 };
-const SwatchPost: React.FC<Props> = ({ userID, swatch, isLiked, setUserLikes, setSwatches }) => {
-  const { colorR, colorG, colorB, user, likes, replies } = swatch;
+const SwatchPost: React.FC<Props> = ({
+  userID,
+  swatch,
+  isLiked,
+  setUserLikes,
+  setSwatches,
+  isFeatured,
+}) => {
+  const { colorR, colorG, colorB, user, likes, replies, id } = swatch;
   const bgColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
   const cornerColor = getRGBfromColorObj(getCornerColor({ r: colorR, g: colorG, b: colorB }));
   const { formatMessage } = useIntl();
@@ -50,6 +59,21 @@ const SwatchPost: React.FC<Props> = ({ userID, swatch, isLiked, setUserLikes, se
       );
     }
   };
+  const SwatchContent = () => (
+    <div
+      className={`${styles.swatchBody} ${isFeatured && styles.featured}`}
+      style={{ backgroundColor: bgColor }}
+    >
+      <div className={styles.corner}>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 40 40">
+          <g strokeWidth="0" paintOrder="stroke markers fill">
+            <path className={styles.cornerBG} d="M40 40H0L40 0z"></path>
+            <path d="M0 40V0h40z" style={{ fill: cornerColor }} />
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
   return (
     <div>
       <div className="flex gap-1 mb-1">
@@ -64,37 +88,45 @@ const SwatchPost: React.FC<Props> = ({ userID, swatch, isLiked, setUserLikes, se
             <TimeSince inputDate={swatch.createdAt} />
           </div>
           <div>
-            <div className={styles.swatchBody} style={{ backgroundColor: bgColor }}>
-              <div className={styles.corner}>
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 40 40">
-                  <g strokeWidth="0" paintOrder="stroke markers fill">
-                    <path className={styles.cornerBG} d="M40 40H0L40 0z"></path>
-                    <path d="M0 40V0h40z" style={{ fill: cornerColor }} />
-                    {/* <path className={styles.cornerFill} d="M2 35L35 2H2z" /> */}
-                  </g>
-                </svg>
-              </div>
-            </div>
+            {!isFeatured ? (
+              <Link href={`/swatch/${id}`} aria-label={`Swatch: ${colorR}, ${colorG}, ${colorB}`}>
+                <SwatchContent />
+              </Link>
+            ) : (
+              <SwatchContent />
+            )}
           </div>
           <div className={styles.btnRow}>
+            {!isFeatured && (
+              <div>
+                <Link href={`/swatch/${id}`} aria-label={formatMessage({ id: 'swatch__thread' })}>
+                  <div className="w-3 h-3 py-1 px-1">
+                    <IconThread filled={true} color="gray-6" colorDark="gray-2" />
+                  </div>
+                </Link>
+              </div>
+            )}
             <div>
-              <button aria-label={formatMessage({ id: 'swatch__thread' })} onClick={() => {}}>
-                <div className="w-3 h-3 py-1 px-1">
-                  <IconThread filled={true} color="gray-6" colorDark="gray-2" />
+              {!isFeatured && (
+                <button
+                  aria-label={formatMessage({ id: 'swatch__reply' })}
+                  onClick={() => {}}
+                  className="flex items-center"
+                >
+                  <div className="w-3 h-3 py-1 px-1">
+                    <IconReply filled={false} color="gray-6" colorDark="gray-2" />
+                  </div>
+                  <span className="text-gray-2">{replies}</span>
+                </button>
+              )}
+              {isFeatured && (
+                <div className="flex items-center">
+                  <div className="w-3 h-3 py-1 px-1">
+                    <IconReply filled={false} color="gray-6" colorDark="gray-2" />
+                  </div>
+                  <span className="text-gray-2">{replies}</span>
                 </div>
-              </button>
-            </div>
-            <div>
-              <button
-                aria-label={formatMessage({ id: 'swatch__reply' })}
-                onClick={() => {}}
-                className="flex items-center"
-              >
-                <div className="w-3 h-3 py-1 px-1">
-                  <IconReply filled={false} color="gray-6" colorDark="gray-2" />
-                </div>
-                <span className="text-gray-2">{replies}</span>
-              </button>
+              )}
             </div>
             {!!userID && (
               <div>
