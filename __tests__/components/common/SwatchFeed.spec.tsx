@@ -79,8 +79,8 @@ const mockProps = {
   userMeta: mockUserData,
   mode: 'feed',
   str: '',
-  titleKey: 'feed__home_title',
-  introKey: 'feed__home_intro',
+  titleKey: 'feed__home__title',
+  introKey: 'feed__home__intro',
 };
 beforeEach(() => {
   jest.resetModules();
@@ -294,6 +294,17 @@ describe('SwatchFeed', () => {
       render(
         <IntlProvider messages={messages} locale="en" defaultLocale="en">
           <SwatchFeed {...mockProps} mode="liked" userMeta={null} />
+        </IntlProvider>,
+      );
+    });
+    expect(screen).toMatchSnapshot();
+  });
+
+  it('displays profile feed', async () => {
+    act(() => {
+      render(
+        <IntlProvider messages={messages} locale="en" defaultLocale="en">
+          <SwatchFeed {...mockProps} mode="profile" str="" userProfile={mockUserData} />
         </IntlProvider>,
       );
     });

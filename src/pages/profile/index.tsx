@@ -69,7 +69,7 @@ export default function Profile() {
     metadesc: formatMessage({ id: 'page_meta__profile__metadesc' }),
   };
   const defaultColor = { r: 150, g: 150, b: 150 };
-  const isPatternValid = isPatternValidForUser(formData?.avatarPattern || 0, userMeta?.level || 1);
+  const isPatternValid = isPatternValidForUser(formData?.avatarPattern, userMeta?.level);
   const isValid = !formData
     ? false
     : isDirty && isPatternValid && validateWithRules(formData, profileEditRules);

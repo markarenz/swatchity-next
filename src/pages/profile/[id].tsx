@@ -20,8 +20,8 @@ const AuthorPage: NextPage<Props> = ({ initialSwatches, initialLikes, userProfil
   const subNavData = subNavLinksFeed;
   return (
     <SwatchFeed
-      titleKey="feed__profile_title"
-      introKey="feed__profile_intro"
+      titleKey="feed__profile__title"
+      introKey="feed__profile__intro"
       subNavData={subNavData}
       userMeta={userMeta}
       initialSwatches={initialSwatches}

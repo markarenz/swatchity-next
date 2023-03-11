@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Profile Page renders page - no userMeta 1`] = `
+exports[`UserProfileBioDisplay handles message flow - cancel 1`] = `
 {
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -55,7 +55,7 @@ exports[`Profile Page renders page - no userMeta 1`] = `
 }
 `;
 
-exports[`Profile Page renders page 1`] = `
+exports[`UserProfileBioDisplay handles message flow - complete 1`] = `
 {
   "debug": [Function],
   "findAllByAltText": [Function],

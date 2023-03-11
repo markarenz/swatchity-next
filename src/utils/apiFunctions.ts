@@ -110,7 +110,6 @@ export const getSwatches = async (userID: string, mode: string, str: string, ski
     str,
     skip,
   };
-  console.log('apiƒ getSwatches', JSON.stringify(body));
   const response = await fetch('/api/swatch/readSwatches', {
     method: 'POST',
     body: JSON.stringify(body),

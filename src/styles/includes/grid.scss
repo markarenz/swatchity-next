@@ -19,18 +19,10 @@
     }
   }
   .grid-row-4{
-    @include for-tablet-portrait-up{
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-  }  
-  &.grid-sm{
-    .grid-row-2{
+    @include for-phone-only{
       grid-template-columns: 1fr 1fr;
     }
-    .grid-row-3{
-      grid-template-columns: 1fr 1fr 1fr;
-    }  
-    .grid-row-4{
+    @include for-tablet-portrait-up{
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }

@@ -58,7 +58,18 @@ export const getAvatarFromUserMeta = (userMeta: UserMeta): Avatar => ({
   avatarColor3b: userMeta?.avatarColor3b || 150,
 });
 
-export const isPatternValidForUser = (idx: number, level: number): boolean => {
+export const isPatternValidForUser = (
+  idx: number | null | undefined,
+  level: number | null | undefined,
+): boolean => {
+  if (
+    idx === null ||
+    typeof idx === 'undefined' ||
+    level === null ||
+    typeof level === 'undefined'
+  ) {
+    return false;
+  }
   if (idx > 30 && level < 7) {
     return false;
   }

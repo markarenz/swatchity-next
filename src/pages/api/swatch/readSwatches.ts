@@ -34,7 +34,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { swatches, likes } = swatchData;
     return res.status(200).json({ swatches, likes });
   } catch (err) {
-    console.error('READSWATCHES ERR', err);
     return res.status(500).json({ swatch: null, likes: [] });
   }
 }

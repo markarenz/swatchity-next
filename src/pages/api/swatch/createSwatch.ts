@@ -62,7 +62,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     return res.status(200).json({ success, swatch: swatchExt });
   } catch (err) {
-    console.error('OK OK', err);
     return res.status(500).json({ success: false, swatch: null });
   }
 }

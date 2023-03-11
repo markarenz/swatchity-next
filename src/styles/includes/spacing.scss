@@ -88,11 +88,7 @@
 .pt-6{
   padding-top: 6rem;
 }
-.md-pt-6 {
-  @include for-tablet-portrait-up{
-    padding-top: 6rem;
-  }
-}
+
 
 .pb-0-5{
   padding-bottom: 0.5rem;
@@ -190,6 +186,11 @@
 }
 .w-10{
   width:10rem;
+  &.sm-wh-8 {
+    @include for-phone-only {
+      width:8rem;
+    }
+  }
 }
 
 .h-full{
@@ -229,6 +230,11 @@
 }
 .h-10{
   height:10rem;
+  &.sm-wh-8 {
+    @include for-phone-only {
+      height:8rem;
+    }
+  }
 }
 .aspect-1{
   aspect-ratio: 1;

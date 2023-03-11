@@ -23,8 +23,8 @@ const Search: NextPage<Props> = ({ initialSwatches, initialLikes }) => {
   const subNavData = subNavLinksFeed;
   return (
     <SwatchFeed
-      titleKey="feed__search_title"
-      introKey="feed__search_intro"
+      titleKey="feed__search__title"
+      introKey="feed__search__intro"
       subNavData={subNavData}
       userMeta={userMeta}
       initialSwatches={initialSwatches}

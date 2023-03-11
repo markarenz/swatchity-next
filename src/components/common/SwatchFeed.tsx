@@ -150,7 +150,7 @@ const SwatchFeed: React.FC<Props> = ({
       <div className="contained pt-1 pb-4" id="swatch-feed">
         <div className="flex items-center">
           {mode === 'profile' && !!userProfile ? (
-            <UserProfileBlock userProfile={userProfile} />
+            <UserProfileBlock userProfile={userProfile} mode={mode} />
           ) : (
             <div className="flex-grow">
               <h1 className="text-3">{pageTitle}</h1>

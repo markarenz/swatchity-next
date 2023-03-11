@@ -54,7 +54,7 @@ const SwatchPost: React.FC<Props> = ({ userID, swatch, isLiked, setUserLikes, se
     <div>
       <div className="flex gap-1 mb-1">
         <div className="w-4 h-4">
-          <Link href={`/profile/${user?.id}`}>
+          <Link href={`/profile/${user?.id}`} aria-label={`Profile for ${user?.name}`}>
             <Avatar avatarData={avatarData} />
           </Link>
         </div>

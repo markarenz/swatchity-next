@@ -56,7 +56,9 @@ export interface SwatchExt extends Swatch {
 }
 
 export type UserProfile = {
+  id: string;
   name: string;
+  active: boolean;
   username: string;
   numSwatches: number;
   level: number;

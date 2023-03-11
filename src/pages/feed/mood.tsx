@@ -18,8 +18,8 @@ const Mood: NextPage<Props> = ({ initialSwatches, initialLikes }) => {
   const subNavData = subNavLinksFeed;
   return (
     <SwatchFeed
-      titleKey="feed__mood_title"
-      introKey="feed__mood_intro"
+      titleKey="feed__mood__title"
+      introKey="feed__mood__intro"
       subNavData={subNavData}
       userMeta={userMeta}
       initialSwatches={initialSwatches}
