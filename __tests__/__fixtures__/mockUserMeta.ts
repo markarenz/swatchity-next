@@ -8,6 +8,8 @@ const mockUserData: UserMeta = {
   level: 1,
   score: 0,
   prefLang: 'en',
+  lastAlert: null,
+  lastMessage: null,
   numSwatches: 0,
   bio: 'ybr',
   avatarPattern: 0,

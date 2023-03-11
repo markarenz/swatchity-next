@@ -91,3 +91,5 @@ export const perfLangOptions = [
 ];
 
 export const swatchesPerPage = 3;
+
+export const repliesPerPage = 3;

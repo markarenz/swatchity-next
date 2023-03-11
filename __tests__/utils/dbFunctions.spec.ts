@@ -3,11 +3,13 @@ import {
   sortByLikeIdx,
   getUserProfileDB,
   getUserProfileFromUserMeta,
+  getSwatchThreadDB,
 } from '@/utils/dbFunctions';
 import { Session } from 'next-auth';
 import mockSwatch from '../__fixtures__/mockSwatch';
 import mockUserData from '../__fixtures__/mockUserMeta';
 import mockUserProfile from '../__fixtures__/mockUserProfile';
+import { mockReplyExt } from '../__fixtures__/mockReply';
 import { SwatchExt } from '@/types';
 
 const mockSwatchExt = {
@@ -27,9 +29,18 @@ jest.mock('@/lib/prismadb', () => ({
       { ...mockSwatchExt, id: '11', colorScore: 10 },
       { ...mockSwatchExt, id: '12', colorScore: 12 },
     ]),
+    findUnique: jest.fn(() => ({
+      ...mockSwatchExt,
+    })),
   },
   swatchLike: {
     findMany: jest.fn(() => ['abcd1234']),
+  },
+  reply: {
+    findMany: jest.fn(() => [mockReplyExt]),
+  },
+  replyLike: {
+    findMany: jest.fn(() => [mockReplyExt.id]),
   },
 }));
 
@@ -114,5 +125,16 @@ describe('getUserProfileFromUserMeta', () => {
       avatarColor3g: 0,
       avatarColor3b: 0,
     });
+  });
+});
+
+describe('getSwatchThreadDB', () => {
+  const mockSession: Session = {
+    expires: new Date(Date.now() + 2 * 86400).toISOString(),
+    user: { name: 'test', email: 'test-email@domain.com' },
+  };
+  it('returns data for swatch thread', async () => {
+    // session, id, skip
+    const result = await getSwatchThreadDB(mockSession, mockSwatch.id, 0);
   });
 });

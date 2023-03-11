@@ -1,4 +1,5 @@
-import { UserMeta, Swatch } from '@prisma/client';
+import { UserMeta, Swatch, Reply } from '@prisma/client';
+
 export type PageMeta = {
   title: string;
   metadesc: string;
@@ -52,6 +53,10 @@ export type ProfileFormFields = {
 };
 
 export interface SwatchExt extends Swatch {
+  user: UserMeta;
+}
+
+export interface ReplyExt extends Reply {
   user: UserMeta;
 }
 

@@ -113,7 +113,11 @@
   "swatch__like": "Like",
   "swatch__reply": "Reply",
   "swatch__thread": "Thread",
+  
+  "reply__like": "Like",
 
+  "swatch__thread__no_replies": "Be the first to reply to this swatch!",
+  
   "user_level_up": "Congrats! You have leveled up! Keep posting.",
 
   "footer__privacy_polciy": "Privacy Policy",

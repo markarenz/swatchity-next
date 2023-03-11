@@ -10,10 +10,17 @@ import {
   createSwatch,
   getSwatches,
   setLikeSwatch,
+  createReply,
+  setLikeReply,
+  getReplies,
+  serializeSwatchDates,
+  serializeReplyDates,
 } from '../../src/utils/apiFunctions';
 import fetchMock from 'jest-fetch-mock';
 import mockSwatch from '../__fixtures__/mockSwatch';
 import mockUserData from '../__fixtures__/mockUserMeta';
+import { mockReplyExt } from '../__fixtures__/mockReply';
+import { ServerDescriptionChangedEvent } from 'mongodb';
 
 const mockSwatchExt = {
   ...mockSwatch,
@@ -21,12 +28,6 @@ const mockSwatchExt = {
     ...mockUserData,
   },
 };
-
-// global.fetch = jest.fn(() =>
-//   Promise.resolve({
-//     json: () => Promise.resolve({ test: 100 }),
-//   }),
-// ) as jest.Mock;
 
 jest.mock('next-auth/next', () => {
   getServerSession: () => {
@@ -44,18 +45,42 @@ beforeEach(() => {
 });
 
 describe('serializeDate', () => {
-  // global.fetch = jest.fn(() => ({
-  //   data: {
-  //     success: true,
-  //     userMeta: {},
-  //   },
-  // }));
   it('returns serialized date', () => {
     const result = serializeDate(new Date());
     expect(result).toEqual('2023-02-10T00:00:00.000Z');
   });
 });
 
+describe('serializeSwatchDates', () => {
+  it('returns swatch object with null lastAlert', () => {
+    const result = serializeSwatchDates([mockSwatchExt]);
+    expect(result[0].user.lastAlert).toBeNull();
+  });
+  it('returns swatch object with lastAlert when user has lastAlert', () => {
+    const result = serializeSwatchDates([
+      {
+        ...mockSwatchExt,
+        user: { ...mockSwatchExt.user, lastAlert: new Date(mockSwatchExt.createdAt) },
+      },
+    ]);
+    expect(result[0].user.lastAlert).not.toBeNull();
+  });
+});
+describe('serializeReplyDates', () => {
+  it('returns reply object with null lastAlert', () => {
+    const result = serializeReplyDates([mockReplyExt]);
+    expect(result[0].user.lastAlert).toBeNull();
+  });
+  it('returns reply object with lastAlert when user has lastAlert', () => {
+    const result = serializeReplyDates([
+      {
+        ...mockReplyExt,
+        user: { ...mockReplyExt.user, lastAlert: new Date(mockReplyExt.createdAt) },
+      },
+    ]);
+    expect(result[0].user.lastAlert).not.toBeNull();
+  });
+});
 describe('getDefaultLanguage', () => {
   it('returns language from locale', () => {
     const result = getDefaultLanguage('fr-FR');
@@ -244,5 +269,90 @@ describe('setLikeSwatch', () => {
     fetchMock.mockOnce(JSON.stringify(mockResponse));
     const result = await setLikeSwatch('1234', 'abcdefg', '10', true);
     expect(result).toBeNull();
+  });
+});
+
+describe('createReply', () => {
+  it('creates Reply with info provided - success', async () => {
+    const mockResponse = {
+      success: true,
+      reply: mockReplyExt,
+      numReplies: 1,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createReply(
+      'test-email@domain.com',
+      mockSwatch.id,
+      123,
+      200,
+      17,
+      `/swatch/${mockSwatch.id}`,
+    );
+    expect(result.reply.id).toEqual('rst2457');
+  });
+  it('creates reply with info provided - fail', async () => {
+    const mockResponse = {
+      success: false,
+      reply: null,
+      numReplies: 0,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createReply(
+      'test-email@domain.com',
+      mockSwatch.id,
+      123,
+      200,
+      17,
+      `/swatch/${mockSwatch.id}`,
+    );
+    expect(result.reply).toBeNull();
+  });
+});
+
+describe('setLikeReply', () => {
+  it('sets like - not liked', async () => {
+    const mockResponse = {
+      success: true,
+      reply: null,
+      numReplies: 0,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await setLikeReply(mockUserData.id, mockUserData.id, mockReplyExt.id, false);
+    expect(result).toBe(true);
+  });
+  it('sets like - liked', async () => {
+    const mockResponse = {
+      success: true,
+      reply: null,
+      numReplies: 0,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await setLikeReply(mockUserData.id, mockUserData.id, mockReplyExt.id, true);
+    expect(result).toBe(true);
+  });
+});
+
+describe('getReplies', () => {
+  it('returns replies', async () => {
+    const mockResponse = {
+      success: true,
+      replies: [mockReplyExt],
+      replyLikes: [mockReplyExt.id],
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getReplies(mockUserData.id, mockSwatchExt.id, 0);
+
+    expect(result?.replies.length).toBe(1);
+  });
+  it('returns empty arrays on error', async () => {
+    const mockResponse = {
+      success: true,
+      replies: null,
+      replyLikes: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getReplies(mockUserData.id, mockSwatchExt.id, 0);
+
+    expect(result?.replies.length).toBe(0);
   });
 });

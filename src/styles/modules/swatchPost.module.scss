@@ -9,32 +9,35 @@ $swatch-border-color: $gray-2;
   align-items: center;
   justify-content: right;
   padding-top: 0.5rem;
+  &.btnRowReply{
+    padding-right:0;
+  }
 }
 .swatchBody{
   position:relative;
   width:100%;
   min-height:6rem;
+  &.featured{
+    min-height:16rem;
+  }
   // border:2px solid $swatch-border-color;
   .corner{
     position:absolute;
     bottom:0;
     right:0;
-    // bottom:-2px;
-    // right:-2px;
     width:3rem;
     height:3rem;
-    // .cornerFill{
-    //   fill: $gray-4;
-    // }
     .cornerBG{
       fill: $gray-1;
       @include dark{
         fill: $gray-6;
       }      
     }
-    // .cornerBorder{
-    //   fill: none;
-    // }
+    &.cornerReply{
+      right:unset;
+      left:0;
+      transform: scaleX(-1);
+    }
   }
 }
 
@@ -42,6 +45,7 @@ $swatch-border-color: $gray-2;
 $pulseBG: 2.0s kf-pulse-bg infinite ease-in-out;
 $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
 .skeletonSwatch{
+  margin-bottom: 2rem;
   opacity:0.5;
   @include dark{
     opacity:0.9;

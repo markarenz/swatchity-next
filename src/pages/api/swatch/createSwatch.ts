@@ -46,19 +46,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         modifiedAt: new Date(),
       },
     });
-    // Since we do not receive an extended Swatch with userMeta, we must add that data
-    const user = await prisma.userMeta.findUnique({
-      where: {
-        email,
-      },
-    });
     const swatchExt = {
       ...swatch,
-      user,
+      user: userMeta,
     };
     success = !!swatch?.id && !!swatchExt?.user?.name;
-    if (user) {
-      await checkUserScore(user?.id, prisma);
+    if (userMeta) {
+      await checkUserScore(userMeta?.id, prisma);
     }
     return res.status(200).json({ success, swatch: swatchExt });
   } catch (err) {

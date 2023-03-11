@@ -62,10 +62,10 @@ model VerificationToken {
 // SWATCHES
 
 model UserMeta {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  username      String   @unique
-  email         String   @unique
+  username      String    @unique
+  email         String    @unique
   level         Int
   score         Int
   numSwatches   Int
@@ -84,6 +84,8 @@ model UserMeta {
   avatarColor3b Int
   darkMode      String
   active        Boolean
+  lastAlert     DateTime?
+  lastMessage   DateTime?
   createdAt     DateTime
   modifiedAt    DateTime
   Swatch        Swatch[]
@@ -172,4 +174,15 @@ model Post {
   active      Boolean
   createdAt   DateTime
   modifiedAt  DateTime
+}
+
+model Alert {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  alertType  String
+  userID     String
+  link       String
+  noun       String
+  active     Boolean
+  createdAt  DateTime
+  modifiedAt DateTime
 }

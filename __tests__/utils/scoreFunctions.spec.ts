@@ -24,11 +24,14 @@ describe('checkUserScore', () => {
       })),
       update: jest.fn(),
     },
+    replyLike: {
+      count: jest.fn(() => 1),
+    },
   };
   it('returns user score and updates the value - level same', async () => {
     //@ts-ignore
     const resultScore = await checkUserScore(mockUserData.id, mockPrisma);
-    expect(resultScore).toEqual(6);
+    expect(resultScore).toEqual(9);
   });
   it('returns user score and updates the value - level change', async () => {
     mockPrisma.swatchLike = {
@@ -36,6 +39,15 @@ describe('checkUserScore', () => {
     };
     //@ts-ignore
     const resultScore = await checkUserScore(mockUserData.id, mockPrisma);
-    expect(resultScore).toEqual(151);
+    expect(resultScore).toEqual(154);
+  });
+
+  it('returns user score and updates the value - update last alert', async () => {
+    mockPrisma.swatchLike = {
+      count: jest.fn(() => 30),
+    };
+    //@ts-ignore
+    const resultScore = await checkUserScore(mockUserData.id, mockPrisma, true);
+    expect(resultScore).toEqual(154);
   });
 });

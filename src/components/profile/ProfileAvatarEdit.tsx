@@ -94,8 +94,8 @@ const ProfileAvatarEdit: React.FC<Props> = ({
           <FormattedMessage id="profile_edit__labels__avatar" />
         </span>
       </label>
-      <div id="profile-avatar-edit" className="flex justify-between items-center">
-        <div className="flex items-center">
+      <div id="profile-avatar-edit" className="flex justify-between items-center sm-flex-col">
+        <div className="flex items-center py-1">
           <div className="mr-0-5">
             <ButtonIcon
               label={formatMessage({ id: 'icon_left' })}
@@ -120,24 +120,30 @@ const ProfileAvatarEdit: React.FC<Props> = ({
             </ButtonIcon>
           </div>
         </div>
-        <ProfileColorEdit
-          color={color1}
-          handleClick={() => openColorPicker(1)}
-          isSelected={selectedColorIdx === 1}
-          idx={1}
-        />
-        <ProfileColorEdit
-          color={color2}
-          handleClick={() => openColorPicker(2)}
-          isSelected={selectedColorIdx === 2}
-          idx={2}
-        />
-        <ProfileColorEdit
-          color={color3}
-          handleClick={() => openColorPicker(3)}
-          isSelected={selectedColorIdx === 3}
-          idx={3}
-        />
+        <div className="py-1">
+          <ProfileColorEdit
+            color={color1}
+            handleClick={() => openColorPicker(1)}
+            isSelected={selectedColorIdx === 1}
+            idx={1}
+          />
+        </div>
+        <div className="py-1">
+          <ProfileColorEdit
+            color={color2}
+            handleClick={() => openColorPicker(2)}
+            isSelected={selectedColorIdx === 2}
+            idx={2}
+          />
+        </div>
+        <div className="py-1">
+          <ProfileColorEdit
+            color={color3}
+            handleClick={() => openColorPicker(3)}
+            isSelected={selectedColorIdx === 3}
+            idx={3}
+          />
+        </div>
       </div>
       <div className="italic py-1 leading-1-5">
         <FormattedMessage id="profile_edit__avatar__explainer" />

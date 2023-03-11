@@ -4,18 +4,22 @@ import messages from '@/locale/en-US.json';
 import MainNav from '@/components/pageComponents/MainNav';
 import mockUserData from '../../__fixtures__/mockUserMeta';
 
+const mockuserDataAlertsMessages = {
+  ...mockUserData,
+  lastAlert: new Date('2023-02-12T21:42:46.580+00:00'),
+  lastMessage: new Date('2023-02-12T21:42:46.580+00:00'),
+};
 jest.mock('@/context/UserContext', () => ({
   useUserContext: jest.fn(() => ({
-    userMeta: mockUserData,
+    userMeta: mockuserDataAlertsMessages,
   })),
 }));
 
 jest.mock('@/context/UserContext', () => ({
   useUserContext: jest
     .fn()
-    .mockImplementation(() => ({ userMeta: mockUserData }))
+    .mockImplementation(() => ({ userMeta: mockuserDataAlertsMessages }))
     .mockImplementationOnce(() => ({ userMeta: null })),
-  // .mockImplementationOnce(() => ({ userMeta: mockUserData })),
 }));
 
 jest.mock('next/router', () => ({
@@ -52,6 +56,34 @@ const mocks = {
 };
 
 describe('MainNav', () => {
+  it('renders component with unread messages and alerts', async () => {
+    act(() => {
+      global.localStorage.getItem;
+      Storage.prototype.getItem = jest.fn().mockReturnValue(null);
+      render(
+        <IntlProvider messages={messages} locale="en" defaultLocale="en">
+          <MainNav />
+        </IntlProvider>,
+      );
+    });
+    const element = await screen.findByTestId('main_nav__search');
+    expect(element).toBeInTheDocument();
+  });
+
+  it('renders component with unread messages and alerts - local values exist', async () => {
+    act(() => {
+      global.localStorage.getItem;
+      Storage.prototype.getItem = jest.fn().mockReturnValue('2023-02-10T21:42:46.580+00:00');
+      render(
+        <IntlProvider messages={messages} locale="en" defaultLocale="en">
+          <MainNav />
+        </IntlProvider>,
+      );
+    });
+    const element = await screen.findByTestId('main_nav__search');
+    expect(element).toBeInTheDocument();
+  });
+
   it('renders component', async () => {
     act(() => {
       render(

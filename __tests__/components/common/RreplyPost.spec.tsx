@@ -1,44 +1,44 @@
-import SwatchPost from '@/components/common/SwatchPost';
+import ReplyPost from '@/components/common/ReplyPost';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
 import mockSwatch from '../../__fixtures__/mockSwatch';
+import { mockReplyExt } from '../../__fixtures__/mockReply';
 import mockUserData from '../../__fixtures__/mockUserMeta';
 
 jest.mock('@/utils/apiFunctions', () => ({
-  setLikeSwatch: jest.fn(),
+  setLikeReply: jest.fn(),
 }));
 
 const mockProps = {
-  swatch: mockSwatch,
+  reply: mockReplyExt,
   userID: mockUserData.id,
   isLiked: false,
-  setUserLikes: jest.fn((f: Function) => {
+  setReplyLikes: jest.fn((f: Function) => {
     f([mockSwatch.id]);
   }),
-  setSwatches: jest.fn((f: Function) => {
+  setReplies: jest.fn((f: Function) => {
     f([mockSwatch]);
   }),
 };
 
-describe('SwatchPost', () => {
+describe('ReplyPost', () => {
   it('renders component', () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <SwatchPost {...mockProps} />
+        <ReplyPost {...mockProps} />
       </IntlProvider>,
     );
-    expect(screen).toMatchSnapshot();
   });
 
   it('handles like click - not liked', async () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <SwatchPost {...mockProps} />
+        <ReplyPost {...mockProps} />
       </IntlProvider>,
     );
 
-    const btnLike = await screen.findByTestId(`btn-${mockSwatch.id}-like`);
+    const btnLike = await screen.findByTestId(`btn-${mockReplyExt.id}-like`);
     await waitFor(async () => {
       fireEvent(
         btnLike,
@@ -54,11 +54,11 @@ describe('SwatchPost', () => {
   it('handles like click - is liked', async () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <SwatchPost {...mockProps} isLiked={true} />
+        <ReplyPost {...mockProps} isLiked={true} />
       </IntlProvider>,
     );
 
-    const btnLike = await screen.findByTestId(`btn-${mockSwatch.id}-like`);
+    const btnLike = await screen.findByTestId(`btn-${mockReplyExt.id}-like`);
     await waitFor(async () => {
       fireEvent(
         btnLike,
