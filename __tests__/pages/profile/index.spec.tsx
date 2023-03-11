@@ -3,8 +3,7 @@ import Profile from '@/pages/profile';
 import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
-import mockUserMeta from '../__fixtures__/mockUserMeta';
-import { updateUserProfile } from '@/utils/apiFunctions';
+import mockUserMeta from '../../__fixtures__/mockUserMeta';
 
 jest.useFakeTimers();
 
@@ -35,13 +34,27 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('@/context/UserContext', () => ({
-  useUserContext: jest.fn(() => ({
-    userMeta: mockUserMeta,
-    updateUserMeta: jest.fn(),
-  })),
+  useUserContext: jest
+    .fn()
+    .mockImplementationOnce(() => ({
+      userMeta: null,
+      updateUserMeta: jest.fn(),
+    }))
+    .mockImplementation(() => ({
+      userMeta: mockUserMeta,
+      updateUserMeta: jest.fn(),
+    })),
 }));
 
 describe('Profile Page', () => {
+  it('renders page - no userMeta', () => {
+    render(
+      <IntlProvider messages={messages} locale="en" defaultLocale="en">
+        <Profile />
+      </IntlProvider>,
+    );
+    expect(screen).toMatchSnapshot();
+  });
   it('renders page', () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
@@ -135,9 +148,4 @@ describe('Profile Page', () => {
       // expect(element).toBeInTheDocument();
     }
   });
-
-  // useEffect(change userMeta) setFormData
-  // handleOK (isDirty: true, success from updateUserProfile() true and false)
-
-  // submit form testid="profile-form"
 });

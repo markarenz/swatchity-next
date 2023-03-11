@@ -35,8 +35,11 @@
 .items-center{
   align-items: center;
 }
-.dir-row{
+.flex-row{
   flex-direction: row;
+}
+.flex-col{
+  flex-direction: column;
 }
 .flex-wrap{
   flex-wrap: wrap;

@@ -17,8 +17,8 @@ const Home: NextPage<Props> = ({ initialSwatches, initialLikes }) => {
   const { userMeta } = useUserContext();
   return (
     <SwatchFeed
-      titleKey="feed__home_title"
-      introKey="feed__home_intro"
+      titleKey="feed__home__title"
+      introKey="feed__home__intro"
       subNavData={subNavLinksFeed}
       userMeta={userMeta}
       initialSwatches={initialSwatches}

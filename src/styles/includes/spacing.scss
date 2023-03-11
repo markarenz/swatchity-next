@@ -79,6 +79,16 @@
 .pt-3{
   padding-top: 3rem;
 }
+.pt-4{
+  padding-top: 4rem;
+}
+.pt-5{
+  padding-top: 5rem;
+}
+.pt-6{
+  padding-top: 6rem;
+}
+
 
 .pb-0-5{
   padding-bottom: 0.5rem;
@@ -168,6 +178,20 @@
 .w-7{
   width:7rem;
 }
+.w-8{
+  width:8rem;
+}
+.w-9{
+  width:9rem;
+}
+.w-10{
+  width:10rem;
+  &.sm-wh-8 {
+    @include for-phone-only {
+      width:8rem;
+    }
+  }
+}
 
 .h-full{
   height:100%;
@@ -198,7 +222,23 @@
 .h-7{
   height:7rem;
 }
-
+.h-8{
+  height:8rem;
+}
+.h-9{
+  height:9rem;
+}
+.h-10{
+  height:10rem;
+  &.sm-wh-8 {
+    @include for-phone-only {
+      height:8rem;
+    }
+  }
+}
+.aspect-1{
+  aspect-ratio: 1;
+}
 
 .max-h-1{
   max-height: 1rem;

@@ -18,8 +18,8 @@ const Featured: NextPage<Props> = ({ initialSwatches, initialLikes }) => {
   const subNavData = subNavLinksFeed;
   return (
     <SwatchFeed
-      titleKey="feed__featured_title"
-      introKey="feed__featured_intro"
+      titleKey="feed__featured__title"
+      introKey="feed__featured__intro"
       subNavData={subNavData}
       userMeta={userMeta}
       initialSwatches={initialSwatches}

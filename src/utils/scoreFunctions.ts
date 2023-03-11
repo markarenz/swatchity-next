@@ -36,9 +36,11 @@ export const checkUserScore = async (userID: string, prisma: PrismaClient) => {
         ? {
             score,
             level,
+            numSwatches: numPosts,
           }
         : {
             score,
+            numSwatches: numPosts,
           };
     await prisma.userMeta.update({
       where: {

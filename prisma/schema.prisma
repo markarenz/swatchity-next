@@ -68,6 +68,7 @@ model UserMeta {
   email         String   @unique
   level         Int
   score         Int
+  numSwatches   Int
   prefLang      String
   bio           String
   role          String
