@@ -1,0 +1,103 @@
+@import '../config/colors';
+@import '../includes/darkMode';
+
+.modal{
+  background-color: rgba(30,30,30,0.8);
+}
+.pickerMain{
+  position:relative;
+  max-width:700px;
+  width:90%;
+  aspect-ratio: 1;
+  
+}
+
+.colorButton{
+  position: absolute;
+  width:20%;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  border: 4px solid $gray-1;
+  transform:scale(1);
+  transition: 0.2s transform ease-in-out;
+  &:hover{
+    transform:scale(1.25);
+  }
+  &.altAnimOut{
+    transform:scale(0);
+  }
+  &.altAnimIn{
+    transform:scale(1);
+  }
+}
+.colorButtonMain{
+  transition: 0.4s all ease-in-out;
+  width:40%;
+  transition-delay: 0s;
+  &.animOut {
+    transform:scale(1.25);
+  }
+  &.animIn {
+    transform:scale(1);
+  }
+}
+.isOpening {
+  .colorButton{
+    transition: none;
+  }
+  .colorButtonMain{
+    transition: 0.4s transform ease-out;
+    transform: scale(1);
+  }
+}
+.isClosed{
+  .colorButtonMain{
+    transform: scale(0);
+  }    
+}
+
+.posTL {
+  left:14%;
+  top:15%;
+  transition-delay: 0s;
+}
+.posTC {
+  left:40%;
+  top:5%;
+  transition-delay: 0.02s;
+}
+.posTR {
+  left:66%;
+  top:15%;
+  transition-delay: 0.04s;
+}
+.posCL {
+  left:2%;
+  bottom:40%;
+  transition-delay: 0.06s;
+}
+.posCR {
+  left:78%;
+  bottom:40%;
+  transition-delay: 0.08s;
+}
+
+.posBL {
+  left:14%;
+  bottom:15%;
+  transition-delay: 0.1s;
+}
+.posBC {
+  left:40%;
+  bottom:5%;
+  transition-delay: 0.12s;
+}
+.posBR {
+  left:66%;
+  bottom:15%;
+  transition-delay: 0.14s;
+}
+.posCC {
+  left:30%;
+  bottom:30%;
+}

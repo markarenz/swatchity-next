@@ -1,0 +1,29 @@
+.grid {
+  width:100%;
+  .grid-row{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    @include for-tablet-portrait-up{
+      gap: 0 1rem;  
+    }
+  }
+  .grid-row-2{
+    @include for-tablet-portrait-up{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .grid-row-3{
+    @include for-tablet-portrait-up{
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  .grid-row-4{
+    @include for-phone-only{
+      grid-template-columns: 1fr 1fr;
+    }
+    @include for-tablet-portrait-up{
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+}

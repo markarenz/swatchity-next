@@ -1,0 +1,37 @@
+.btn {
+  text-transform: uppercase;
+  font-weight:bold;
+  font-size: 1rem;
+  color: $gray-1;
+  padding: 1rem 1.5rem;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.5rem;
+  transition: 0.2s all ease-in-out;
+&.btn-secondary{
+    background-color: transparent;
+    border-color: $color-base;
+    @include dark{
+      border-color: $gray-2;
+      color: $gray-1;
+      &:hover{
+        background-color: $color-base;
+        border-color: $gray-1;
+      }
+    }
+  }
+  &.btn-primary{
+    background-color: $color-base;
+    border-color: $color-base;
+    @include dark{
+      color: $gray-1;
+      background-color: $color-teal;
+      border-color: $gray-2;
+      &:hover{
+        color: $gray-6;
+        background-color: $gray-1;
+        border-color: $gray-1;
+      }
+    }
+  }
+}

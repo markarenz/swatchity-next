@@ -1,2 +1,2 @@
-# swatchity-next
-Social media app where you can only post colors written with NextJS
+- Add your mongoDB Atlas connection string to your environment variables as MONGODB_URI.
+- Updating the DB Schema: `npx prisma db push`
