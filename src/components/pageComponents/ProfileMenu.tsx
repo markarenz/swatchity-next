@@ -74,6 +74,7 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
               href={item.href}
               className={`nav-link py-0-9 ${linkClasses}`}
               tabIndex={isOpen ? 0 : -1}
+              prefetch={false}
             >
               <FormattedMessage id={item.labelKey} />
             </Link>

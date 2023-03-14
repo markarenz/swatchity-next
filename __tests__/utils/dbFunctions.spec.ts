@@ -4,6 +4,7 @@ import {
   getUserProfileDB,
   getUserProfileFromUserMeta,
   getSwatchThreadDB,
+  getAlertsDB,
 } from '@/utils/dbFunctions';
 import { Session } from 'next-auth';
 import mockSwatch from '../__fixtures__/mockSwatch';
@@ -11,6 +12,7 @@ import mockUserData from '../__fixtures__/mockUserMeta';
 import mockUserProfile from '../__fixtures__/mockUserProfile';
 import { mockReplyExt } from '../__fixtures__/mockReply';
 import { SwatchExt } from '@/types';
+import mockAlert from '../__fixtures__/mockAlert';
 
 const mockSwatchExt = {
   ...mockSwatch,
@@ -41,6 +43,9 @@ jest.mock('@/lib/prismadb', () => ({
   },
   replyLike: {
     findMany: jest.fn(() => [mockReplyExt.id]),
+  },
+  alert: {
+    findMany: jest.fn(() => [mockAlert]),
   },
 }));
 
@@ -136,5 +141,16 @@ describe('getSwatchThreadDB', () => {
   it('returns data for swatch thread', async () => {
     // session, id, skip
     const result = await getSwatchThreadDB(mockSession, mockSwatch.id, 0);
+  });
+});
+
+describe('getAlertsDB', () => {
+  const mockSession: Session = {
+    expires: new Date(Date.now() + 2 * 86400).toISOString(),
+    user: { name: 'test', email: 'test-email@domain.com' },
+  };
+  it('returns alerts', async () => {
+    const result = await getAlertsDB(mockSession, 0);
+    expect(result.alerts[0].id).toEqual('789pqrst');
   });
 });

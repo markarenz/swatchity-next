@@ -89,7 +89,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     return res.status(200).json({ success, reply: replyExt, numReplies });
   } catch (err) {
-    console.error('CREATE REPLY', err);
     return res.status(500).json({ success: false, reply: null, numReplies: 0 });
   }
 }

@@ -17,7 +17,7 @@
 
 
   "icon_admin": "Admin",
-
+  "icon_link": "Link",
   "icon_alerts": "Alerts",
   "icon_correct": "Correct",
   "icon_home": "Home",
@@ -120,7 +120,14 @@
   
   "user_level_up": "Congrats! You have leveled up! Keep posting.",
 
-  "footer__privacy_polciy": "Privacy Policy",
-  "footer__terms": "Terms of Service",
+  "alerts__title": "Alerts",
+  "alerts__intro": "Hey! Something important happened and we need your attention.",
+  "alerts__templates__reply_1": "Swatcher",
+  "alerts__templates__reply_2": "replied to your Swatch.",
+  "alerts__not_logged_in": "You need to be logged into Swatchity to view your alerts.",
+  "alerts__no_results": "You have no alerts currently.",
+
+  "footer__privacy_polciy": "Privacy",
+  "footer__terms": "Terms",
   "": ""
 }

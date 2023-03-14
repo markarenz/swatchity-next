@@ -18,6 +18,7 @@ import IconRefresh from '@/components/icons/IconRefresh';
 import IconSun from '@/components/icons/IconSun';
 import IconLock from '@/components/icons/IconLock';
 import IconMoon from '@/components/icons/IconMoon';
+import IconLink from '@/components/icons/IconLink';
 
 describe('Icons - all', () => {
   const allIcons = [
@@ -77,6 +78,10 @@ describe('Icons - all', () => {
 
   it('renders simple icons', () => {
     const simpleIcons = [
+      {
+        label: 'IconLink',
+        icon: IconLink,
+      },
       {
         label: 'IconClose',
         icon: IconClose,

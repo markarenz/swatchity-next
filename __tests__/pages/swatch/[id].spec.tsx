@@ -126,6 +126,7 @@ describe('Thread Page', () => {
         </IntlProvider>,
       );
     });
+    expect(screen).toMatchSnapshot();
   });
   it('GetServerSideProps - bad swatch ID', async () => {
     const req = createRequest({
@@ -270,6 +271,7 @@ describe('Thread Page', () => {
         }),
       );
     });
+    expect(screen).toMatchSnapshot();
   });
 
   it('handles load more', async () => {
@@ -295,6 +297,7 @@ describe('Thread Page', () => {
         }),
       );
     });
+    expect(screen).toMatchSnapshot();
   });
 
   it('handles refresh', async () => {
@@ -320,5 +323,6 @@ describe('Thread Page', () => {
         }),
       );
     });
+    expect(screen).toMatchSnapshot();
   });
 });

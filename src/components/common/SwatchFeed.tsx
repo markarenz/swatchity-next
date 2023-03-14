@@ -194,8 +194,12 @@ const SwatchFeed: React.FC<Props> = ({
             </h2>
           )}
           {canLoadMore && !warningNotLoggedIn && (
-            <div className="text-center">
-              <button onClick={loadMoreSwatches} className="btn" data-testid="feed-load-more">
+            <div className="w-full">
+              <button
+                onClick={loadMoreSwatches}
+                className="btn margin-center"
+                data-testid="feed-load-more"
+              >
                 <FormattedMessage id="feed__load_more" />
               </button>
             </div>

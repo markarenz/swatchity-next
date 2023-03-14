@@ -63,9 +63,7 @@ const MainNav = () => {
     if (
       icon === 'alerts' &&
       !!userMeta?.lastAlert &&
-      (!lastAlertsView ||
-        (!!lastAlertsView &&
-          userMeta.lastAlert.toISOString() > new Date(lastAlertsView).toISOString()))
+      (!lastAlertsView || (!!lastAlertsView && `${userMeta.lastAlert}` > lastAlertsView))
     ) {
       return true;
     }
@@ -95,6 +93,7 @@ const MainNav = () => {
                 className="hover-zoom outline-light round"
                 key={`${item.labelKey}-${idx}`}
                 aria-label={formatMessage({ id: item.labelKey })}
+                prefetch={false}
               >
                 <div className="w-3 h-3 px-0-5 py-0-5">
                   {getItemHasDot(item.linkIcon) && (

@@ -5,6 +5,7 @@ type Props = {
   label: string;
   extraClasses?: string;
   testID?: string;
+  focusable?: boolean;
 };
 
 const ButtonIcon: React.FC<Props> = ({
@@ -14,6 +15,7 @@ const ButtonIcon: React.FC<Props> = ({
   label,
   extraClasses,
   testID,
+  focusable,
 }) => {
   return (
     <button
@@ -23,10 +25,15 @@ const ButtonIcon: React.FC<Props> = ({
       disabled={disabled}
       aria-label={label}
       className={`w-3 h-3 round ${extraClasses ? extraClasses : ''}`}
+      tabIndex={focusable ? 0 : -1}
     >
       {children}
     </button>
   );
+};
+
+ButtonIcon.defaultProps = {
+  focusable: true,
 };
 
 export default ButtonIcon;

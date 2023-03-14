@@ -32,21 +32,21 @@ const ProfileDarkMode: React.FC<Props> = ({ darkMode, setFormData }) => {
           />
           <div className="relative">
             <button
-              className="w-3 h-3 py-1 px-1"
+              className="w-3 h-3 py-1 px-1 inline-block"
               onClick={() => handleChange('light')}
               data-testid="btn-theme-light"
             >
               <IconSun color="gray-5" colorDark="gray-1" />
             </button>
             <button
-              className="w-3 h-3 py-1 px-1"
+              className="w-3 h-3 py-1 px-1 inline-block"
               onClick={() => handleChange('auto')}
               data-testid="btn-theme-auto"
             >
               <IconAuto color="gray-5" colorDark="gray-1" />
             </button>
             <button
-              className="w-3 h-3 py-1 px-1"
+              className="w-3 h-3 py-1 px-1 inline-block"
               onClick={() => handleChange('dark')}
               data-testid="btn-theme-dark"
             >

@@ -17,6 +17,7 @@ input,
 textarea,
 select,
 .focusable {
+  display: block;
   transition: 0.3s all ease;
   outline-offset:4px;
   outline-style: dotted;

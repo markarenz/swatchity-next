@@ -1,3 +1,4 @@
+import { Alert } from '@prisma/client';
 import { ProfileFormFields, SwatchExt, ReplyExt } from '@/types';
 
 export const serializeDate = (dateObj: Date) => JSON.parse(JSON.stringify(dateObj));
@@ -24,6 +25,13 @@ export const serializeReplyDates = (replies: ReplyExt[]) =>
       modifiedAt: serializeDate(r.user.modifiedAt),
       lastAlert: r.user.lastAlert ? serializeDate(r.user.lastAlert) : null,
     },
+  }));
+
+export const serializeAlerts = (alerts: Alert[]) =>
+  alerts.map((a) => ({
+    ...a,
+    createdAt: serializeDate(a.createdAt),
+    modifiedAt: serializeDate(a.modifiedAt),
   }));
 
 export const getUserMeta = async (email: string) => {
@@ -215,4 +223,19 @@ export const createReply = async (
   return data.success
     ? { reply: data.reply, numReplies: data.numReplies }
     : { reply: null, numReplies: 0 };
+};
+
+export const getAlerts = async (userID: string, skip: number) => {
+  const body = {
+    userID,
+    skip,
+  };
+  const response = await fetch('/api/alert/readAlerts', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return {
+    alerts: data.alerts || [],
+  };
 };

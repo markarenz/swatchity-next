@@ -15,11 +15,14 @@ import {
   getReplies,
   serializeSwatchDates,
   serializeReplyDates,
+  serializeAlerts,
+  getAlerts,
 } from '../../src/utils/apiFunctions';
 import fetchMock from 'jest-fetch-mock';
 import mockSwatch from '../__fixtures__/mockSwatch';
 import mockUserData from '../__fixtures__/mockUserMeta';
 import { mockReplyExt } from '../__fixtures__/mockReply';
+import mockAlert from '../__fixtures__/mockAlert';
 import { ServerDescriptionChangedEvent } from 'mongodb';
 
 const mockSwatchExt = {
@@ -79,6 +82,13 @@ describe('serializeReplyDates', () => {
       },
     ]);
     expect(result[0].user.lastAlert).not.toBeNull();
+  });
+});
+
+describe('serializeAlerts', () => {
+  it('returns serialized alerts', () => {
+    const results = serializeAlerts([mockAlert]);
+    expect(results[0].createdAt).toEqual('2023-02-12T21:42:46.580Z');
   });
 });
 describe('getDefaultLanguage', () => {
@@ -354,5 +364,22 @@ describe('getReplies', () => {
     const result = await getReplies(mockUserData.id, mockSwatchExt.id, 0);
 
     expect(result?.replies.length).toBe(0);
+  });
+});
+
+describe('getAlerts', () => {
+  it('returns alerts', () => {
+    const mockResponse = {
+      alerts: [mockAlert],
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = getAlerts(mockUserData.id, 0);
+  });
+  it('returns an empty array on error', () => {
+    const mockResponse = {
+      alerts: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = getAlerts(mockUserData.id, 0);
   });
 });

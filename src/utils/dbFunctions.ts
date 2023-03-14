@@ -1,8 +1,8 @@
 import { Session } from 'next-auth';
 import prisma from '@/lib/prismadb';
-import { UserMeta } from '@prisma/client';
+import { UserMeta, Alert } from '@prisma/client';
 import { SwatchExt, UserProfile } from '@/types';
-import { swatchesPerPage } from '@/constants';
+import { swatchesPerPage, repliesPerPage, alertsPerPage } from '@/constants';
 import { getColorScore } from './colorFunctions';
 
 // export const updateSwatchColorScores = async () => {
@@ -267,7 +267,7 @@ export const getSwatchThreadDB = async (session: Session | null, id: string, ski
 
   const replies = await prisma.reply.findMany({
     skip,
-    take: swatchesPerPage,
+    take: repliesPerPage,
     where: {
       swatchID: id,
       active: true,
@@ -295,4 +295,29 @@ export const getSwatchThreadDB = async (session: Session | null, id: string, ski
     replies,
     replyLikes,
   };
+};
+
+export const getAlertsDB = async (session: Session | null, skip: number) => {
+  let alerts: Alert[] = [];
+  let userMeta = null;
+  if (!!session?.user) {
+    userMeta = await prisma.userMeta.findUnique({
+      where: {
+        email: `${session?.user?.email}`,
+      },
+    });
+    if (userMeta?.id) {
+      alerts = await prisma.alert.findMany({
+        skip,
+        take: alertsPerPage,
+        where: {
+          userID: userMeta.id,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+    }
+  }
+  return { alerts };
 };

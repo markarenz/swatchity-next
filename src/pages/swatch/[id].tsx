@@ -172,8 +172,12 @@ const ThreadPage: NextPage<Props> = ({
               </h2>
             )}
             {canLoadMore && (
-              <div className="text-center">
-                <button onClick={loadMoreReplies} className="btn" data-testid="feed-load-more">
+              <div className="w-full">
+                <button
+                  onClick={loadMoreReplies}
+                  className="btn margin-center"
+                  data-testid="feed-load-more"
+                >
                   <FormattedMessage id="feed__load_more" />
                 </button>
               </div>

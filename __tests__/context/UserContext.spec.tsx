@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import { render, act, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+import { render, act, screen } from '@testing-library/react';
 import { UserContextProvider, useUserContext } from '@/context/UserContext';
 import { SessionProvider } from 'next-auth/react';
-import { ProfileFormFields } from '@/types';
-import { Session } from 'next-auth';
-import { update } from 'lodash';
 
 // jest.mock('next-auth/react', () => ({
 //   useSession: jest.fn().mockReturnValue({

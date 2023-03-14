@@ -1,4 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Bubbler+One&family=Lato:wght@400;700&display=swap');
+@font-face {
+  font-family: 'Bubbler One';
+  src: url(fonts/BubblerOne-Regular.woff2) format('woff2'),
+       url(fonts/BubblerOne-Regular.woff) format('woff'),
+       url(fonts/BubblerOne-Regular.eot) format('eot');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000 to U+007F;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url(fonts/Lato-Regular.woff2) format('woff2'),
+       url(fonts/Lato-Regular.woff) format('woff'),
+       url(fonts/Lato-Regular.eot) format('eot');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000 to U+007F;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url(fonts/Lato-Bold.woff2) format('woff2'),
+    url(fonts/Lato-Bold.woff) format('woff'),
+    url(fonts/Lato-Bold.eot) format('eot');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000 to U+007F;
+}
 
 html,
 body{

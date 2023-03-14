@@ -2,21 +2,21 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/lib/prismadb';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
-import { UserMeta } from '@prisma/client';
-import { getSwatchThreadDB } from '@/utils/dbFunctions';
+import { UserMeta, Alert } from '@prisma/client';
+import { getAlertsDB } from '@/utils/dbFunctions';
 
 /*
- * PATH: api/reply/readReplies
- * PURPOSE: Read a list of replies for display on a thread page
- * NOTES: The mode and str arguments are used to reuse the function for a variety of purposes
- * PAYLOAD: userID, swatchID, skip
+ * PATH: api/alert/readAlerts
+ * PURPOSE: Read a list of alerts for the user's Alert page
+ * NOTES: Only logged in users can retrieve alerts
+ * PAYLOAD: userID, skip
  */
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions);
   try {
     const data = JSON.parse(req.body);
-    const { userID, swatchID, skip } = data;
+    const { userID, skip } = data;
     let isLoggedIn = false;
     if (!!userID && !!session?.user) {
       const userMeta: UserMeta | null = await prisma.userMeta.findUnique({
@@ -27,15 +27,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       const email = userMeta?.email;
       isLoggedIn = !!email && email === session?.user?.email;
     }
-    const isValid = !!userID && !!swatchID && skip >= 0;
+    const isValid = !!userID && skip >= 0;
     if (!isValid) {
       throw 'invalid data';
     }
-    const repliesData = await getSwatchThreadDB(session, swatchID, skip);
-    const { replies, replyLikes } = repliesData;
-    return res.status(200).json({ replies, replyLikes });
+    const alerts = await getAlertsDB(session, skip);
+    return res.status(200).json({ alerts });
   } catch (err) {
-    return res.status(500).json({ replies: null, replyLikes: [] });
+    return res.status(500).json({ alerts: null });
   }
 }
 
