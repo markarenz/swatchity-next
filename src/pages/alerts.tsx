@@ -14,7 +14,7 @@ import AlertSkeleton from '@/components/common/AlertSkeleton';
 import { Alert } from '@prisma/client';
 import ButtonIcon from '@/components/common/ButtonIcon';
 import IconRefresh from '@/components/icons/IconRefresh';
-import { alertsPerPage, numAlertsPerPage } from '@/constants';
+import { alertsPerPage } from '@/constants';
 
 type Props = {
   initialAlerts: Alert[];
