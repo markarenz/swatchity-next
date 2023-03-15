@@ -31,7 +31,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!isValid) {
       throw 'invalid data';
     }
-    const alerts = await getAlertsDB(session, skip);
+    const { alerts } = await getAlertsDB(session, skip);
     return res.status(200).json({ alerts });
   } catch (err) {
     return res.status(500).json({ alerts: null });

@@ -72,6 +72,16 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
       animation: $pulseBGDark;
     }
   }
+  .skeletonTextExtraLong{
+    display: inline-block;
+    width:20rem;
+    max-width: 50vw;
+    height:1rem;
+    animation: $pulseBG;
+    @include dark{
+      animation: $pulseBGDark;
+    }
+  }
   .skeletonTextShort{
     display: inline-block;
     width:2rem;
@@ -89,6 +99,16 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
   }
 }
 
+.alertSkeleton{
+  animation: $pulseBG;
+  @include dark{
+    animation: $pulseBGDark;
+  }
+  .skeletonTextExtraLong,
+  .skeletonTextShort{
+    animation-delay: 0.25s!important;
+  }
+}
 @keyframes kf-pulse-bg {
   0% {
     background-color: $gray-3;

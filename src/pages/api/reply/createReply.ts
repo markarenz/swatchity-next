@@ -65,7 +65,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         swatchID,
       },
     });
-    prisma.swatch.update({
+    await prisma.swatch.update({
       where: {
         id: swatchID,
       },

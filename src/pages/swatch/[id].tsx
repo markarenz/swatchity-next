@@ -35,13 +35,14 @@ const ThreadPage: NextPage<Props> = ({
   initialReplyLikes,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(initialReplies.length > 0);
   const [swatches, setSwatches] = useState(initialSwatches);
   const [swatchLikes, setSwatchLikes] = useState(initialSwatchLikes);
   const [replies, setReplies] = useState(initialReplies);
   const [replyLikes, setReplyLikes] = useState(initialReplyLikes);
   const [isReplyOpen, setIsReplyOpen] = useState(false);
-  const { userMeta } = useUserContext();
+  const { userMeta, checkUserMeta } = useUserContext();
   const { formatMessage } = useIntl();
   const swatch = swatches[0] || null;
   if (!swatch) {
@@ -60,6 +61,7 @@ const ThreadPage: NextPage<Props> = ({
   };
   const createNewReply = async (color: Color) => {
     newReplyClose();
+    setIsCreating(true);
     if (userMeta && userMeta.email) {
       const link = `/swatch/${swatch.id}`;
       const newReplyData = await createReply(
@@ -81,6 +83,8 @@ const ThreadPage: NextPage<Props> = ({
         ]);
       }
       setCanLoadMore(true);
+      setIsCreating(false);
+      checkUserMeta();
     }
   };
 
@@ -151,6 +155,8 @@ const ThreadPage: NextPage<Props> = ({
             )}
           </div>
           <div id="replies-feed">
+            {isCreating && <ReplySkeleton isLoggedIn={isLoggedIn} />}
+
             {replies.map((r) => (
               <ReplyPost
                 key={r.id}

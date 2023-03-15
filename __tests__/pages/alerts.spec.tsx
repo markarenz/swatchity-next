@@ -29,6 +29,7 @@ jest.mock('next-auth/next', () => ({
 jest.mock('@/context/UserContext', () => ({
   useUserContext: jest.fn(() => ({
     userMeta: mockUserData,
+    checkUserMeta: jest.fn(),
   })),
 }));
 
