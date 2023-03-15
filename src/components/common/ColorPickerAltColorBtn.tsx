@@ -8,6 +8,7 @@ type Props = {
   posStyle: string;
   clickAltColor: Function;
   animStatus: string;
+  focusable?: boolean;
 };
 const ColorPickerAltColorBtn: React.FC<Props> = ({
   label,
@@ -15,6 +16,7 @@ const ColorPickerAltColorBtn: React.FC<Props> = ({
   posStyle,
   clickAltColor,
   animStatus,
+  focusable,
 }) => {
   return (
     <button
@@ -26,7 +28,13 @@ const ColorPickerAltColorBtn: React.FC<Props> = ({
       style={{
         backgroundColor: getRGBfromColorObj(color),
       }}
+      tabIndex={focusable ? 0 : -1}
     />
   );
 };
+
+ColorPickerAltColorBtn.defaultProps = {
+  focusable: true,
+};
+
 export default ColorPickerAltColorBtn;

@@ -5,8 +5,6 @@ import messages from '@/locale/en-US.json';
 
 jest.useFakeTimers();
 
-jest.mock('lodash/debounce', () => jest.fn((f: Function) => f()));
-
 jest.mock('@/utils/apiFunctions', () => ({
   ...jest.requireActual('@/utils/apiFunctions'),
   checkUsername: jest.fn().mockReturnValue(true),

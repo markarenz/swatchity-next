@@ -31,12 +31,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!isValid) {
       throw 'invalid data';
     }
-    // getSwatchThreadDB = async (session: Session | null, id: string, skip: number) => {
     const repliesData = await getSwatchThreadDB(session, swatchID, skip);
     const { replies, replyLikes } = repliesData;
     return res.status(200).json({ replies, replyLikes });
   } catch (err) {
-    console.error('READ REPLIES ERR', err);
     return res.status(500).json({ replies: null, replyLikes: [] });
   }
 }

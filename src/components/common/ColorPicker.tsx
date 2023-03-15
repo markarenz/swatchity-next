@@ -98,6 +98,7 @@ const ColorPicker: React.FC<Props> = ({ color, isOpen, closeColorPicker, onChang
               label={formatMessage({ id: 'icon_close' })}
               extraClasses="hover-zoom h-3 w-3 pickerClose"
               testID="picker-close"
+              focusable={isOpen}
             >
               <IconClose color="gray-1" colorDark="gray-1" />
             </ButtonIcon>
@@ -114,6 +115,7 @@ const ColorPicker: React.FC<Props> = ({ color, isOpen, closeColorPicker, onChang
                 style={{ backgroundColor: getRGBfromColorObj(newColor) }}
                 onClick={() => onChange(newColor)}
                 data-testid="picker-btn-ok"
+                tabIndex={isOpen ? 0 : -1}
               />
               {altBtnData.map((item) => (
                 <ColorPickerAltColorBtn
@@ -123,6 +125,7 @@ const ColorPicker: React.FC<Props> = ({ color, isOpen, closeColorPicker, onChang
                   clickAltColor={clickAltColor}
                   animStatus={animStatus}
                   color={altColors[item.idx]}
+                  focusable={isOpen}
                 />
               ))}
             </div>

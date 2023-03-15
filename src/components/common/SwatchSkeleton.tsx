@@ -1,8 +1,4 @@
-import TimeSince from './TimeSince';
 import styles from '@/styles/modules/swatchPost.module.scss';
-import IconThread from '../icons/IconThread';
-import IconLike from '../icons/IconLike';
-import IconReply from '../icons/IconReply';
 
 type Props = {
   isLoggedIn?: boolean;

@@ -2,7 +2,6 @@ import { render, screen, act } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 import Home, { getServerSideProps } from '@/pages/index';
 import { createRequest, createResponse } from 'node-mocks-http';
-import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
 import mockSwatch from '../__fixtures__/mockSwatch';
@@ -96,5 +95,3 @@ describe('Home Page', () => {
     expect(JSON.stringify(result)).toEqual(expectedResult);
   });
 });
-
-// GetServerSideProps

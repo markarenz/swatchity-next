@@ -14,17 +14,17 @@ const mockSwatchExt = {
   },
 };
 
-jest.mock('@/context/UserContext', () => ({
-  useUserContext: jest.fn(() => ({
-    userMeta: mockUserData,
-  })),
-}));
+// jest.mock('@/context/UserContext', () => ({
+//   useUserContext: jest.fn(() => ({
+//     userMeta: mockUserData,
+//   })),
+// }));
 
 jest.mock('@/context/UserContext', () => ({
   useUserContext: jest
     .fn()
-    .mockImplementation(() => ({ userMeta: mockUserData }))
-    .mockImplementationOnce(() => ({ userMeta: null })),
+    .mockImplementation(() => ({ userMeta: mockUserData, checkUserMeta: jest.fn() }))
+    .mockImplementationOnce(() => ({ userMeta: null, checkUserMeta: jest.fn() })),
 }));
 
 jest.mock('next/router', () => ({

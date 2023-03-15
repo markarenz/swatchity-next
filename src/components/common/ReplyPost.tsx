@@ -87,14 +87,18 @@ const ReplyPost: React.FC<Props> = ({ reply, userID, isLiked, setReplyLikes, set
                       colorDark={isLiked ? 'yellow' : 'gray-2'}
                     />
                   </div>
-                  <span className="text-gray-2">{likes}</span>
+                  <span className="text-gray-5 dark-text-gray-2">{likes}</span>
                 </button>
               </div>
             )}
           </div>
         </div>
         <div className="w-4 h-4">
-          <Link href={`/profile/${user?.id}`} aria-label={`Profile for ${user?.name}`}>
+          <Link
+            href={`/profile/${user?.id}`}
+            aria-label={`Profile for ${user?.name}`}
+            prefetch={false}
+          >
             <Avatar avatarData={avatarData} />
           </Link>
         </div>

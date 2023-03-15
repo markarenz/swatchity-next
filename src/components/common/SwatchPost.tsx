@@ -78,7 +78,11 @@ const SwatchPost: React.FC<Props> = ({
     <div>
       <div className="flex gap-1 mb-1">
         <div className="w-4 h-4">
-          <Link href={`/profile/${user?.id}`} aria-label={`Profile for ${user?.name}`}>
+          <Link
+            href={`/profile/${user?.id}`}
+            aria-label={`Profile for ${user?.name}`}
+            prefetch={false}
+          >
             <Avatar avatarData={avatarData} />
           </Link>
         </div>
@@ -89,7 +93,11 @@ const SwatchPost: React.FC<Props> = ({
           </div>
           <div>
             {!isFeatured ? (
-              <Link href={`/swatch/${id}`} aria-label={`Swatch: ${colorR}, ${colorG}, ${colorB}`}>
+              <Link
+                href={`/swatch/${id}`}
+                aria-label={`Swatch: ${colorR}, ${colorG}, ${colorB}`}
+                prefetch={false}
+              >
                 <SwatchContent />
               </Link>
             ) : (
@@ -99,9 +107,14 @@ const SwatchPost: React.FC<Props> = ({
           <div className={styles.btnRow}>
             {!isFeatured && (
               <div>
-                <Link href={`/swatch/${id}`} aria-label={formatMessage({ id: 'swatch__thread' })}>
+                <Link
+                  href={`/swatch/${id}`}
+                  aria-label={formatMessage({ id: 'swatch__thread' })}
+                  passHref={true}
+                  prefetch={false}
+                >
                   <div className="w-3 h-3 py-1 px-1">
-                    <IconThread filled={true} color="gray-6" colorDark="gray-2" />
+                    <IconThread filled={false} color="gray-6" colorDark="gray-2" />
                   </div>
                 </Link>
               </div>
@@ -116,7 +129,7 @@ const SwatchPost: React.FC<Props> = ({
                   <div className="w-3 h-3 py-1 px-1">
                     <IconReply filled={false} color="gray-6" colorDark="gray-2" />
                   </div>
-                  <span className="text-gray-2">{replies}</span>
+                  <span className="text-gray-5 dark-text-gray-2">{replies}</span>
                 </button>
               )}
               {isFeatured && (
@@ -124,7 +137,7 @@ const SwatchPost: React.FC<Props> = ({
                   <div className="w-3 h-3 py-1 px-1">
                     <IconReply filled={false} color="gray-6" colorDark="gray-2" />
                   </div>
-                  <span className="text-gray-2">{replies}</span>
+                  <span className="text-gray-5 dark-text-gray-2">{replies}</span>
                 </div>
               )}
             </div>
@@ -143,7 +156,7 @@ const SwatchPost: React.FC<Props> = ({
                       colorDark={isLiked ? 'yellow' : 'gray-2'}
                     />
                   </div>
-                  <span className="text-gray-2">{likes}</span>
+                  <span className="text-gray-5 dark-text-gray-2">{likes}</span>
                 </button>
               </div>
             )}

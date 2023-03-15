@@ -3,6 +3,7 @@ import Layout from '../pageComponents/Layout';
 import { useIntl } from 'react-intl';
 import { UserMeta } from '@prisma/client';
 import { SwatchExt, Color, PageMeta, SubNavItem, UserProfile } from '@/types';
+import { useUserContext } from '@/context/UserContext';
 import { swatchesPerPage } from '@/constants';
 import SwatchPost from './SwatchPost';
 import SwatchSkeleton from './SwatchSkeleton';
@@ -40,12 +41,14 @@ const SwatchFeed: React.FC<Props> = ({
   userProfile,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const [swatches, setSwatches] = useState<SwatchExt[]>(initialSwatches);
   const [userLikes, setUserLikes] = useState<string[]>(initialLikes);
   const [isNewSwatchOpen, setIsNewSwatchOpen] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const { formatMessage } = useIntl();
   const router = useRouter();
+  const { checkUserMeta } = useUserContext();
   const isLoggedIn = !!userMeta?.name;
   const isSearch = router.route === '/search/[rgb]';
   const newSwatchOpen = () => {
@@ -68,6 +71,7 @@ const SwatchFeed: React.FC<Props> = ({
   };
   const createNewSwatch = async (color: Color) => {
     closeNewSwatch();
+    setIsCreating(true);
     if (userMeta && userMeta.email) {
       const newSwatch = await createSwatch(userMeta.email, color.r, color.g, color.b);
       if (newSwatch) {
@@ -77,7 +81,9 @@ const SwatchFeed: React.FC<Props> = ({
       if (router.pathname !== '/') {
         router.push('/');
       }
+      checkUserMeta();
     }
+    setIsCreating(false);
   };
   const refreshSwatches = () => {
     setCanLoadMore(true);
@@ -146,7 +152,12 @@ const SwatchFeed: React.FC<Props> = ({
   );
   const warningNotLoggedIn = !isLoggedIn && mode === 'liked';
   return (
-    <Layout pageMeta={pageMeta} subNavData={subNavData} headerButtons={headerButtons}>
+    <Layout
+      pageMeta={pageMeta}
+      subNavData={subNavData}
+      headerButtons={headerButtons}
+      showLoading={isCreating}
+    >
       <div className="contained pt-1 pb-4" id="swatch-feed">
         <div className="flex items-center">
           {mode === 'profile' && !!userProfile ? (
@@ -194,13 +205,18 @@ const SwatchFeed: React.FC<Props> = ({
             </h2>
           )}
           {canLoadMore && !warningNotLoggedIn && (
-            <div className="text-center">
-              <button onClick={loadMoreSwatches} className="btn" data-testid="feed-load-more">
+            <div className="w-full">
+              <button
+                onClick={loadMoreSwatches}
+                className="btn margin-center"
+                data-testid="feed-load-more"
+              >
                 <FormattedMessage id="feed__load_more" />
               </button>
             </div>
           )}
         </div>
+
         <ColorPicker
           color={getRandomColor()}
           isOpen={isNewSwatchOpen}

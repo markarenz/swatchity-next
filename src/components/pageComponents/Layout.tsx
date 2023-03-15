@@ -15,13 +15,20 @@ type Props = {
   pageMeta: PageMeta;
   subNavData?: SubNavItem[];
   headerButtons?: JSX.Element;
+  showLoading?: boolean;
 };
 
-const Layout: React.FC<Props> = ({ children, pageMeta, subNavData, headerButtons }) => {
+const Layout: React.FC<Props> = ({
+  children,
+  pageMeta,
+  subNavData,
+  headerButtons,
+  showLoading: forceShowLoading,
+}) => {
   const { userMeta } = useUserContext();
   const { data: session } = useSession();
   const darkMode = userMeta?.darkMode;
-  const showLoadingSession = session === undefined && userMeta === null;
+  const showLoadingSession = (session === undefined && userMeta === null) || forceShowLoading;
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', `${darkMode}`);
   }, [darkMode]);

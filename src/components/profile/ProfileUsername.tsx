@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+// import { debounce } from 'lodash';
 import { ProfileFormFields } from '@/types';
 import { FormattedMessage } from 'react-intl';
 import IconRefresh from '../icons/IconRefresh';

@@ -58,7 +58,7 @@ const mocks = {
 describe('MainNav', () => {
   it('renders component with unread messages and alerts', async () => {
     act(() => {
-      global.localStorage.getItem;
+      // global.localStorage.getItem;
       Storage.prototype.getItem = jest.fn().mockReturnValue(null);
       render(
         <IntlProvider messages={messages} locale="en" defaultLocale="en">
@@ -72,7 +72,7 @@ describe('MainNav', () => {
 
   it('renders component with unread messages and alerts - local values exist', async () => {
     act(() => {
-      global.localStorage.getItem;
+      // global.localStorage.getItem;
       Storage.prototype.getItem = jest.fn().mockReturnValue('2023-02-10T21:42:46.580+00:00');
       render(
         <IntlProvider messages={messages} locale="en" defaultLocale="en">

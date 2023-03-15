@@ -28,6 +28,7 @@ const SearchColor: React.FC<Props> = ({ color, onChange }) => {
         aria-label={formatMessage({ id: 'search__search_color_btn' })}
         onClick={handleColorClick}
         data-testid="btn-search-color"
+        className="round"
       >
         <div
           className="w-6 h-6 round hover-zoom border-2 border-gray-5 dark-border-gray-2"
