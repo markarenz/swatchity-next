@@ -2,6 +2,23 @@
 @import '../includes/darkMode';
 
 $swatch-border-color: $gray-2;
+@mixin delays {
+  &.animDelay0{
+    animation-delay: 0s!important;
+  }
+  &.animDelay1{
+    animation-delay: 0.2s!important;
+  }
+  &.animDelay2{
+    animation-delay: 0.4s!important;
+  }
+  &.animDelay3{
+    animation-delay: 0.6s!important;
+  }
+  &.animDelay4{
+    animation-delay: 0.8s!important;
+  }
+}
 
 .btnRow{
   padding-right:3rem;
@@ -20,7 +37,14 @@ $swatch-border-color: $gray-2;
   &.featured{
     min-height:16rem;
   }
-  // border:2px solid $swatch-border-color;
+  &.messageSelf {
+    width:80%;
+    margin-left:auto;
+  }
+  &.messageOther{
+    width:80%;
+    margin-right:auto;
+  }
   .corner{
     position:absolute;
     bottom:0;
@@ -55,13 +79,14 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
     @include dark{
       animation: $pulseBGDark;
     }
+    @include delays();
   }
   .skeletonAvatar{
     animation: $pulseBG;
     @include dark{
       animation: $pulseBGDark;
     }
-
+    @include delays();
   }
   .skeletonTextLong{
     display: inline-block;
@@ -71,6 +96,7 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
     @include dark{
       animation: $pulseBGDark;
     }
+    @include delays();
   }
   .skeletonTextExtraLong{
     display: inline-block;
@@ -81,6 +107,7 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
     @include dark{
       animation: $pulseBGDark;
     }
+    @include delays();
   }
   .skeletonTextShort{
     display: inline-block;
@@ -90,6 +117,7 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
     @include dark{
       animation: $pulseBGDark;
     }
+    @include delays();
   }
   .cornerFill{
     animation: 2.0s kf-pulse-fill infinite ease-in-out;
@@ -100,14 +128,11 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
 }
 
 .alertSkeleton{
-  animation: $pulseBG;
+  animation: 2.0s kf-pulse-inv-bg infinite ease-in-out;
   @include dark{
-    animation: $pulseBGDark;
+    animation: 2.0s kf-pulse-inv-bg-dark infinite ease-in-out;
   }
-  .skeletonTextExtraLong,
-  .skeletonTextShort{
-    animation-delay: 0.25s!important;
-  }
+  @include delays();
 }
 @keyframes kf-pulse-bg {
   0% {
@@ -156,5 +181,32 @@ $pulseBGDark: 2.0s kf-pulse-bg-dark infinite ease-in-out;
   }  
   100% {
     fill: $gray-3;
+  }  
+}
+
+
+@keyframes kf-pulse-inv-bg {
+  0% {
+    background-color: $gray-2;
+    border-color: $gray-2;
+  }
+  50% {
+    background-color: $gray-3;
+    border-color: $gray-3;
+  }
+  100% {
+    background-color: $gray-2;
+    border-color: $gray-2;
+  }  
+}
+@keyframes kf-pulse-inv-bg-dark {
+  0% {
+    background-color: $gray-4;
+  }
+  50% {
+    background-color: $gray-2;
+  }  
+  100% {
+    background-color: $gray-4;
   }  
 }

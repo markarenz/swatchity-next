@@ -2,7 +2,7 @@ import { Session } from 'next-auth';
 import prisma from '@/lib/prismadb';
 import { UserMeta, Alert } from '@prisma/client';
 import { SwatchExt, UserProfile } from '@/types';
-import { swatchesPerPage, repliesPerPage, alertsPerPage } from '@/constants';
+import { swatchesPerPage, repliesPerPage, alertsPerPage, messagesPerPage } from '@/constants';
 import { getColorScore } from './colorFunctions';
 
 // export const updateSwatchColorScores = async () => {
@@ -320,4 +320,101 @@ export const getAlertsDB = async (session: Session | null, skip: number) => {
     }
   }
   return { alerts };
+};
+
+export const getMessageThreads = async (session: Session | null) => {
+  if (session?.user?.email) {
+    const userMeta = await prisma.userMeta.findUnique({
+      where: {
+        email: `${session?.user?.email}`,
+      },
+    });
+    if (userMeta?.id && userMeta?.active) {
+      const { id } = userMeta;
+      const threads = await prisma.messageThread.findMany({
+        where: {
+          OR: [
+            {
+              toUserID: id,
+            },
+            {
+              fromUserID: id,
+            },
+          ],
+        },
+      });
+      return {
+        threads,
+      };
+    }
+  }
+  return { threads: [] };
+};
+
+export const getMessagesDB = async (session: Session | null, userID: string, skip: number) => {
+  const otherUser = await prisma.userMeta.findUnique({
+    where: {
+      id: userID,
+    },
+  });
+  if (!!session?.user && !!session?.user.email) {
+    const userMeta = await prisma.userMeta.findUnique({
+      where: {
+        email: `${session?.user?.email}`,
+      },
+    });
+    const email = userMeta?.email;
+    const isLoggedIn = !!email && email === session?.user?.email;
+
+    if (isLoggedIn) {
+      const messages = await prisma.message.findMany({
+        skip,
+        take: messagesPerPage,
+        where: {
+          OR: [
+            {
+              toUserID: `${otherUser?.id}`,
+              fromUserID: `${userMeta?.id}`,
+            },
+            {
+              toUserID: `${userMeta?.id}`,
+              fromUserID: `${otherUser?.id}`,
+            },
+          ],
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+
+      const otherUserProfile = {
+        id: otherUser?.id,
+        name: otherUser?.name,
+        active: otherUser?.active,
+        username: otherUser?.username,
+        numSwatches: otherUser?.numSwatches,
+        level: otherUser?.level,
+        score: otherUser?.score,
+        bio: otherUser?.bio,
+        avatarPattern: otherUser?.avatarPattern,
+        avatarColor1r: otherUser?.avatarColor1r,
+        avatarColor1g: otherUser?.avatarColor1g,
+        avatarColor1b: otherUser?.avatarColor1b,
+        avatarColor2r: otherUser?.avatarColor2r,
+        avatarColor2g: otherUser?.avatarColor2g,
+        avatarColor2b: otherUser?.avatarColor2b,
+        avatarColor3r: otherUser?.avatarColor3r,
+        avatarColor3g: otherUser?.avatarColor3g,
+        avatarColor3b: otherUser?.avatarColor3b,
+      };
+      return {
+        otherUserProfile,
+        messages,
+      };
+    }
+  }
+  return {
+    otherUserProfile: null,
+    messages: [],
+  };
 };

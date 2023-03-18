@@ -1,5 +1,5 @@
-import { Alert } from '@prisma/client';
-import { ProfileFormFields, SwatchExt, ReplyExt } from '@/types';
+import { Alert, Message, MessageThread, UserMeta } from '@prisma/client';
+import { ProfileFormFields, SwatchExt, ReplyExt, UserProfile } from '@/types';
 
 export const serializeDate = (dateObj: Date) => JSON.parse(JSON.stringify(dateObj));
 export const serializeSwatchDates = (swatches: SwatchExt[]) =>
@@ -12,8 +12,17 @@ export const serializeSwatchDates = (swatches: SwatchExt[]) =>
       createdAt: serializeDate(s.user.createdAt),
       modifiedAt: serializeDate(s.user.modifiedAt),
       lastAlert: s.user.lastAlert ? serializeDate(s.user.lastAlert) : null,
+      lastMessage: s.user.lastMessage ? serializeDate(s.user.lastMessage) : null,
     },
   }));
+export const serializeUserMeta = (usermeta: UserMeta) => ({
+  ...usermeta,
+  createdAt: serializeDate(usermeta.createdAt),
+  modifiedAt: serializeDate(usermeta.modifiedAt),
+  lastAlert: usermeta.lastAlert ? serializeDate(usermeta.lastAlert) : null,
+  lastMessage: usermeta.lastMessage ? serializeDate(usermeta.lastMessage) : null,
+});
+
 export const serializeReplyDates = (replies: ReplyExt[]) =>
   replies.map((r) => ({
     ...r,
@@ -27,11 +36,24 @@ export const serializeReplyDates = (replies: ReplyExt[]) =>
     },
   }));
 
+export const serializeMessageThreads = (threads: MessageThread[]) =>
+  threads.map((t) => ({
+    ...t,
+    createdAt: serializeDate(t.createdAt),
+    modifiedAt: serializeDate(t.modifiedAt),
+  }));
 export const serializeAlerts = (alerts: Alert[]) =>
   alerts.map((a) => ({
     ...a,
     createdAt: serializeDate(a.createdAt),
     modifiedAt: serializeDate(a.modifiedAt),
+  }));
+
+export const serializeMessageDates = (messages: Message[]) =>
+  messages.map((m) => ({
+    ...m,
+    createdAt: serializeDate(m.createdAt),
+    modifiedAt: serializeDate(m.modifiedAt),
   }));
 
 export const getUserMeta = async (email: string) => {
@@ -237,5 +259,42 @@ export const getAlerts = async (userID: string, skip: number) => {
   const data = await response.json();
   return {
     alerts: data.alerts || [],
+  };
+};
+
+export const createMessage = async (
+  email: string,
+  userID: string,
+  colorR: number,
+  colorG: number,
+  colorB: number,
+) => {
+  const body = {
+    email,
+    userID,
+    colorR,
+    colorG,
+    colorB,
+  };
+  const response = await fetch('/api/message/createMessage', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success ? { message: data.message } : { message: null };
+};
+
+export const getMessages = async (userID: string, skip: number) => {
+  const body = {
+    userID,
+    skip,
+  };
+  const response = await fetch('/api/message/readMessages', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return {
+    messages: data.messages || [],
   };
 };

@@ -123,7 +123,7 @@ export default function Profile() {
               </div>
 
               <div>
-                <div className="text-right flex-grow">
+                <div className="flex justify-right w-full">
                   {isValid && (
                     <button onClick={handleOK} className="btn btn-primary" data-testid="profile-ok">
                       <FormattedMessage id="btn_ok" />

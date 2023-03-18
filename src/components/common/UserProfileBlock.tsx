@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useUserContext } from '@/context/UserContext';
 import { UserProfile, Color } from '@/types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import ButtonIcon from './ButtonIcon';
@@ -8,14 +10,19 @@ import IconMessages from '../icons/IconMessages';
 import Avatar from '@/components/common/avatar/Avatar';
 import UserProfileBioDisplay from './UserProfileBioDisplay';
 import { getRandomColor } from '@/utils/colorFunctions';
+import { createMessage } from '@/utils/apiFunctions';
+import { Message } from '@prisma/client';
 
 type Props = {
   userProfile: UserProfile;
   mode: string;
+  setMessages?: Function;
 };
-const UserProfileBlock: React.FC<Props> = ({ userProfile, mode }) => {
+const UserProfileBlock: React.FC<Props> = ({ userProfile, mode, setMessages }) => {
   const [rndColor] = useState(getRandomColor());
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const { userMeta } = useUserContext();
+  const isLoggedIn = !!userMeta?.name;
   const router = useRouter();
   const handleClosePicker = () => {
     setIsPickerOpen(false);
@@ -23,10 +30,25 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile, mode }) => {
   const handleMessageClick = () => {
     setIsPickerOpen(true);
   };
-  const handlePickerChange = (color: Color) => {
+  const handlePickerChange = async (color: Color) => {
     setIsPickerOpen(false);
-    // TODO: await DB FUNCTION: create message to user
-    router.push(`/messages/${userProfile?.id}`);
+    if (!!userMeta?.email) {
+      const result = await createMessage(
+        userMeta?.email,
+        userProfile.id,
+        color.r,
+        color.g,
+        color.b,
+      );
+      if (mode === 'profile') {
+        router.push(`/messages/${userProfile?.id}`);
+      } else {
+        const newMessage = result?.message;
+        if (!!setMessages) {
+          setMessages((prevMessages: Message[]) => [newMessage, ...prevMessages]);
+        }
+      }
+    }
   };
 
   const { formatMessage } = useIntl();
@@ -42,6 +64,8 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile, mode }) => {
     avatarColor3g: userProfile.avatarColor3g,
     avatarColor3b: userProfile.avatarColor3b,
   };
+  const showMessageBtn = isLoggedIn && userProfile?.active && userProfile.id !== userMeta.id;
+  const showInactive = isLoggedIn && !userProfile?.active;
   return (
     <div className="w-full flex flex-col gap-1 pb-2">
       <div className="flex justify-between">
@@ -56,7 +80,7 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile, mode }) => {
           {userProfile?.name}
         </h1>
         <div>
-          {!!userProfile?.active ? (
+          {showMessageBtn && (
             <ButtonIcon
               onClick={() => handleMessageClick()}
               label={formatMessage({ id: 'feed__profile_block__message' })}
@@ -66,7 +90,9 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile, mode }) => {
                 <IconMessages filled={true} color="gray-6" colorDark="gray-2" />
               </div>
             </ButtonIcon>
-          ) : (
+          )}
+
+          {showInactive && (
             <div className="uppercase py-1 text-right">
               <FormattedMessage id="feed__profile_block__inactive" />
             </div>
@@ -118,7 +144,17 @@ const UserProfileBlock: React.FC<Props> = ({ userProfile, mode }) => {
         </div>
         <div>
           <div className="h-10 w-10 aspect-1 sm-wh-8">
-            <Avatar avatarData={avatarData} displayOnly={true} />
+            {mode === 'messages' ? (
+              <Link
+                href={`/profile/${userProfile.id}`}
+                className="round"
+                aria-label={userProfile.name}
+              >
+                <Avatar avatarData={avatarData} displayOnly={false} />
+              </Link>
+            ) : (
+              <Avatar avatarData={avatarData} displayOnly={true} />
+            )}
           </div>
         </div>
       </div>

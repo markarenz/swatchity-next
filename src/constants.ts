@@ -94,3 +94,4 @@ export const swatchesPerPage = 3;
 
 export const repliesPerPage = 3;
 export const alertsPerPage = 3;
+export const messagesPerPage = 3;

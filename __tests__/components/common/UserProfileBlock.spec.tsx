@@ -4,6 +4,22 @@ import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
 import mockUserData from '../../__fixtures__/mockUserMeta';
 
+const mockOtherUser = {
+  ...mockUserData,
+  id: 'stuv6769',
+  name: 'Other user',
+  username: 'otherUsername',
+  email: 'other@domain.com',
+};
+jest.mock('@/utils/apiFunctions', () => ({
+  createMessage: jest.fn(),
+}));
+jest.mock('@/context/UserContext', () => ({
+  useUserContext: jest
+    .fn()
+    .mockImplementation(() => ({ userMeta: mockUserData, checkUserMeta: jest.fn() })),
+}));
+
 jest.mock('next/router', () => ({
   useRouter: jest.fn(() => ({
     route: '/',
@@ -16,7 +32,7 @@ describe('UserProfileBioDisplay', () => {
   it('renders component - profile mode', () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={mockUserData} mode="profile" />
+        <UserProfileBlock userProfile={mockOtherUser} mode="profile" />
       </IntlProvider>,
     );
   });
@@ -24,21 +40,21 @@ describe('UserProfileBioDisplay', () => {
   it('renders component - messages mode', () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={mockUserData} mode="messages" />
+        <UserProfileBlock userProfile={mockOtherUser} mode="messages" />
       </IntlProvider>,
     );
   });
   it('renders component - inactive', () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={{ ...mockUserData, active: false }} mode="messages" />
+        <UserProfileBlock userProfile={{ ...mockOtherUser, active: false }} mode="messages" />
       </IntlProvider>,
     );
   });
   it('renders component - empty bio', () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={{ ...mockUserData, bio: '' }} mode="messages" />
+        <UserProfileBlock userProfile={{ ...mockOtherUser, bio: '' }} mode="messages" />
       </IntlProvider>,
     );
   });
@@ -46,7 +62,7 @@ describe('UserProfileBioDisplay', () => {
   it('handles message flow - cancel', async () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={mockUserData} mode="messages" />
+        <UserProfileBlock userProfile={mockOtherUser} mode="messages" />
       </IntlProvider>,
     );
     const element = await screen.findByTestId('profile-block-message');
@@ -75,7 +91,7 @@ describe('UserProfileBioDisplay', () => {
   it('handles message flow - complete', async () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={mockUserData} mode="messages" />
+        <UserProfileBlock userProfile={mockOtherUser} mode="messages" />
       </IntlProvider>,
     );
     const element = await screen.findByTestId('profile-block-message');

@@ -88,7 +88,8 @@ const SwatchPost: React.FC<Props> = ({
         </div>
         <div className="flex-grow">
           <div className="pb-1">
-            <span>{user?.name}</span> <span>({user?.username})</span> <span>&#183;</span>{' '}
+            <span>{user?.name}</span> <span className="mr-0-5">({user?.username})</span>
+            <span className="mr-0-5">&#183;</span>
             <TimeSince inputDate={swatch.createdAt} />
           </div>
           <div>

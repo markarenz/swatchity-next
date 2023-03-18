@@ -1,15 +1,18 @@
-import { render, screen, act } from '@testing-library/react';
-import { GetServerSidePropsContext } from 'next';
-import Mood, { getServerSideProps } from '@/pages/feed/mood';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
+import MessageThreads, { getServerSideProps } from '@/pages/messages/';
 import { createRequest, createResponse } from 'node-mocks-http';
 import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
 import mockSwatch from '../../__fixtures__/mockSwatch';
+import { mockReplyExt } from '../../__fixtures__/mockReply';
 import mockUserData from '../../__fixtures__/mockUserMeta';
+import { mockMessageThread } from '../../__fixtures__/mockMessageThread';
 
-const initialLikes = ['abcd1234'];
 const initialSwatches = [mockSwatch];
+const initialSwatchLikes = [mockSwatch.id];
+const initialReplies = [mockReplyExt];
+const initialReplyLikes = [mockReplyExt.id];
 jest.mock('@/components/common/SwatchFeed', () => () => <div>Swatch Feed</div>);
 
 jest.mock('next', () => ({
@@ -27,21 +30,35 @@ jest.mock('next-auth/next', () => ({
 jest.mock('@/context/UserContext', () => ({
   useUserContext: jest.fn(() => ({
     userMeta: mockUserData,
+    checkUserMeta: jest.fn(),
   })),
 }));
 
 jest.mock('@/utils/dbFunctions', () => ({
-  getSwatchesDB: jest.fn(() => ({
-    likes: initialLikes,
-    swatches: initialSwatches,
+  getMessageThreads: jest.fn().mockImplementation(() => ({
+    threads: [mockMessageThread],
   })),
 }));
 jest.mock('@/utils/apiFunctions', () => ({
   ...jest.requireActual('@/utils/apiFunctions'),
   getSwatches: jest.fn(() => ({
-    likes: initialLikes,
+    likes: initialSwatchLikes,
     swatches: initialSwatches,
   })),
+  createReply: jest.fn(() => ({
+    reply: mockReplyExt,
+    numReplies: 1,
+  })),
+  getReplies: jest
+    .fn()
+    .mockImplementationOnce(() => ({
+      replies: [],
+      replyLikes: [],
+    }))
+    .mockImplementation(() => ({
+      replies: [mockReplyExt],
+      replyLikes: [mockReplyExt.id],
+    })),
 }));
 
 jest.mock('next-auth', () => ({
@@ -62,21 +79,23 @@ jest.mock('next-auth/react', () => ({
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(() => ({
+    query: '50-50-50',
     pathname: '/',
   })),
 }));
 
-describe('Mood Page', () => {
+describe('MessageThreads Page', () => {
   it('renders page', () => {
     act(() => {
       render(
         <IntlProvider messages={messages} locale="en" defaultLocale="en">
-          <Mood initialLikes={initialLikes} initialSwatches={initialSwatches} />
+          <MessageThreads threads={[mockMessageThread]} />
         </IntlProvider>,
       );
     });
     expect(screen).toMatchSnapshot();
   });
+
   it('GetServerSideProps', async () => {
     const req = createRequest({
       method: 'GET',
@@ -86,11 +105,11 @@ describe('Mood Page', () => {
       req,
       res,
     };
-    const result = await getServerSideProps(context as GetServerSidePropsContext);
+    // @ts-ignore
+    const result = await getServerSideProps(context);
     const expectedResult = JSON.stringify({
       props: {
-        initialSwatches,
-        initialLikes,
+        threads: [mockMessageThread],
       },
     });
     expect(JSON.stringify(result)).toEqual(expectedResult);

@@ -127,6 +127,11 @@
   "alerts__not_logged_in": "You need to be logged into Swatchity to view your alerts.",
   "alerts__no_results": "You have no alerts currently.",
 
+  "messages__title": "Messages",
+  "messages__intro": "Connect with fellow Swatchers. To start a conversation, go to your friend's profile page and click on the message button.",
+  "messages__not_logged_in": "You need to be logged into Swatchity to view your messages.",
+  "messages__thread__no_messages": "There are no messages between you and this user currently. Start a conversation by clicking on the message button!",
+
   "footer__privacy_polciy": "Privacy",
   "footer__terms": "Terms",
   "": ""

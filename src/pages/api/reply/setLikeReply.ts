@@ -23,7 +23,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     });
     const isValid =
-      !!userMeta && userMeta.email === session?.user?.email && !!replyID && !!userMeta?.id;
+      !!userMeta &&
+      userMeta.active &&
+      userMeta.email === session?.user?.email &&
+      !!replyID &&
+      !!userMeta?.id;
     if (!isValid) {
       throw 'invalid data';
     }

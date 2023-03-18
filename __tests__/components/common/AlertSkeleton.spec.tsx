@@ -3,7 +3,7 @@ import AlertSkeleton from '@/components/common/AlertSkeleton';
 
 describe('AlertSkeleton', () => {
   it('renders the component', () => {
-    render(<AlertSkeleton />);
+    render(<AlertSkeleton idx={0} />);
   });
   expect(screen).toMatchSnapshot();
 });
