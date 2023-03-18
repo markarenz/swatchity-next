@@ -21,16 +21,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     let success = false;
     const data = JSON.parse(req.body);
     const { email, colorR, colorG, colorB } = data;
-    const isValid =
-      !!email && email === session?.user?.email && validateWithRules(data, createSwatchRules);
-    if (!isValid) {
-      throw 'invalid data';
-    }
     const userMeta: UserMeta | null = await prisma.userMeta.findUnique({
       where: {
         email,
       },
     });
+    const isValid =
+      !!email &&
+      userMeta?.active &&
+      email === session?.user?.email &&
+      validateWithRules(data, createSwatchRules);
+    if (!isValid) {
+      throw 'invalid data';
+    }
     const colorScore = getColorScore({ r: colorR, g: colorG, b: colorB });
     const swatch = await prisma.swatch.create({
       data: {

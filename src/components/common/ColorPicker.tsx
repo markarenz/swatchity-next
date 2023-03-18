@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import ButtonIcon from './ButtonIcon';
 import { altBtnData } from '@/utils/colorPickerConstants';
@@ -63,11 +63,23 @@ const ColorPicker: React.FC<Props> = ({ color, isOpen, closeColorPicker, onChang
     setAltColors(alts);
   }, [newColor]);
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      closeColorPicker();
+    }
+  };
+
   useEffect(() => {
     setIsOpening(true);
     setTimeout(() => {
       setIsOpening(false);
     }, 500);
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const clickAltColor = (c: Color) => {

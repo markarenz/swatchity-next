@@ -155,7 +155,7 @@ const ThreadPage: NextPage<Props> = ({
             )}
           </div>
           <div id="replies-feed">
-            {isCreating && <ReplySkeleton isLoggedIn={isLoggedIn} />}
+            {isCreating && <ReplySkeleton idx={0} />}
 
             {replies.map((r) => (
               <ReplyPost
@@ -170,7 +170,7 @@ const ThreadPage: NextPage<Props> = ({
 
             {isLoading &&
               [...Array(repliesPerPage)].map((_e, idx) => (
-                <ReplySkeleton key={`skeleton-swatch-${idx}`} isLoggedIn={isLoggedIn} />
+                <ReplySkeleton key={`skeleton-swatch-${idx}`} idx={idx} />
               ))}
             {!isLoading && replies.length === 0 && (
               <h2 className="pl-5">

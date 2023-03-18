@@ -5,6 +5,8 @@ import {
   getUserProfileFromUserMeta,
   getSwatchThreadDB,
   getAlertsDB,
+  getMessageThreads,
+  getMessagesDB,
 } from '@/utils/dbFunctions';
 import { Session } from 'next-auth';
 import mockSwatch from '../__fixtures__/mockSwatch';
@@ -13,6 +15,8 @@ import mockUserProfile from '../__fixtures__/mockUserProfile';
 import { mockReplyExt } from '../__fixtures__/mockReply';
 import { SwatchExt } from '@/types';
 import mockAlert from '../__fixtures__/mockAlert';
+import { mockMessage } from '../__fixtures__/mockMessage';
+import { mockMessageThread } from '../__fixtures__/mockMessageThread';
 
 const mockSwatchExt = {
   ...mockSwatch,
@@ -46,6 +50,12 @@ jest.mock('@/lib/prismadb', () => ({
   },
   alert: {
     findMany: jest.fn(() => [mockAlert]),
+  },
+  messageThread: {
+    findMany: jest.fn(() => [mockMessageThread]),
+  },
+  message: {
+    findMany: jest.fn(() => [mockMessage]),
   },
 }));
 
@@ -152,5 +162,43 @@ describe('getAlertsDB', () => {
   it('returns alerts', async () => {
     const result = await getAlertsDB(mockSession, 0);
     expect(result.alerts[0].id).toEqual('789pqrst');
+  });
+});
+
+describe('getMessageThreads', () => {
+  it('returns messages for user', async () => {
+    const mockSession: Session = {
+      expires: new Date(Date.now() + 2 * 86400).toISOString(),
+      user: { name: 'test', email: 'test-email@domain.com' },
+    };
+    const result = await getMessageThreads(mockSession);
+    expect(result?.threads?.length).toBe(1);
+  });
+  it('returns empty array for invalid data', async () => {
+    const mockSession: Session = {
+      expires: new Date(Date.now() + 2 * 86400).toISOString(),
+      user: { name: 'test', email: null },
+    };
+    const result = await getMessageThreads(mockSession);
+    expect(result?.threads?.length).toBe(0);
+  });
+});
+
+describe('getMessagesDB', () => {
+  it('returns messages', async () => {
+    const mockSession: Session = {
+      expires: new Date(Date.now() + 2 * 86400).toISOString(),
+      user: { name: 'test', email: 'test-email@domain.com' },
+    };
+    const result = await getMessagesDB(mockSession, mockMessageThread.toUserID, 0);
+    expect(result?.messages?.length).toBe(1);
+  });
+  it('returns empty array for invalid data', async () => {
+    const mockSession: Session = {
+      expires: new Date(Date.now() + 2 * 86400).toISOString(),
+      user: { name: 'test', email: null },
+    };
+    const result = await getMessagesDB(mockSession, mockMessageThread.toUserID, 0);
+    expect(result?.messages?.length).toBe(0);
   });
 });

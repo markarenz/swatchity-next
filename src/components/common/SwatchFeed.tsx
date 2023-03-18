@@ -192,7 +192,7 @@ const SwatchFeed: React.FC<Props> = ({
 
           {isLoading &&
             [...Array(swatchesPerPage)].map((_e, idx) => (
-              <SwatchSkeleton key={`skeleton-swatch-${idx}`} isLoggedIn={isLoggedIn} />
+              <SwatchSkeleton key={`skeleton-swatch-${idx}`} idx={idx} />
             ))}
           {!isLoading && swatches.length === 0 && mode === 'search' && (
             <h2>

@@ -79,5 +79,4 @@ export type UserProfile = {
   avatarColor3r: number;
   avatarColor3g: number;
   avatarColor3b: number;
-  numPosts?: number;
 };

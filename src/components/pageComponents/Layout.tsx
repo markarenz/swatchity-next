@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import PageSeo from '@/components/pageComponents/PageSeo';
 import { PageMeta, SubNavItem } from '@/types';
+import { signOut } from 'next-auth/react';
 import SkipLink from '@/components/pageComponents/SkipLink';
 import { useUserContext } from '@/context/UserContext';
 import { useSession } from 'next-auth/react';
@@ -29,6 +30,11 @@ const Layout: React.FC<Props> = ({
   const { data: session } = useSession();
   const darkMode = userMeta?.darkMode;
   const showLoadingSession = (session === undefined && userMeta === null) || forceShowLoading;
+  useEffect(() => {
+    if (userMeta && !userMeta.active) {
+      signOut();
+    }
+  }, [userMeta]);
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', `${darkMode}`);
   }, [darkMode]);

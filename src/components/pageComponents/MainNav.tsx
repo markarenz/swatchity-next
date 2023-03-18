@@ -18,7 +18,7 @@ const MainNav = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { formatMessage } = useIntl();
   const router = useRouter();
-  const [pathRoot] = router.pathname.split('/');
+  const [, pathRoot] = router.pathname.split('/');
   const isActive = (keys: string[]): boolean => keys.includes(pathRoot);
 
   const getIcon = (iconName: string, rootPaths: string[]) => {
@@ -57,7 +57,7 @@ const MainNav = () => {
     let lastAlertsView = null;
     let lastMessagesView = null;
     if (typeof window !== 'undefined') {
-      lastAlertsView = localStorage.getItem('lastAlertView');
+      lastAlertsView = localStorage.getItem('lastAlertsView');
       lastMessagesView = localStorage.getItem('lastMessagesView');
     }
     if (
@@ -70,9 +70,7 @@ const MainNav = () => {
     if (
       icon === 'messages' &&
       !!userMeta?.lastMessage &&
-      (!lastMessagesView ||
-        (!!lastMessagesView &&
-          userMeta.lastMessage.toISOString() > new Date(lastMessagesView).toISOString()))
+      (!lastMessagesView || (!!lastMessagesView && `${userMeta.lastMessage}` > lastMessagesView))
     ) {
       return true;
     }

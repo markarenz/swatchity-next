@@ -16,14 +16,20 @@ import {
   serializeSwatchDates,
   serializeReplyDates,
   serializeAlerts,
+  serializeUserMeta,
+  serializeMessageDates,
+  serializeMessageThreads,
   getAlerts,
+  createMessage,
+  getMessages,
 } from '../../src/utils/apiFunctions';
 import fetchMock from 'jest-fetch-mock';
 import mockSwatch from '../__fixtures__/mockSwatch';
 import mockUserData from '../__fixtures__/mockUserMeta';
 import { mockReplyExt } from '../__fixtures__/mockReply';
 import mockAlert from '../__fixtures__/mockAlert';
-import { ServerDescriptionChangedEvent } from 'mongodb';
+import { mockMessage } from '../__fixtures__/mockMessage';
+import { mockMessageThread } from '../__fixtures__/mockMessageThread';
 
 const mockSwatchExt = {
   ...mockSwatch,
@@ -63,12 +69,44 @@ describe('serializeSwatchDates', () => {
     const result = serializeSwatchDates([
       {
         ...mockSwatchExt,
-        user: { ...mockSwatchExt.user, lastAlert: new Date(mockSwatchExt.createdAt) },
+        user: {
+          ...mockSwatchExt.user,
+          lastAlert: new Date(mockSwatchExt.createdAt),
+          lastMessage: new Date(mockSwatchExt.createdAt),
+        },
       },
     ]);
     expect(result[0].user.lastAlert).not.toBeNull();
   });
 });
+
+describe('serializeUserMeta', () => {
+  it('returns userMeta object with null lastAlert', () => {
+    const result = serializeUserMeta(mockUserData);
+    expect(result.lastAlert).toBe(null);
+  });
+  it('returns userMeta object with lastAlert', () => {
+    const result = serializeUserMeta({
+      ...mockUserData,
+      lastAlert: new Date(mockSwatchExt.createdAt),
+      lastMessage: new Date(mockSwatchExt.createdAt),
+    });
+    expect(result.lastAlert).not.toBe(null);
+  });
+});
+describe('serializeMessageDates', () => {
+  it('returns message with serialized dates', () => {
+    const result = serializeMessageDates([mockMessage]);
+    expect(typeof result[0].createdAt).toBe('string');
+  });
+});
+describe('serializeMessageDates', () => {
+  it('returns message with serialized dates', () => {
+    const result = serializeMessageThreads([mockMessageThread]);
+    expect(typeof result[0].createdAt).toBe('string');
+  });
+});
+
 describe('serializeReplyDates', () => {
   it('returns reply object with null lastAlert', () => {
     const result = serializeReplyDates([mockReplyExt]);
@@ -362,24 +400,65 @@ describe('getReplies', () => {
     };
     fetchMock.mockOnce(JSON.stringify(mockResponse));
     const result = await getReplies(mockUserData.id, mockSwatchExt.id, 0);
-
     expect(result?.replies.length).toBe(0);
   });
 });
 
 describe('getAlerts', () => {
-  it('returns alerts', () => {
+  it('returns alerts', async () => {
     const mockResponse = {
       alerts: [mockAlert],
     };
     fetchMock.mockOnce(JSON.stringify(mockResponse));
-    const result = getAlerts(mockUserData.id, 0);
+    const result = await getAlerts(mockUserData.id, 0);
+    expect(result.alerts.length).toBe(1);
   });
-  it('returns an empty array on error', () => {
+  it('returns an empty array on error', async () => {
     const mockResponse = {
       alerts: null,
     };
     fetchMock.mockOnce(JSON.stringify(mockResponse));
-    const result = getAlerts(mockUserData.id, 0);
+    const result = await getAlerts(mockUserData.id, 0);
+    expect(result.alerts.length).toBe(0);
+  });
+});
+
+describe('createMessage', () => {
+  it('returns message on creation', async () => {
+    const mockResponse = {
+      success: true,
+      message: mockMessage,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createMessage(mockUserData.email, mockUserData.email, 100, 100, 100);
+    expect(result.message.id).toBe(mockMessage.id);
+  });
+  it('returns null on error', async () => {
+    const mockResponse = {
+      success: false,
+      message: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createMessage(mockUserData.email, mockUserData.email, 100, 100, 100);
+    expect(result.message).toBe(null);
+  });
+});
+
+describe('getMessages', () => {
+  it('returns messages', async () => {
+    const mockResponse = {
+      messages: [mockMessage],
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getMessages(mockUserData.id, 0);
+    expect(result.messages.length).toBe(1);
+  });
+  it('returns empty array when null is returned', async () => {
+    const mockResponse = {
+      messages: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getMessages(mockUserData.id, 0);
+    expect(result.messages.length).toBe(0);
   });
 });

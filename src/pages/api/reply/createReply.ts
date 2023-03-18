@@ -9,7 +9,7 @@ import { SwatchExt } from '@/types';
 import { checkUserScore } from '@/utils/scoreFunctions';
 
 /*
- * PATH: api/replu/createReply
+ * PATH: api/reply/createReply
  * PURPOSE: Create swatchReply record from input for logged in user
  * NOTES: For security, the function only creates a swatch if user is logged in
  * PAYLOAD: email, swatchID, colorR, colorG, colorB, link
@@ -29,19 +29,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         user: true,
       },
     });
-    const isValid =
-      !!email &&
-      email === session?.user?.email &&
-      swatch?.id &&
-      validateWithRules(data, createSwatchRules);
-    if (!isValid) {
-      throw 'invalid data';
-    }
     const userMeta: UserMeta | null = await prisma.userMeta.findUnique({
       where: {
         email,
       },
     });
+    const isValid =
+      !!email &&
+      email === session?.user?.email &&
+      userMeta?.active &&
+      swatch?.id &&
+      validateWithRules(data, createSwatchRules);
+    if (!isValid) {
+      throw 'invalid data';
+    }
     const reply = await prisma.reply.create({
       data: {
         userID: `${userMeta?.id}`,

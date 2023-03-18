@@ -40,17 +40,18 @@ const AlertsPage: NextPage<Props> = ({ initialAlerts }) => {
     if (!pageInit) {
       setPageInit(true);
       if (typeof window !== 'undefined' && lastVisit === null) {
-        const newLastVisit = localStorage.getItem('lastAlertView') || '';
+        const newLastVisit = localStorage.getItem('lastAlertsView') || '';
         setLastVisit(newLastVisit);
       }
     }
     return () => {
       if (pageInit) {
         if (typeof window !== 'undefined') {
-          localStorage.setItem('lastAlertView', new Date().toISOString());
+          localStorage.setItem('lastAlertsView', new Date().toISOString());
         }
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageInit]);
 
   const refreshAlerts = () => {
@@ -112,7 +113,7 @@ const AlertsPage: NextPage<Props> = ({ initialAlerts }) => {
           ))}
           {isLoading &&
             [...Array(alertsPerPage)].map((_a, idx) => (
-              <AlertSkeleton key={`alertSkeleton-${idx}`} />
+              <AlertSkeleton key={`alertSkeleton-${idx}`} idx={idx} />
             ))}
           {showNotLoggedIn && (
             <h2>
