@@ -9,11 +9,7 @@ const Footer = () => {
     >
       <span>&copy;{new Date().getFullYear()} All Rights Reserved</span> -{' '}
       <Link href="/privacy-policy" className="text-gray-2 inline-block" prefetch={false}>
-        <FormattedMessage id="footer__privacy_polciy" />
-      </Link>{' '}
-      -{' '}
-      <Link href="/terms-of-service" className="text-gray-2 inline-block" prefetch={false}>
-        <FormattedMessage id="footer__terms" />
+        <FormattedMessage id="footer__privacy_policy" />
       </Link>
     </footer>
   );

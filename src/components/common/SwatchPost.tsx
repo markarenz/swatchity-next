@@ -82,6 +82,7 @@ const SwatchPost: React.FC<Props> = ({
             href={`/profile/${user?.id}`}
             aria-label={`Profile for ${user?.name}`}
             prefetch={false}
+            className="w-4 h-4"
           >
             <Avatar avatarData={avatarData} />
           </Link>

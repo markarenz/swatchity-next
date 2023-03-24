@@ -2,11 +2,12 @@ import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { UserMeta } from '@prisma/client';
 import { useIntl } from 'react-intl';
-import { getUserMeta, createUserMeta } from '@/utils/apiFunctions';
-import { ProfileFormFields } from '@/types';
+import { getUserMeta, createUserMeta, getSidebarContent } from '@/utils/apiFunctions';
+import { ProfileFormFields, SidebarContent } from '@/types';
 import { toast } from 'react-toastify';
 
 type ContextValue = {
+  sidebarContent: SidebarContent | null;
   userMeta: UserMeta | null;
   isNewUser: boolean;
   updateUserMeta: Function;
@@ -25,6 +26,7 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
   const [isNewUser, setIsNewUser] = useState(false);
   const [isInitChecked, setIsInitChecked] = useState(false);
   const [userMeta, setUserMeta] = useState<UserMeta | null>(null);
+  const [sidebarContent, setSidebarContent] = useState<SidebarContent | null>(null);
   const { formatMessage } = useIntl();
   const { data: session } = useSession();
   const updateUserMeta = (formData: ProfileFormFields) => {
@@ -65,6 +67,10 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
       setIsNewUser(true);
     }
   };
+  const getInitialSidebarContent = async () => {
+    const newSidebarContent = await getSidebarContent();
+    setSidebarContent(newSidebarContent);
+  };
   useEffect(() => {
     if (!isSessionLoaded && !isInitChecked && !!session?.user) {
       setIsInitChecked(true);
@@ -73,16 +79,22 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
     }
     // eslint-disable-next-line
   }, [session]);
+  useEffect(() => {
+    if (!sidebarContent) {
+      getInitialSidebarContent();
+    }
+  }, []);
 
   const contextValue = useMemo((): ContextValue => {
     return {
       userMeta,
       isNewUser,
+      sidebarContent,
       updateUserMeta,
       checkUserMeta,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userMeta, isNewUser]);
+  }, [userMeta, isNewUser, sidebarContent]);
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 };

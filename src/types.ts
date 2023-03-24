@@ -1,4 +1,4 @@
-import { UserMeta, Swatch, Reply } from '@prisma/client';
+import { UserMeta, Swatch, Reply, Post } from '@prisma/client';
 
 export type PageMeta = {
   title: string;
@@ -52,6 +52,20 @@ export type ProfileFormFields = {
   prefLang?: string;
 };
 
+export type PostFormFields = {
+  id: string;
+  title: string;
+  slug: string;
+  minLevel: number;
+  active: boolean;
+  publishDate: string;
+  tags: string;
+  metadesc: string;
+  content: string;
+  colorR: number;
+  colorG: number;
+  colorB: number;
+};
 export interface SwatchExt extends Swatch {
   user: UserMeta;
 }
@@ -79,4 +93,22 @@ export type UserProfile = {
   avatarColor3r: number;
   avatarColor3g: number;
   avatarColor3b: number;
+};
+
+export type SidebarContent = {
+  posts: Post[];
+  swatches: Swatch[];
+  userMeta: UserMeta[];
+};
+
+export type PostSummary = {
+  id: string;
+  title: string;
+  slug: string;
+  colorR: number;
+  colorG: number;
+  colorB: number;
+  imgFeatured: string;
+  imgThumbnail: string;
+  publishDate: string;
 };

@@ -9,6 +9,7 @@ import HeaderMenu from './HeaderMenu';
 import MainNav from './MainNav';
 import SubNav from './SubNav';
 import Footer from './Footer';
+import Sidebar from './Sidebar';
 import LoadingSession from './LoadingSession';
 
 type Props = {
@@ -52,12 +53,7 @@ const Layout: React.FC<Props> = ({
         </main>
         <Footer />
       </div>
-      <div
-        id="sidebar"
-        className="wide-col-sidebar py-1 px-1 bg-gray-4 text-gray-1 border-l-2 border-teal"
-      >
-        Sidebar
-      </div>
+      <Sidebar />
       {showLoadingSession && <LoadingSession />}
     </div>
   );

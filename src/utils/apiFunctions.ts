@@ -1,5 +1,5 @@
-import { Alert, Message, MessageThread, UserMeta } from '@prisma/client';
-import { ProfileFormFields, SwatchExt, ReplyExt, UserProfile } from '@/types';
+import { Alert, Message, MessageThread, UserMeta, Post } from '@prisma/client';
+import { ProfileFormFields, SwatchExt, ReplyExt, PostFormFields, PostSummary } from '@/types';
 
 export const serializeDate = (dateObj: Date) => JSON.parse(JSON.stringify(dateObj));
 export const serializeSwatchDates = (swatches: SwatchExt[]) =>
@@ -109,6 +109,14 @@ export const cleanSlug = (str: string): string =>
 export const cleanSlugWithRandomNums = (str: string): string =>
   `${cleanSlug(str)}${Math.floor(Math.random() * 8999 + 1000)}`;
 
+export const randomString = (length: number): string => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result = `${result}${characters.charAt(Math.floor(Math.random() * characters.length))}`;
+  }
+  return result;
+};
 export const updateUserProfile = async (formData: ProfileFormFields | null, email: string) => {
   if (!formData) {
     return false;
@@ -296,5 +304,53 @@ export const getMessages = async (userID: string, skip: number) => {
   const data = await response.json();
   return {
     messages: data.messages || [],
+  };
+};
+
+export const createPost = async () => {
+  // NOTE: WILL ONLY WORK FOR ADMIN USERS
+  const body = {};
+  const response = await fetch('/api/post/createPost', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success ? { post: data.post } : { post: null };
+};
+
+export const updatePost = async (id: string, formData: PostFormFields) => {
+  const body = {
+    id,
+    formData,
+  };
+  const response = await fetch('/api/post/updatePost', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data.success;
+};
+
+export const getSidebarContent = async () => {
+  const body = {};
+  const response = await fetch('/api/getSidebarContent', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const getPosts = async (skip: number) => {
+  const body = {
+    skip,
+  };
+  const response = await fetch('/api/post/readPosts', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  const data = await response.json();
+  return {
+    posts: data.posts || [],
   };
 };

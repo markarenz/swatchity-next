@@ -2,8 +2,14 @@ import { Session } from 'next-auth';
 import prisma from '@/lib/prismadb';
 import { UserMeta, Alert } from '@prisma/client';
 import { SwatchExt, UserProfile } from '@/types';
-import { swatchesPerPage, repliesPerPage, alertsPerPage, messagesPerPage } from '@/constants';
-import { getColorScore } from './colorFunctions';
+import {
+  swatchesPerPage,
+  repliesPerPage,
+  alertsPerPage,
+  postsPerPage,
+  messagesPerPage,
+} from '@/constants';
+// import { getColorScore } from './colorFunctions';
 
 // export const updateSwatchColorScores = async () => {
 //   // update all Swatches to use new colorScore function
@@ -416,5 +422,65 @@ export const getMessagesDB = async (session: Session | null, userID: string, ski
   return {
     otherUserProfile: null,
     messages: [],
+  };
+};
+
+export const getPostByIdDB = async (id: string) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!!post?.id) {
+    return {
+      post,
+    };
+  }
+  return {
+    post: null,
+  };
+};
+export const getPostSummariesDB = async (
+  activeOnly: boolean,
+  skip: number,
+  take = postsPerPage,
+) => {
+  const posts = await prisma.post.findMany({
+    take,
+    skip,
+    where: {
+      active: activeOnly ? true : {},
+    },
+    orderBy: {
+      publishDate: 'desc',
+    },
+  });
+  const postSummaries = posts.map((p) => ({
+    id: p.id,
+    title: p.title,
+    slug: p.slug,
+    colorR: p.colorR,
+    colorG: p.colorG,
+    colorB: p.colorB,
+    imgFeatured: p.imgFeatured,
+    imgThumbnail: p.imgThumbnail,
+    publishDate: p.publishDate,
+  }));
+  return !!postSummaries ? postSummaries : [];
+};
+
+export const getPostBySlugDB = async (slug: string) => {
+  const post = await prisma.post.findFirst({
+    where: {
+      slug,
+    },
+  });
+  if (!!post?.id) {
+    return {
+      post,
+    };
+  }
+  return {
+    post: null,
   };
 };

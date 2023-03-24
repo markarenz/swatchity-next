@@ -137,6 +137,27 @@ hr{
 .transition{
   transition: 0.2s all ease-in-out;
 };
+
+.hover-group{
+  .group-hover-opacity-in{
+    transition: 0.2s all ease-in-out;
+    opacity: 0;
+  }
+  .group-hover-zoom{
+    transition: 0.2s all ease-in-out;
+    transform:scale(1);
+  }  
+  &:focus,
+  &:hover{
+    .group-hover-zoom{
+      transform:scale(1.2);
+    }
+    .group-hover-opacity-in{
+      opacity:1;
+    }
+  }
+}
+
 .hover-zoom{
   transition: 0.2s all ease-in-out;
   transform:scale(1);
@@ -248,4 +269,22 @@ hr{
 
 .word-break{
   word-break: break-word;
+}
+
+.text-link{
+  text-decoration: none;
+  text-decoration-color: $gray-4;
+  @include dark{
+    text-decoration-color: $gray-2;
+  }
+  &:focus,
+  &:hover{
+    text-decoration: underline;
+    &.text-link-no-underline{
+      text-decoration: none;    
+    }
+  }
+}
+em{
+  font-style: italic;
 }

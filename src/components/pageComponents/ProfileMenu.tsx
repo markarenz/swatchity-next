@@ -16,6 +16,7 @@ type Props = {
 
 const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
   const { checkUserMeta } = useUserContext();
+  const isAdmin = userMeta?.role == 'admin';
   const [isOpen, setIsOpen] = useState(false);
   const handleProfileClick = () => {
     setIsOpen((prev) => !prev);
@@ -68,18 +69,25 @@ const ProfileMenu: React.FC<Props> = ({ userMeta }) => {
         </div>
         <hr className="mt-0-5 mb-0-5 border-base dark-border-gray-2" />
 
-        {profileLinks.map((item, idx) => (
-          <div key={`${item.labelKey}-${idx}`}>
-            <Link
-              href={item.href}
-              className={`nav-link py-0-9 ${linkClasses}`}
-              tabIndex={isOpen ? 0 : -1}
-              prefetch={false}
-            >
-              <FormattedMessage id={item.labelKey} />
-            </Link>
-          </div>
-        ))}
+        {profileLinks.map(
+          (item, idx) =>
+            ((item.adminOnly && isAdmin) || !item.adminOnly) && (
+              <div key={`${item.labelKey}-${idx}`}>
+                <Link
+                  href={
+                    item.labelKey === 'header__profile_menu__own'
+                      ? `/profile/${userMeta.id}`
+                      : item.href
+                  }
+                  className={`nav-link py-0-9 ${linkClasses}`}
+                  tabIndex={isOpen ? 0 : -1}
+                  prefetch={false}
+                >
+                  <FormattedMessage id={item.labelKey} />
+                </Link>
+              </div>
+            ),
+        )}
         <hr className="mt-0-5 mb-0-5 border-base dark-border-gray-2" />
         <button
           data-testid="btn-signout"

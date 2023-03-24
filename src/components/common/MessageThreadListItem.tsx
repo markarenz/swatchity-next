@@ -13,26 +13,32 @@ const MessageThreadListItem: React.FC<Props> = ({ thread, lastVisitStr, userID }
   const threadUserID = userID === thread.fromUserID ? thread.toUserID : thread.fromUserID;
   const threadLink = `/messages/${threadUserID}`;
   return (
-    <div
-      className={`px-1 py-1 round-1 ${
-        `${thread.modifiedAt}` > lastVisitStr ? 'bg-red dark-bg-base' : 'bg-gray-3 dark-bg-gray-5'
-      }`}
+    <Link
+      href={threadLink}
+      aria-label="view"
+      prefetch={false}
+      className="text-link text-link-no-underline hover-group"
     >
-      <div className="flex items-center">
-        <div className="flex-grow text-gray-1 dark-text-gray-2">
-          <span className="mr-0-5">{threadUserName}</span>
-          <span className="mr-0-5">&#183;</span>
-          <TimeSince inputDate={thread.modifiedAt} />
-        </div>
-        <div>
-          <Link href={threadLink} aria-label="view" prefetch={false}>
-            <div className="hover-zoom h-4 w-4 py-1 px-1 round">
+      <div
+        className={`px-1 py-1 round-1 relative ${
+          `${thread.modifiedAt}` > lastVisitStr ? 'bg-red dark-bg-base' : 'bg-gray-3 dark-bg-gray-5'
+        }`}
+      >
+        <div className="absolute w-full h-full top-0 left-0 bg-gray-7 round-1 group-hover-opacity-in" />
+        <div className="flex items-center relative">
+          <div className="flex-grow text-gray-1 dark-text-gray-2">
+            <span className="mr-0-5">{threadUserName}</span>
+            <span className="mr-0-5">&#183;</span>
+            <TimeSince inputDate={thread.modifiedAt} />
+          </div>
+          <div>
+            <div className="group-hover-zoom h-4 w-4 py-1 px-1 round">
               <IconLink color="gray-1" colorDark="gray-2" />
             </div>
-          </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

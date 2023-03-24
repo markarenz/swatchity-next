@@ -19,8 +19,18 @@ label{
   text-transform: uppercase;
   font-weight: 700;
 }
+// MAKE NATIVE DATE PICKER ICON VISIBLE
+::-webkit-calendar-picker-indicator {
+  @include dark{
+    filter: invert(1);
+  }
+}
+
 .select,
 .input-text,
+textarea,
+input[type="number"],
+input[type="date"],
 input[type="text"] {
   width:100%;
   font-size: 1rem;

@@ -2,18 +2,22 @@ export const profileLinks = [
   {
     href: '/profile',
     labelKey: 'header__profile_menu__profile',
+    adminOnly: false,
   },
   {
-    href: '/feed/followers',
-    labelKey: 'header__profile_menu__followers',
+    href: '/feed/liked',
+    labelKey: 'header__profile_menu__liked',
+    adminOnly: false,
   },
   {
-    href: '/feed/following',
-    labelKey: 'header__profile_menu__following',
-  },
-  {
-    href: '/feed/own',
+    href: '/feed/SLEF_PROFILE',
     labelKey: 'header__profile_menu__own',
+    adminOnly: false,
+  },
+  {
+    href: '/admin',
+    labelKey: 'header__profile_menu__admin',
+    adminOnly: true,
   },
 ];
 
@@ -33,6 +37,25 @@ export const subNavLinksFeed = [
   {
     href: '/feed/mood',
     labelKey: 'header__subNav__feed__mood',
+  },
+];
+
+export const subNavLinksAdmin = [
+  {
+    href: '/admin',
+    labelKey: 'header__subNav__admin__home',
+  },
+  {
+    href: '/admin/posts',
+    labelKey: 'header__subNav__admin__posts',
+  },
+  {
+    href: '/admin', // TODO: admin/users
+    labelKey: 'header__subNav__admin__users',
+  },
+  {
+    href: '/admin', // TODO: admin/swatches
+    labelKey: 'header__subNav__admin__swatches',
   },
 ];
 
@@ -90,8 +113,8 @@ export const perfLangOptions = [
   },
 ];
 
-export const swatchesPerPage = 3;
-
-export const repliesPerPage = 3;
-export const alertsPerPage = 3;
-export const messagesPerPage = 3;
+export const swatchesPerPage = 10;
+export const repliesPerPage = 10;
+export const alertsPerPage = 10;
+export const messagesPerPage = 10;
+export const postsPerPage = 15;

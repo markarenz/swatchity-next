@@ -189,6 +189,7 @@ model Post {
   colorG       Int
   colorB       Int
   active       Boolean
+  publishDate  String
   createdAt    DateTime
   modifiedAt   DateTime
 }
