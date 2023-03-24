@@ -83,7 +83,7 @@ export const UserContextProvider: React.FC<Props> = ({ children, locale }) => {
     if (!sidebarContent) {
       getInitialSidebarContent();
     }
-  }, []);
+  }, [sidebarContent]);
 
   const contextValue = useMemo((): ContextValue => {
     return {

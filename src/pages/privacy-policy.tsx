@@ -52,9 +52,9 @@ const PrivacyPolicy: NextPage = () => {
           <p>
             We want to inform you that whenever you visit our Service, we collect information that
             your browser sends to us that is called Log Data. This Log Data may include information
-            such as your computer’s Internet Protocol ("IP") address, browser version, pages of our
-            Service that you visit, the time and date of your visit, the time spent on those pages,
-            and other statistics.
+            such as your computer’s Internet Protocol (&#34;IP&#34;) address, browser version, pages
+            of our Service that you visit, the time and date of your visit, the time spent on those
+            pages, and other statistics.
           </p>
 
           <h2 className="pt-2">Cookies</h2>
@@ -66,15 +66,15 @@ const PrivacyPolicy: NextPage = () => {
           </p>
 
           <p>
-            Our website uses these "cookies" to collection information and to improve our Service.
-            You have the option to either accept or refuse these cookies, and know when a cookie is
-            being sent to your computer. If you choose to refuse our cookies, you may not be able to
-            use some portions of our Service.
+            Our website uses these &#34;cookies&#34; to collection information and to improve our
+            Service. You have the option to either accept or refuse these cookies, and know when a
+            cookie is being sent to your computer. If you choose to refuse our cookies, you may not
+            be able to use some portions of our Service.
           </p>
 
           <p>
-            For more general information on cookies, please read "Cookies" article from the Privacy
-            Policy Generator.
+            For more general information on cookies, please read &#34;Cookies&#34; article from the
+            Privacy Policy Generator.
           </p>
 
           <h2 className="pt-2">Service Providers</h2>
@@ -108,7 +108,7 @@ const PrivacyPolicy: NextPage = () => {
             practices of any third-party sites or services.
           </p>
 
-          <h2 className="pt-2">Children's Privacy</h2>
+          <h2 className="pt-2">Children&lsquo;s Privacy</h2>
 
           <p>
             Our Services do not address anyone under the age of 13. We do not knowingly collect

@@ -26,10 +26,11 @@ export default function App({
         <UserContextProvider locale={locale || defaultLocale}>
           <div>
             <Script
+              id="google-analytics-tag"
               strategy="lazyOnload"
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_PROPERTY_ID}`}
             />
-            <Script strategy="lazyOnload">
+            <Script strategy="lazyOnload" id="google-analytics-stream">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
