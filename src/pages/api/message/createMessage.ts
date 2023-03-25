@@ -99,7 +99,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
     return res.status(200).json({ success, message });
   } catch (err) {
-    console.error('CREATE MESSAGE', err);
     return res.status(500).json({ success: false, message: null });
   }
 }

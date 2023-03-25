@@ -7,6 +7,9 @@ import {
   getAlertsDB,
   getMessageThreads,
   getMessagesDB,
+  getPostBySlugDB,
+  getPostSummariesDB,
+  getPostByIdDB,
 } from '@/utils/dbFunctions';
 import { Session } from 'next-auth';
 import mockSwatch from '../__fixtures__/mockSwatch';
@@ -17,6 +20,7 @@ import { SwatchExt } from '@/types';
 import mockAlert from '../__fixtures__/mockAlert';
 import { mockMessage } from '../__fixtures__/mockMessage';
 import { mockMessageThread } from '../__fixtures__/mockMessageThread';
+import mockNewsPost from '../__fixtures__/mockNewsPost';
 
 const mockSwatchExt = {
   ...mockSwatch,
@@ -56,6 +60,20 @@ jest.mock('@/lib/prismadb', () => ({
   },
   message: {
     findMany: jest.fn(() => [mockMessage]),
+  },
+  post: {
+    findFirst: jest
+      .fn()
+      .mockImplementationOnce(() => null)
+      .mockImplementation(() => mockNewsPost),
+    findUnique: jest
+      .fn()
+      .mockImplementationOnce(() => null)
+      .mockImplementation(() => mockNewsPost),
+    findMany: jest
+      .fn()
+      .mockImplementationOnce(() => null)
+      .mockImplementation(() => [mockNewsPost]),
   },
 }));
 
@@ -200,5 +218,38 @@ describe('getMessagesDB', () => {
     };
     const result = await getMessagesDB(mockSession, mockMessageThread.toUserID, 0);
     expect(result?.messages?.length).toBe(0);
+  });
+});
+
+describe('getPostByIdDB', () => {
+  it('returns null when an error occurs', async () => {
+    const result = await getPostByIdDB('test');
+    expect(result?.post?.id).toBe(undefined);
+  });
+  it('returns null when an error occurs', async () => {
+    const result = await getPostByIdDB('test');
+    expect(result?.post?.id).toBe(mockNewsPost.id);
+  });
+});
+
+describe('getPostBySlugDB', () => {
+  it('returns null when an error occurs', async () => {
+    const result = await getPostBySlugDB('test');
+    expect(result?.post?.id).toBe(undefined);
+  });
+  it('returns post when successful', async () => {
+    const result = await getPostBySlugDB('test');
+    expect(result?.post?.id).toBe(mockNewsPost.id);
+  });
+});
+
+describe('getPostSummariesDB', () => {
+  it('returns an empty array on error', async () => {
+    const result = await getPostSummariesDB(true, 0, 5);
+    expect(result.length).toBe(0);
+  });
+  it('returns post summaries', async () => {
+    const result = await getPostSummariesDB(false, 0);
+    expect(result.length).toBe(1);
   });
 });

@@ -10,6 +10,7 @@ import { getPostBySlugDB } from '@/utils/dbFunctions';
 import { PageMeta } from '@/types';
 import ReactMarkdown from 'react-markdown';
 import styles from '@/styles/modules/postDetailPage.module.scss';
+import { dummyNewsPost } from '@/constants';
 
 type Props = {
   post: Post;
@@ -77,13 +78,13 @@ const PostDetailPage: NextPage<Props> = ({ post }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
   const postData = await getPostBySlugDB(`${slug}`);
-  const { post } = postData;
+  const post = postData?.post ? postData.post : dummyNewsPost;
   return {
     props: {
       post: {
         ...post,
-        createdAt: post?.createdAt ? serializeDate(post?.createdAt) : null,
-        modifiedAt: post?.modifiedAt ? serializeDate(post?.modifiedAt) : null,
+        createdAt: serializeDate(post?.createdAt),
+        modifiedAt: serializeDate(post?.modifiedAt),
       },
     },
   };

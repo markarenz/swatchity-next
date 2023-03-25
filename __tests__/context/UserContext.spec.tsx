@@ -2,14 +2,9 @@ import React from 'react';
 import { render, act, screen } from '@testing-library/react';
 import { UserContextProvider, useUserContext } from '@/context/UserContext';
 import { SessionProvider } from 'next-auth/react';
-
-// jest.mock('next-auth/react', () => ({
-//   useSession: jest.fn().mockReturnValue({
-//     session: {
-//       email: 'email@test.com',
-//     },
-//   }),
-// }));
+import mockUserData from '../__fixtures__/mockUserMeta';
+import mockSwatch from '../__fixtures__/mockSwatch';
+import mockNewsPost from '../__fixtures__/mockNewsPost';
 
 jest.mock('@/utils/apiFunctions', () => ({
   getUserMeta: jest.fn((email) =>
@@ -25,6 +20,11 @@ jest.mock('@/utils/apiFunctions', () => ({
     email: 'test@domain.com',
     name: 'Test User',
     username: 'test-user',
+  })),
+  getSidebarContent: jest.fn(() => ({
+    posts: [mockNewsPost],
+    swatches: [mockSwatch],
+    usermta: [mockUserData],
   })),
 }));
 

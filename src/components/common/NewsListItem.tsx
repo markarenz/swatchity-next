@@ -14,7 +14,7 @@ const NewsListItem: React.FC<Props> = ({ post }) => {
     <Link
       href={`/news/${post.slug}`}
       aria-label="view post"
-      prefetch={false}
+      prefetch={true}
       className="text-link text-link-no-underline hover-group"
     >
       <div className="py-1 px-1 round-1 mb-2 relative" style={{ backgroundColor: bgColor }}>

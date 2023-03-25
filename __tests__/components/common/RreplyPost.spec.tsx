@@ -18,7 +18,7 @@ const mockProps = {
     f([mockSwatch.id]);
   }),
   setReplies: jest.fn((f: Function) => {
-    f([mockSwatch]);
+    f([mockSwatch, { ...mockSwatch, id: 'kjhf213' }]);
   }),
 };
 

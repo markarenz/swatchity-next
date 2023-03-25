@@ -38,7 +38,11 @@ const AdminPosts: NextPage<Props> = ({ posts }) => {
               <div>{pageMeta.metadesc}</div>
             </div>
             <div className="">
-              <button className="btn hover-zoom" onClick={hanleCreatePost}>
+              <button
+                className="btn hover-zoom"
+                onClick={hanleCreatePost}
+                data-testid="btn-new-post"
+              >
                 New
               </button>
             </div>

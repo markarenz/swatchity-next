@@ -88,6 +88,7 @@ const PostPage: NextPage<Props> = ({ initialPost }) => {
                     type="text"
                     value={formData.title}
                     name="title"
+                    data-testid="form-data-title"
                     onChange={handleFormChange}
                   />
                 </label>
@@ -131,6 +132,7 @@ const PostPage: NextPage<Props> = ({ initialPost }) => {
                     name="active"
                     value={formData.active ? 't' : 'f'}
                     onChange={handleFormChange}
+                    data-testid="form-data-active"
                   >
                     <option value="t">Active</option>
                     <option value="f">Not Active</option>
@@ -159,7 +161,11 @@ const PostPage: NextPage<Props> = ({ initialPost }) => {
                   <span>
                     <FormattedMessage id="admin__posts__edit__postColor" />
                   </span>
-                  <button onClick={openColorPicker}>
+                  <button
+                    onClick={openColorPicker}
+                    data-testid="form-data-color"
+                    aria-label="change color"
+                  >
                     <div
                       className="w-3 h-3 round"
                       style={{
@@ -254,7 +260,11 @@ const PostPage: NextPage<Props> = ({ initialPost }) => {
               <FormattedMessage id="btn_cancel" />
             </Link>
             {isValid && (
-              <button className="btn hover-zoom ml-1" onClick={saveForm}>
+              <button
+                className="btn hover-zoom ml-1"
+                onClick={saveForm}
+                data-testid="btn-form-save"
+              >
                 <FormattedMessage id="btn_ok" />
               </button>
             )}

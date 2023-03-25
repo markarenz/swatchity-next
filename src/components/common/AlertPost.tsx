@@ -13,7 +13,7 @@ const AlertPost: React.FC<Props> = ({ alert, lastVisitStr }) => {
     <Link
       href={alert.link}
       aria-label="view"
-      prefetch={false}
+      prefetch={true}
       className="text-link text-link-no-underline hover-group"
     >
       <div

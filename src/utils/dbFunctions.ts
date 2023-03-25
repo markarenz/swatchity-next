@@ -455,7 +455,7 @@ export const getPostSummariesDB = async (
       publishDate: 'desc',
     },
   });
-  const postSummaries = posts.map((p) => ({
+  const postSummaries = posts?.map((p) => ({
     id: p.id,
     title: p.title,
     slug: p.slug,
