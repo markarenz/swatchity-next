@@ -1,0 +1,17 @@
+@import '../includes/breakpoints';
+
+.content {
+  column-gap: 1rem;
+  column-count: 2;
+  @include for-phone-only {
+    column-count: 1;
+  }
+  p {
+    margin-bottom:1rem;
+  }
+  a{
+    color: inherit;
+    display:inline;
+  }
+  
+}

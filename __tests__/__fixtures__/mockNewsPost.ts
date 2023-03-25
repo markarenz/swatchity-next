@@ -1,0 +1,20 @@
+const mockNewsPost = {
+  id: 'skhf218756',
+  contentType: 'news',
+  minLevel: 0,
+  title: 'Tech Celeb Xybert Mounts Bid to Buy Beleagured Swatchity',
+  slug: 'xybert-to-buy-swatchity',
+  imgFeatured: 'data:image/svg+xml',
+  imgThumbnail: 'data:image/svg+xml',
+  tags: 'test',
+  metadesc: 'Test metadesc',
+  content: 'Test content...',
+  colorR: 8,
+  colorG: 88,
+  colorB: 88,
+  active: true,
+  publishDate: '2023-03-18',
+  createdAt: new Date('2023-02-12T21:42:46.580+00:00'),
+  modifiedAt: new Date('2023-02-12T21:42:46.580+00:00'),
+};
+export default mockNewsPost;

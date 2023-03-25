@@ -1,0 +1,58 @@
+@import '../config/colors';
+
+.numbersWrap{
+  padding: 1rem;
+  display:flex;
+  justify-content: center;
+  .number{
+    font-size: 15rem;
+    margin:0 1rem;
+    font-weight: bold;
+    &.number1{
+      animation: 3s 0s colors1 infinite;
+    }
+    &.number2{
+      animation: 3s 0.25s colors2 infinite;
+    }
+    &.number3{
+      animation: 3s 0.5s colors3 infinite;
+    }
+  }
+}
+.messageWrap{
+  text-align: center;
+}
+
+@keyframes colors1 {
+  0% {
+    color: $color-orange;
+  }  
+  50% {
+    color: $color-teal;
+  }  
+  100% {
+    color: $color-orange;
+  }  
+}
+@keyframes colors2 {
+  0% {
+    color: $color-red;
+  }  
+  50% {
+    color: $color-blue;
+  }  
+  100% {
+    color: $color-red;
+  }  
+}
+@keyframes colors3 {
+  0% {
+    color: $color-yellow;
+  }  
+  50% {
+    color: $color-green;
+  }  
+  100% {
+    color: $color-yellow;
+  }  
+}

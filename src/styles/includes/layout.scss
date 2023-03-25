@@ -1,0 +1,174 @@
+.flex{
+  display: flex;
+}
+.justify-between{
+  justify-content: space-between;
+}
+.justify-center{
+  justify-content: center;
+}
+.justify-right{
+  justify-content: right;
+}
+.justify-left{
+  justify-content: left;
+}
+.mobile-justify-around{
+  @include for-phone-only {
+    justify-content: space-around;
+    width:100%;
+  }
+}
+.flex-grow{
+  flex-grow: 1;
+}
+.mobile-flex-grow-0{
+  @include for-phone-only {
+    flex-grow: 0;
+  }
+}
+.mobile-flex-wrap{
+  @include for-phone-only {
+    flex-wrap: wrap;
+  }
+}
+.items-center{
+  align-items: center;
+}
+.flex-row{
+  flex-direction: row;
+}
+.flex-col{
+  flex-direction: column;
+}
+.sm-flex-col{
+  @include for-phone-only{
+    flex-direction: column;
+  }
+}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.gap-1{
+  gap: 1rem;
+}
+
+.fixed{
+  position:fixed;
+}
+.left-0{
+  left:0;
+}
+.right-0{
+  right:0;
+}
+.right-1{
+  right:1rem;
+}
+.top-0{
+  top:0;
+}
+.top-1{
+  top:1rem;
+}
+.bottom-0{
+  bottom:0;
+}
+.over-y-hidden{
+  overflow-y:hidden;
+}
+
+.contained{
+  width:100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1200px;
+  @include for-big-desktop-up {
+    max-width: 1400px;
+  }
+}
+.wide-col-main{
+  width:100%;
+  @include for-tablet-landscape-up{
+    width:75%;
+  }
+}
+.wide-col-sidebar{
+  display:none;
+  @include for-tablet-landscape-up{
+    display:block;
+    width:25%;
+  }
+}
+
+.round{
+  border-radius: 100%;
+}
+
+.round-tl{
+  border-top-left-radius: 0.5rem;
+}
+.round-tr{
+  border-top-right-radius: 0.5rem;
+}
+.round-bl{
+  border-bottom-left-radius: 0.5rem;
+}
+.round-br{
+  border-bottom-right-radius: 0.5rem;
+}
+.round-0-5{
+  border-radius: 0.5rem;
+}
+.round-1{
+  border-radius: 1rem;
+}
+.round-2{
+  border-radius: 2rem;
+}
+.round-3{
+  border-radius: 3rem;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.inline{
+  display:inline;
+}
+.block{
+  display:block;
+}
+.inline-block{
+  display:inline-block;
+}
+.text-center{
+  text-align:center;
+}
+.margin-center{
+  margin:0 auto;
+}
+.text-right{
+  text-align:right;
+}
+
+.text-left{
+  text-align:left;
+}
+
+main{
+  padding-bottom:10rem;
+}
+
+.modal-bg{
+  background-color: rgba(0,0,0,0.6);
+}
