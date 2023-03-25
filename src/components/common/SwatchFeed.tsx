@@ -118,7 +118,9 @@ const SwatchFeed: React.FC<Props> = ({
     searchColor = { r: parseInt(tmpR, 10), g: parseInt(tmpG, 10), b: parseInt(tmpB, 10) };
   }
   useEffect(() => {
-    refreshSwatches();
+    if (!!rgb && rgb !== '') {
+      refreshSwatches();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rgb]);
   const handleSearchColorChange = (color: Color) => {
