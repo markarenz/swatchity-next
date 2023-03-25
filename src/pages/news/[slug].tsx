@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Post } from '@prisma/client';
 import Layout from '@/components/pageComponents/Layout';
@@ -35,8 +36,10 @@ const PostDetailPage: NextPage<Props> = ({ post }) => {
       <div className="pb-6">
         <div>
           <div>
-            <img
+            <Image
               src={post.imgFeatured}
+              width={1920}
+              height={900}
               style={{
                 backgroundColor: 'red',
                 display: 'block',

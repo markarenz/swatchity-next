@@ -16,7 +16,6 @@ const MessageThreadListItem: React.FC<Props> = ({ thread, lastVisitStr, userID }
     <Link
       href={threadLink}
       aria-label="view"
-      prefetch={true}
       className="text-link text-link-no-underline hover-group"
     >
       <div

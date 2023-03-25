@@ -14,13 +14,14 @@ const NewsListItem: React.FC<Props> = ({ post }) => {
     <Link
       href={`/news/${post.slug}`}
       aria-label="view post"
-      prefetch={true}
       className="text-link text-link-no-underline hover-group"
     >
       <div className="py-1 px-1 round-1 mb-2 relative" style={{ backgroundColor: bgColor }}>
         <div className="absolute w-full h-full top-0 left-0 bg-gray-7 round-1 group-hover-opacity-in" />
         <div className="flex items-center gap-1 relative">
-          <img
+          <Image
+            width={50}
+            height={50}
             src={post.imgThumbnail}
             alt={post.title}
             className="round w-3 h-3 border-1 dark-border-gray-2 border-gray-5 group-hover-zoom"

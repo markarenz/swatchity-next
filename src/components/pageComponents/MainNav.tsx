@@ -91,7 +91,6 @@ const MainNav = () => {
                 className="hover-zoom outline-light round"
                 key={`${item.labelKey}-${idx}`}
                 aria-label={formatMessage({ id: item.labelKey })}
-                prefetch={true}
               >
                 <div className="w-3 h-3 px-0-5 py-0-5">
                   {getItemHasDot(item.linkIcon) && (
