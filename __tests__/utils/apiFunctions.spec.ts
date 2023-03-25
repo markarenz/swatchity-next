@@ -22,6 +22,11 @@ import {
   getAlerts,
   createMessage,
   getMessages,
+  createPost,
+  updatePost,
+  getSidebarContent,
+  getPosts,
+  randomString,
 } from '../../src/utils/apiFunctions';
 import fetchMock from 'jest-fetch-mock';
 import mockSwatch from '../__fixtures__/mockSwatch';
@@ -30,6 +35,7 @@ import { mockReplyExt } from '../__fixtures__/mockReply';
 import mockAlert from '../__fixtures__/mockAlert';
 import { mockMessage } from '../__fixtures__/mockMessage';
 import { mockMessageThread } from '../__fixtures__/mockMessageThread';
+import mockNewsPost from '../__fixtures__/mockNewsPost';
 
 const mockSwatchExt = {
   ...mockSwatch,
@@ -460,5 +466,80 @@ describe('getMessages', () => {
     fetchMock.mockOnce(JSON.stringify(mockResponse));
     const result = await getMessages(mockUserData.id, 0);
     expect(result.messages.length).toBe(0);
+  });
+});
+
+describe('createPost', () => {
+  it('resurns null on error', async () => {
+    const mockResponse = {
+      success: false,
+      post: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createPost();
+    expect(result?.post?.id).toEqual(undefined);
+  });
+
+  it('resurns the created post', async () => {
+    const mockResponse = {
+      success: true,
+      post: mockNewsPost,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await createPost();
+    expect(result?.post?.id).toEqual(mockNewsPost.id);
+  });
+});
+
+describe('updatePost', () => {
+  const mockFormData = {
+    ...mockNewsPost,
+  };
+  it('returns updated post', async () => {
+    const mockResponse = {
+      success: true,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await updatePost('testID', mockFormData);
+    expect(result).toBe(true);
+  });
+});
+
+describe('getSidebarContent', () => {
+  it('returns sidebar content', async () => {
+    const mockResponse = {
+      posts: [mockNewsPost],
+      swatches: [mockSwatch],
+      userMeta: [mockUserData],
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getSidebarContent();
+    expect(result?.posts.length).toBe(1);
+  });
+});
+
+describe('getPosts', () => {
+  it('returns an empty array on error', async () => {
+    const mockResponse = {
+      posts: null,
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getPosts(0);
+    expect(result?.posts?.length).toBe(0);
+  });
+  it('returns posts', async () => {
+    const mockResponse = {
+      posts: [mockNewsPost],
+    };
+    fetchMock.mockOnce(JSON.stringify(mockResponse));
+    const result = await getPosts(0);
+    expect(result?.posts?.length).toBe(1);
+  });
+});
+
+describe('randomString', () => {
+  it('returns a random string of a given length', () => {
+    const result = randomString(10);
+    expect(result.length).toBe(10);
   });
 });

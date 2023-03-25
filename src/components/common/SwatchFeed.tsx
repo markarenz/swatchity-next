@@ -94,22 +94,20 @@ const SwatchFeed: React.FC<Props> = ({
     loadSwatches(swatches.length);
   };
   const loadSwatches = async (sk: number) => {
-    if (userMeta?.id) {
-      setIsLoading(true);
-      const newSwatchData = await getSwatches(`${userMeta?.id}`, mode, str, sk);
-      const { likes: newLikes, swatches: newSwatches } = newSwatchData;
-      if (sk > 0) {
-        setSwatches([...swatches, ...newSwatches]);
-        setUserLikes([...userLikes, newLikes]);
-      } else {
-        setSwatches(newSwatches);
-        setUserLikes(newLikes);
-      }
-      if (newSwatches.length === 0) {
-        setCanLoadMore(false);
-      }
-      setIsLoading(false);
+    setIsLoading(true);
+    const newSwatchData = await getSwatches(`${userMeta?.id}`, mode, str, sk);
+    const { likes: newLikes, swatches: newSwatches } = newSwatchData;
+    if (sk > 0) {
+      setSwatches([...swatches, ...newSwatches]);
+      setUserLikes([...userLikes, newLikes]);
+    } else {
+      setSwatches(newSwatches);
+      setUserLikes(newLikes);
     }
+    if (newSwatches.length === 0) {
+      setCanLoadMore(false);
+    }
+    setIsLoading(false);
   };
   // For Search pages, we need to refresh data on page load for multiple searches in a row
   let rgb = '';
@@ -120,9 +118,7 @@ const SwatchFeed: React.FC<Props> = ({
     searchColor = { r: parseInt(tmpR, 10), g: parseInt(tmpG, 10), b: parseInt(tmpB, 10) };
   }
   useEffect(() => {
-    if (!!userMeta?.id) {
-      refreshSwatches();
-    }
+    refreshSwatches();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rgb]);
   const handleSearchColorChange = (color: Color) => {

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { IntlProvider } from 'react-intl';
 import { ToastContainer } from 'react-toastify';
 import { UserContextProvider } from '@/context/UserContext';
@@ -24,6 +25,20 @@ export default function App({
       <IntlProvider messages={msg} locale={locale || defaultLocale} defaultLocale="en">
         <UserContextProvider locale={locale || defaultLocale}>
           <div>
+            <Script
+              id="google-analytics-tag"
+              strategy="lazyOnload"
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_PROPERTY_ID}`}
+            />
+            <Script strategy="lazyOnload" id="google-analytics-stream">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_DATA_STREAM_ID}');
+              `}
+            </Script>
             <Component {...pageProps} />
             <ToastContainer />
           </div>

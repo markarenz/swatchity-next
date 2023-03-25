@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import { IntlProvider } from 'react-intl';
 import messages from '@/locale/en-US.json';
 import mockUserData from '../../__fixtures__/mockUserMeta';
+import { mockMessage } from '../../__fixtures__/mockMessage';
 
 const mockOtherUser = {
   ...mockUserData,
@@ -27,6 +28,13 @@ jest.mock('next/router', () => ({
     push: jest.fn(),
   })),
 }));
+
+const mockProps = {
+  setMessages: jest.fn((f: Function) => {
+    f([mockMessage]);
+  }),
+  userProfile: mockOtherUser,
+};
 
 describe('UserProfileBioDisplay', () => {
   it('renders component - profile mode', () => {
@@ -91,7 +99,40 @@ describe('UserProfileBioDisplay', () => {
   it('handles message flow - complete', async () => {
     render(
       <IntlProvider messages={messages} locale="en" defaultLocale="en">
-        <UserProfileBlock userProfile={mockOtherUser} mode="messages" />
+        <UserProfileBlock
+          userProfile={mockOtherUser}
+          setMessages={mockProps.setMessages}
+          mode="messages"
+        />
+      </IntlProvider>,
+    );
+    const element = await screen.findByTestId('profile-block-message');
+    act(() => {
+      fireEvent(
+        element,
+        new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+    await waitFor(async () => {
+      const btnOk = await screen.findByTestId('picker-btn-ok');
+      fireEvent(
+        btnOk,
+        new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+    expect(screen).toMatchSnapshot();
+  });
+
+  it('handles message flow - complete in profile mode', async () => {
+    render(
+      <IntlProvider messages={messages} locale="en" defaultLocale="en">
+        <UserProfileBlock {...mockProps} mode="profile" />
       </IntlProvider>,
     );
     const element = await screen.findByTestId('profile-block-message');

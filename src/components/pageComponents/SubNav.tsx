@@ -19,7 +19,6 @@ const SubNav: React.FC<Props> = ({ subNavData }) => {
             className={`nav-link py-1 px-1 uppercase text-gray-1 hover-underline outline-offset-0 outline-light ${
               isActive(item.href) ? 'bg-base' : ''
             }`}
-            prefetch={false}
           >
             <FormattedMessage id={item.labelKey} />
           </Link>

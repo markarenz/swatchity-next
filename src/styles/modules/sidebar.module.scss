@@ -1,0 +1,21 @@
+@import '../config/colors';
+@import '../includes/darkMode';
+
+.corner{
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:3rem;
+  height:3rem;
+  .cornerBG{
+    fill: $gray-4;
+    // @include dark{
+    //   fill: $gray-4;
+    // }      
+  }
+  &.cornerReply{
+    right:unset;
+    left:0;
+    transform: scaleX(-1);
+  }
+}

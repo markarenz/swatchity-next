@@ -18,7 +18,6 @@ describe('ColorPicker', () => {
     act(() => {
       render(<ColorPicker {...mockProps} isOpen={false} />);
     });
-    // await new Promise(process.nextTick);
     const element = document.querySelector('.fixed');
     await waitFor(() => expect(element).toBeInTheDocument());
   });
@@ -29,19 +28,40 @@ describe('ColorPicker', () => {
     const element = document.querySelector('.fixed');
     expect(element).toBeInTheDocument();
   });
-  it('handles close button', () => {
+  it('handles close button', async () => {
     act(() => {
       render(<ColorPicker {...mockProps} />);
     });
-    const element = screen.queryByLabelText('Close');
+    const element = await screen.findByTestId('picker-close');
     if (element) {
-      fireEvent(
-        element,
-        new MouseEvent('click', {
-          bubbles: true,
-          cancelable: true,
-        }),
-      );
+      await waitFor(async () => {
+        fireEvent(
+          element,
+          new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+          }),
+        );
+      });
+    }
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+    expect(mockProps.closeColorPicker).toHaveBeenCalled();
+  });
+
+  it('handles ESC key to close', () => {
+    act(() => {
+      render(<ColorPicker {...mockProps} />);
+    });
+    const element = document.querySelector('.fixed');
+    if (element) {
+      fireEvent.keyDown(element, {
+        key: 'Escape',
+        code: 'Escape',
+        keyCode: 27,
+        charCode: 27,
+      });
     }
     act(() => {
       jest.advanceTimersByTime(500);

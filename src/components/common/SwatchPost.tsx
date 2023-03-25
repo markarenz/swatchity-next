@@ -81,7 +81,7 @@ const SwatchPost: React.FC<Props> = ({
           <Link
             href={`/profile/${user?.id}`}
             aria-label={`Profile for ${user?.name}`}
-            prefetch={false}
+            className="w-4 h-4"
           >
             <Avatar avatarData={avatarData} />
           </Link>
@@ -94,11 +94,7 @@ const SwatchPost: React.FC<Props> = ({
           </div>
           <div>
             {!isFeatured ? (
-              <Link
-                href={`/swatch/${id}`}
-                aria-label={`Swatch: ${colorR}, ${colorG}, ${colorB}`}
-                prefetch={false}
-              >
+              <Link href={`/swatch/${id}`} aria-label={`Swatch: ${colorR}, ${colorG}, ${colorB}`}>
                 <SwatchContent />
               </Link>
             ) : (
@@ -112,7 +108,6 @@ const SwatchPost: React.FC<Props> = ({
                   href={`/swatch/${id}`}
                   aria-label={formatMessage({ id: 'swatch__thread' })}
                   passHref={true}
-                  prefetch={false}
                 >
                   <div className="w-3 h-3 py-1 px-1">
                     <IconThread filled={false} color="gray-6" colorDark="gray-2" />

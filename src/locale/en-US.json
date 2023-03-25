@@ -3,9 +3,9 @@
   "header__log_in": "Log In",
   "header__profile_menu__log_out": "Log Out",
   "header__profile_menu__profile": "Profile",
-  "header__profile_menu__followers": "Followers",
-  "header__profile_menu__following": "Following",
+  "header__profile_menu__liked": "Liked Swatches",
   "header__profile_menu__own": "My Swatches",
+  "header__profile_menu__admin": "Admin Panel",
 
   "main_nav__main_nav": "Main Navigation",
   "main_nav__home": "Home",
@@ -132,7 +132,34 @@
   "messages__not_logged_in": "You need to be logged into Swatchity to view your messages.",
   "messages__thread__no_messages": "There are no messages between you and this user currently. Start a conversation by clicking on the message button!",
 
-  "footer__privacy_polciy": "Privacy",
+  "404__return_home": "Return Home",
+
+  "header__subNav__admin__home": "Home",
+  "header__subNav__admin__posts": "Posts",
+  "header__subNav__admin__users": "Users",
+  "header__subNav__admin__swatches": "Swatches",
+
+  "admin__posts__edit__title": "Title",
+  "admin__posts__edit__slug": "Slug (Unique)",
+  "admin__posts__edit__minLevel": "Minimum User Level",
+  "admin__posts__edit__active": "Active",
+  "admin__posts__edit__pubDate": "Publish Date",
+  "admin__posts__edit__postColor": "Post Color",
+  "admin__posts__edit__tags": "Tags",
+  "admin__posts__edit__metadesc": "Meta Description",
+  "admin__posts__edit__imgFeatured": "Featured SVG Img (1920x900)",
+  "admin__posts__edit__imgThumbnail": "Thumbnail SVG Img (square)",
+  "admin__posts__edit__content": "Content",
+  "admin__posts__edit__save__success": "Save successful.",
+  "admin__posts__edit__save__error": "Error saving.",
+ 
+  "sidebar__posts__title": "Latest News",
+  "sidebar__swatches__title": "Top Swatches",
+  "sidebar__users__title": "Top Swatchers",
+
+  "news__post_detail__more_news": "More News",
+
+  "footer__privacy_policy": "Privacy Policy",
   "footer__terms": "Terms",
   "": ""
 }
