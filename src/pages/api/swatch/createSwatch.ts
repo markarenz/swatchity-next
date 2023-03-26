@@ -32,14 +32,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       email === session?.user?.email &&
       validateWithRules(data, createSwatchRules);
     if (!isValid) {
-      console.error(
-        'Create Swatch Invalid Data',
-        email,
-        userMeta?.active,
-        session?.user?.email,
-        validateWithRules(data, createSwatchRules),
-        data,
-      );
       throw 'invalid data';
     }
     const colorScore = getColorScore({ r: colorR, g: colorG, b: colorB });
@@ -67,7 +59,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     return res.status(200).json({ success, swatch: swatchExt });
   } catch (err) {
-    console.log('Create Swatch Error', err);
     return res.status(500).json({ success: false, swatch: null });
   }
 }

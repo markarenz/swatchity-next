@@ -23,7 +23,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const posts = await getPostSummariesDB(true, skip);
     return res.status(200).json({ posts });
   } catch (err) {
-    console.error('>>>>', err);
     return res.status(500).json({ posts: null });
   }
 }
