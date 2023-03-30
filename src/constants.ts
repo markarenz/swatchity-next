@@ -108,8 +108,28 @@ export const perfLangOptions = [
     value: 'auto',
   },
   {
-    labelKey: 'profile_edit__perfLang__English',
+    labelKey: 'profile_edit__perfLang__en',
     value: 'en',
+  },
+  {
+    labelKey: 'profile_edit__perfLang__es',
+    value: 'es',
+  },
+  {
+    labelKey: 'profile_edit__perfLang__fr',
+    value: 'fr',
+  },
+  {
+    labelKey: 'profile_edit__perfLang__hi',
+    value: 'hi',
+  },
+  {
+    labelKey: 'profile_edit__perfLang__ru',
+    value: 'ru',
+  },
+  {
+    labelKey: 'profile_edit__perfLang__zh',
+    value: 'zh',
   },
 ];
 

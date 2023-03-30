@@ -76,7 +76,9 @@ export default function Profile() {
   return (
     <Layout pageMeta={pageMeta} subNavData={subNavData}>
       <div className="contained py-2">
-        <h1 className="pb-2">Profile: {formData?.name}</h1>
+        <h1 className="pb-2">
+          <FormattedMessage id="feed__profile__title" values={{ name: formData?.name }} />
+        </h1>
         {!userMeta ? (
           <div>Loading</div>
         ) : (
@@ -97,7 +99,7 @@ export default function Profile() {
                 </div>
               </div>
 
-              <div className="grid-row grid-row-2 pb-2">
+              <div className="grid-row grid-row-2">
                 <div className="pb-1">
                   <ProfilePerfLang perfLang={`${formData?.prefLang}`} setFormData={setFormData} />
                 </div>
@@ -105,6 +107,13 @@ export default function Profile() {
                 <div className="pb-1">
                   <ProfileDarkMode darkMode={`${formData?.darkMode}`} setFormData={setFormData} />
                 </div>
+              </div>
+              <div className="pb-2">
+                <p>
+                  <em>
+                    <FormattedMessage id="profile_edit__language__explainer" />
+                  </em>
+                </p>
               </div>
 
               <div className="pb-2">

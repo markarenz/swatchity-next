@@ -6,6 +6,12 @@ import mockUserData from '../__fixtures__/mockUserMeta';
 import mockSwatch from '../__fixtures__/mockSwatch';
 import mockNewsPost from '../__fixtures__/mockNewsPost';
 
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(() => ({
+    locale: 'en-US',
+  })),
+}));
+
 jest.mock('@/utils/apiFunctions', () => ({
   getUserMeta: jest.fn((email) =>
     email === 'email@domain.com'
@@ -49,7 +55,7 @@ describe('UserContext', () => {
     await act(async () => {
       render(
         <SessionProvider session={mockSession}>
-          <UserContextProvider locale="en-US">
+          <UserContextProvider>
             <div>Test</div>
           </UserContextProvider>
         </SessionProvider>,
@@ -61,7 +67,7 @@ describe('UserContext', () => {
     await act(async () => {
       render(
         <SessionProvider session={mockSessionUserExists}>
-          <UserContextProvider locale="en-US">
+          <UserContextProvider>
             <div>Test</div>
           </UserContextProvider>
         </SessionProvider>,
@@ -75,7 +81,7 @@ describe('UserContext', () => {
       const { isNewUser } = useUserContext();
       return (
         <SessionProvider session={mockSession}>
-          <UserContextProvider locale="en-US">
+          <UserContextProvider>
             <div>OK {isNewUser ? 'New' : 'Not New'}</div>
           </UserContextProvider>
         </SessionProvider>

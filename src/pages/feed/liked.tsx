@@ -19,7 +19,7 @@ const Liked: NextPage<Props> = ({ initialSwatches, initialLikes }) => {
   return (
     <SwatchFeed
       titleKey="feed__liked__title"
-      introKey="feed__liked__title"
+      introKey="feed__liked__intro"
       subNavData={subNavData}
       userMeta={userMeta}
       initialSwatches={initialSwatches}

@@ -1,4 +1,5 @@
 import IconSun from '../icons/IconSun';
+import { FormattedMessage } from 'react-intl';
 import IconMoon from '../icons/IconMoon';
 import IconAuto from '../icons/IconAuto';
 import { ProfileFormFields } from '@/types';
@@ -23,7 +24,9 @@ const ProfileDarkMode: React.FC<Props> = ({ darkMode, setFormData }) => {
   return (
     <div>
       <label>
-        <span>Dark Mode</span>
+        <span>
+          <FormattedMessage id="profile_edit__labels__darkMode" />
+        </span>
         <div className="relative round-3 inline-block border-1 border-gray-5 dark-border-gray-2 bg-gray-1 dark-bg-gray-6">
           <div
             className="absolute round h-3 w-3 bg-gray-2 dark-bg-gray-4 transition"
