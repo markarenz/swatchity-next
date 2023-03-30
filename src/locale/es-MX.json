@@ -81,7 +81,7 @@
   "profile_edit__labels__language": "Idioma",
   "profile_edit__labels__darkMode": "Tema",
   "profile_edit__labels__bio": "Biografía",
-  "profile_edit__language__explainer": "Tenga en cuenta que el soporte de idiomas se basa en la traducción automática y puede incluir errores. Si nota algo fuera de lugar, por favor háganoslo saber.",
+  "profile_edit__language__explainer": "Tenga en cuenta que el soporte de idiomas se basa en la traducción automática y puede incluir errores. Si nota algo fuera de lugar, por favor háganoslo saber:",
   "profile_edit__bio__explainer": "Usa los botones de color a continuación como un teclado para escribir tu biografía. Haz clic en X en un color para eliminarlo. Toca Aceptar para guardar tu biografía y CANCELAR para, bueno, cancelar",
   "profile_edit__perfLang__auto": "Automático",
   "profile_edit__perfLang__en": "English",

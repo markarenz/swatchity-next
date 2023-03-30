@@ -81,7 +81,7 @@
   "profile_edit__labels__language": "语言",
   "profile_edit__labels__darkMode": "主题",
   "profile_edit__labels__bio": "简历",
-  "profile_edit__language__explainer": "请注意，语言支持依赖于机器翻译，可能包含错误。如果您发现有什么不对，请告诉我们。",
+  "profile_edit__language__explainer": "请注意，语言支持依赖于机器翻译，可能包含错误。如果您发现有什么不对，请告诉我们:",
   "profile_edit__bio__explainer": "像键盘一样使用下面的颜色按钮来编写你的简历。点击颜色上的 X 将其删除。点击确定保存你的简历，然后点击取消，嗯，取消。",
   "profile_edit__perfLang__auto": "自动",
   "profile_edit__perfLang__en": "English",

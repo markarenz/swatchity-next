@@ -81,7 +81,7 @@
   "profile_edit__labels__language": "Language",
   "profile_edit__labels__darkMode": "Theme",
   "profile_edit__labels__bio": "Bio",
-  "profile_edit__language__explainer": "Please note that language support relies on machine translation and may include mistakes. If you notice something off, please let us know.",
+  "profile_edit__language__explainer": "Please note that language support relies on machine translation and may include mistakes. If you notice something off, please let us know:",
   "profile_edit__bio__explainer": "Use the color buttons below like a keyboard to write your bio. Click X on a color to remove it. Tap OK to save your bio and CANCEL to, well, cancel.",
   "profile_edit__perfLang__auto": "Auto",
   "profile_edit__perfLang__en": "English",

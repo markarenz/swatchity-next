@@ -81,7 +81,7 @@
   "profile_edit__labels__language": "Langue",
   "profile_edit__labels__darkMode": "Thème",
   "profile_edit__labels__bio": "Biographie",
-  "profile_edit__language__explainer": "Veuillez noter que le support linguistique repose sur la traduction automatique et peut inclure des erreurs. Si vous remarquez quelque chose, veuillez nous le faire savoir.",
+  "profile_edit__language__explainer": "Veuillez noter que le support linguistique repose sur la traduction automatique et peut inclure des erreurs. Si vous remarquez quelque chose, veuillez nous le faire savoir:",
   "profile_edit__bio__explainer": "Utilisez les boutons de couleur ci-dessous comme un clavier pour écrire votre bio. Cliquez sur X sur une couleur pour la supprimer. Appuyez sur OK pour enregistrer votre bio et ANNULER pour, eh bien, annuler.",
   "profile_edit__perfLang__auto": "Auto",
   "profile_edit__perfLang__en": "English",

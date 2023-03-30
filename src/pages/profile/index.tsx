@@ -111,7 +111,11 @@ export default function Profile() {
               <div className="pb-2">
                 <p>
                   <em>
-                    <FormattedMessage id="profile_edit__language__explainer" />
+                    <FormattedMessage id="profile_edit__language__explainer" />{' '}
+                    <a href="mailto:swatchityweb@gmail.com" className="inline text-link">
+                      swatchityweb@gmail.com
+                    </a>
+                    .
                   </em>
                 </p>
               </div>
