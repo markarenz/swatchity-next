@@ -112,7 +112,12 @@ export default function Profile() {
                 <p>
                   <em>
                     <FormattedMessage id="profile_edit__language__explainer" />{' '}
-                    <a href="mailto:swatchityweb@gmail.com" className="inline text-link">
+                    <a
+                      href="mailto:swatchityweb@gmail.com"
+                      className="inline text-link"
+                      target="blank"
+                      rel="noopener noreferrer"
+                    >
                       swatchityweb@gmail.com
                     </a>
                     .
