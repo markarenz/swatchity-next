@@ -277,6 +277,7 @@ hr{
   @include dark{
     text-decoration-color: $gray-2;
   }
+  color: inherit;
   &:focus,
   &:hover{
     text-decoration: underline;

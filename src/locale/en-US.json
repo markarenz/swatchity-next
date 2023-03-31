@@ -15,7 +15,6 @@
   "main_nav__search": "Search",
   "main_nav__badge": "New Items",
 
-
   "icon_admin": "Admin",
   "icon_link": "Link",
   "icon_alerts": "Alerts",
@@ -82,9 +81,16 @@
   "profile_edit__labels__language": "Language",
   "profile_edit__labels__darkMode": "Theme",
   "profile_edit__labels__bio": "Bio",
+  "profile_edit__language__explainer": "Please note that language support relies on machine translation and may include mistakes. If you notice something off, please let us know:",
   "profile_edit__bio__explainer": "Use the color buttons below like a keyboard to write your bio. Click X on a color to remove it. Tap OK to save your bio and CANCEL to, well, cancel.",
   "profile_edit__perfLang__auto": "Auto",
-  "profile_edit__perfLang__English": "English",
+  "profile_edit__perfLang__en": "English",
+  "profile_edit__perfLang__fr": "Français",
+  "profile_edit__perfLang__es": "Español",
+  "profile_edit__perfLang__ru": "Pусский",
+  "profile_edit__perfLang__hi": "हिंदी",
+  "profile_edit__perfLang__zh": "中国人",
+
   "profile_edit__avatar__explainer": "Click on the color tiles to change the colors in your avatar. Click on the buttons on either side of the avatar to change the pattern. More patterns are unlocked when you raise your level by posting more Swatches!",
   "profile_edit__avatar__edit_color": "Edit Color",
   "profile_edit__save__success": "Profile saved successfully.",
@@ -106,7 +112,7 @@
   "days_since__now": "Now",
 
   "feed__load_more": "Load More",
-  "feed__refresh": "Refessh",
+  "feed__refresh": "Refesh",
   "feed__new_swatch": "New Swatch",
   "feed__liked__not_logged_in": "Howdy! Since you are not logged in, you cannot see Swatches you have liked. That seems logical, right?",
   
