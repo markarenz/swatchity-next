@@ -7,6 +7,7 @@ type Props = {
 
 const PageSeo: React.FC<Props> = ({ pageMeta }) => {
   const pageTitle = `${pageMeta?.title} | Swatchity`;
+  const imSrc = 'https://swatchity-assets.s3.amazonaws.com/swatchity-img.jpg';
   return (
     <Head>
       <title>{pageTitle}</title>
@@ -25,6 +26,13 @@ const PageSeo: React.FC<Props> = ({ pageMeta }) => {
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <meta property="og:title" content={pageMeta?.title} />
+      <meta property="og:type" content="video.movie" />
+      <meta property="og:image" content={imSrc} />
+      <meta name="twitter:title" content={pageMeta?.title} />
+      <meta name="twitter:description" content={pageMeta?.metadesc} />
+      <meta name="twitter:image" content={imSrc} />
+      <meta name="twitter:card" content="summary_large_image" />
     </Head>
   );
 };
