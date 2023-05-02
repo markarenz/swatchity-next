@@ -60,12 +60,14 @@ const MessageThreads: NextPage<Props> = ({ threads }) => {
         {isLoggedIn && (
           <div id="threads-feed">
             {threads.map((thread) => (
-              <MessageThreadListItem
-                key={thread.id}
-                thread={thread}
-                userID={userMeta?.id}
-                lastVisitStr={`${lastVisit}`}
-              />
+              <div key={thread.id} className="mb-1">
+                <MessageThreadListItem
+                  key={thread.id}
+                  thread={thread}
+                  userID={userMeta?.id}
+                  lastVisitStr={`${lastVisit}`}
+                />
+              </div>
             ))}
           </div>
         )}

@@ -36,6 +36,24 @@ import {
 //   });
 // };
 
+// export const checkNumReplies = async () => {
+//   const swatches = await prisma.swatch.findMany({
+//     where: {
+//       active: true,
+//     },
+//   });
+//   swatches.forEach(async (s) => {
+//     const replies = await prisma.reply.count({
+//       where: {
+//         swatchID: s.id,
+//       },
+//     });
+//     if (s.replies !== replies) {
+//       console.log('>>', s.id, s.replies, replies);
+//     }
+//   });
+// };
+
 export const sortByLikeIdx = (swatchesRaw: SwatchExt[], likes: string[]) => {
   const newSwatches = swatchesRaw.sort((a, b) => {
     const aIdx = likes.indexOf(a.id);
@@ -287,13 +305,13 @@ export const getSwatchThreadDB = async (session: Session | null, id: string, ski
   });
   if (isLoggedIn && replies.length > 0) {
     const replyIDs = replies?.map((s) => s.id);
-    const likedReplies = await prisma.swatchLike.findMany({
+    const likedReplies = await prisma.replyLike.findMany({
       where: {
-        swatchID: { in: replyIDs },
+        replyID: { in: replyIDs },
         userID: userMeta?.id,
       },
     });
-    replyLikes = likedReplies.map((lr) => lr.swatchID);
+    replyLikes = likedReplies.map((lr) => lr.replyID);
   }
   return {
     swatch,

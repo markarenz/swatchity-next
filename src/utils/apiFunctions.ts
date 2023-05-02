@@ -33,6 +33,7 @@ export const serializeReplyDates = (replies: ReplyExt[]) =>
       createdAt: serializeDate(r.user.createdAt),
       modifiedAt: serializeDate(r.user.modifiedAt),
       lastAlert: r.user.lastAlert ? serializeDate(r.user.lastAlert) : null,
+      lastMessage: r.user.lastMessage ? serializeDate(r.user.lastMessage) : null,
     },
   }));
 
