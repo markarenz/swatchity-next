@@ -24,7 +24,7 @@ const AlertPost: React.FC<Props> = ({ alert, lastVisitStr }) => {
         <div className="flex items-center relative">
           <div className="flex-grow text-gray-1 dark-text-gray-2">
             <FormattedMessage id={'alerts__templates__reply_1'} />{' '}
-            <span className="bold uppercase">swatchity</span>{' '}
+            <span className="bold uppercase">{alert.noun}</span>{' '}
             <FormattedMessage id={'alerts__templates__reply_2'} />{' '}
             <TimeSince inputDate={alert.createdAt} />
           </div>
